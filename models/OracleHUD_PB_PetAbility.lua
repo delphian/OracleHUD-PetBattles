@@ -1,0 +1,11 @@
+--- @class OracleHUD_PB_PetAbility
+--- @field id                   integer         Pet ability identifier.
+--- @field name                 string          Name of the ability.
+--- @field icon                 integer|string
+--- @field maxCooldown          integer?
+--- @field unparsedDescription  string?
+--- @field numTurns             integer?
+--- @field isUsable             boolean?
+--- @field currentCooldown      integer?
+--- @field currentLockdown      integer?
+--- @field noStrongWeakHints    boolean?

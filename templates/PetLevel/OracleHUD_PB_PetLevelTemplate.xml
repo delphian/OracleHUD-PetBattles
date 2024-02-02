@@ -1,0 +1,34 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/ C:ProjectsWoWBinInterfaceFrameXMLUI.xsd">
+    <Frame name="OracleHUD_PB_PetLevelTemplate" virtual="true">
+	    <Layers>
+			<Layer level="BACKGROUND">
+                <!--Texture parentKey="color">
+					<Anchors>
+						<Anchor point="CENTER" relativeKey="$parent" relativePoint="CENTER" x="0" y="0" />
+					</Anchors>
+                    <Color r="0.0" g="0.0" b="0.0" a="1.0" />
+                </Texture-->
+				<Texture parentKey="image" file="Interface\Artifacts\Artifacts-PerkRing-Final-Mask">
+					<Anchors>
+						<Anchor point="TOPLEFT" relativeKey="$parent" relativePoint="TOPLEFT" x="0" y="0" />
+						<Anchor point="TOPRIGHT" relativeKey="$parent" relativePoint="TOPRIGHT" x="0" y="0" />
+						<Anchor point="BOTTOMLEFT" relativeKey="$parent" relativePoint="BOTTOMLEFT" x="0" y="0" />
+					</Anchors>
+					<TexCoords left="0.12" right="0.88" top="0.12" bottom="0.88"/>
+				</Texture>
+            </Layer>
+            <Layer level="OVERLAY">
+				<FontString parentKey="font" inherits="GameFontNormal" justifyH="CENTER" font="Fonts\FRIZQT__.TTF">
+					<Anchors>
+						<Anchor point="CENTER" relativeKey="$parent" relativePoint="CENTER" x="0" y="0" />
+					</Anchors>
+					<Color r="1.0" g="1.0" b="1.0" a="1.0" />
+					<Shadow x="1" y="-1">
+						<Color r="1.0" g="1.0" b="1.0" a="0.25" />
+					</Shadow>
+					<FontHeight val="9" />
+				</FontString>
+            </Layer>
+        </Layers>
+    </Frame>
+</Ui>

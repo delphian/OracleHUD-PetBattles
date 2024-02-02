@@ -1,0 +1,12 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/ C:ProjectsWoWBinInterfaceFrameXMLUI.xsd">
+	<Script file="OracleHUD_PB_ButtonPetBattleTrapTemplate.lua" />
+    <Button name="OracleHUD_PB_ButtonPetBattleTrapTemplate" inherits="InsecureActionButtonTemplate" virtual="true">
+        <NormalTexture file="Interface\Icons\INV_Pet_PetTrap02" />
+        <PushedTexture file="Interface\Icons\INV_Pet_PetTrap02" />
+        <HighlightTexture file="Interface\Icons\INV_Pet_PetTrap02" alphaMode="ADD" />
+		<PushedTextOffset x="1" y="1" />
+		<Scripts>
+			<OnLoad function="OracleHUD_PB_ButtonPetBattleTrapTemplate_OnLoad" inherit="prepend"/>
+		</Scripts>
+    </Button>
+</Ui>

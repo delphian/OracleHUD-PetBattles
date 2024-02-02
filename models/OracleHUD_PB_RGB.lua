@@ -1,0 +1,6 @@
+-------------------------------------------------------------------------------
+--- RGB color of text.
+--- @class OracleHUD_PB_RGB
+--- @field  r   number  Red component (0-1)
+--- @field  g   number  Green component (0-1)
+--- @field  b   number  Blue component (0-1)

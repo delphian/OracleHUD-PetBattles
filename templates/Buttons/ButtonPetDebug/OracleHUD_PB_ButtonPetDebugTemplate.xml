@@ -1,0 +1,17 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/ C:ProjectsWoWBinInterfaceFrameXMLUI.xsd">
+	<Script file="OracleHUD_PB_ButtonPetDebugTemplate.lua" />
+    <Button name="OracleHUD_PB_ButtonPetDebugTemplate" inherits="InsecureActionButtonTemplate" virtual="true">
+        <NormalTexture file="Interface\WorldMap\QuestionMark_Gold_64" />
+        <PushedTexture file="Interface\WorldMap\QuestionMark_Gold_64" />
+        <HighlightTexture file="Interface\WorldMap\QuestionMark_Gold_64" alphaMode="ADD" />
+		<PushedTextOffset x="1" y="1" />
+        <Frames>
+		    <PlayerModel parentKey="Model" hidden="true" />
+        </Frames>
+		<Scripts>
+            <OnLoad inherit="prepend">
+                OracleHUD_PB_ButtonPetDebugTemplate_OnLoad(self)
+            </OnLoad>
+		</Scripts>
+    </Button>
+</Ui>

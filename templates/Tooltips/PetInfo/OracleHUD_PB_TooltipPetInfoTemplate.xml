@@ -1,0 +1,83 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/UI.xsd">
+	<Script file="OracleHUD_PB_TooltipPetInfoMixin.lua"/>
+	<Frame name="OracleHUD_PB_TooltipPetInfoTemplate" 
+		   mixin="OracleHUD_PB_TooltipPetInfoMixin" 
+		   inherits="OracleHUD_PB_TooltipTemplate"
+		   parent="UIParent" frameStrata="TOOLTIP" clampedToScreen="true" virtual="true" hidden="true"
+	>
+		<Frames>
+			<Frame name="$parentAnimation" parentKey="Animation" inherits="OracleHUD_PB_PetAnimationTemplate">
+				<Anchors>
+					<Anchor point="TOP" relativeKey="$parent" relativePoint="TOP" x="0" y="-40" />
+				</Anchors>
+			</Frame>
+		</Frames>
+		<Layers>
+			<Layer level="ARTWORK">
+				<Texture parentKey="Delimiter">
+					<Size x="251" y="2"/>
+					<Anchors>
+						<Anchor point="TOPLEFT" relativeKey="$parent" relativePoint="BOTTOMLEFT" x="0" y="30"/>
+					</Anchors>
+					<Color r="0.2" g="0.2" b="0.2"/>
+				</Texture>
+				<FontString parentKey="Name" wordwrap="false" inherits="GameFontNormalLargeLeft">
+					<Size x="238" y="0"/>
+					<Anchors>
+						<Anchor point="TOP" x="0" y="-10"/>
+					</Anchors>
+				</FontString>
+				<FontString parentKey="BattlePet" inherits="GameFontHighlight" justifyH="LEFT" text="TOOLTIP_BATTLE_PET">
+					<Size x="238" y="0"/>
+					<Anchors>
+						<Anchor point="TOP" relativeKey="$parent.Name" relativePoint="BOTTOM" x="0" y="-5"/>
+					</Anchors>
+				</FontString>
+				<FontString parentKey="SpeciesId" inherits="GameFontHighlight" justifyH="LEFT" text="TOOLTIP_BATTLE_PET">
+					<Size x="238" y="0"/>
+					<Anchors>
+						<Anchor point="TOPLEFT" relativeKey="$parent.BattlePet" relativePoint="BOTTOMLEFT" x="0" y="-4"/>
+					</Anchors>
+				</FontString>
+				<FontString parentKey="PetType" inherits="GameFontHighlight" justifyH="RIGHT" text="TOOLTIP_BATTLE_PET">
+					<Size x="238" y="0"/>
+					<Anchors>
+						<Anchor point="TOP" relativeKey="$parent.Name" relativePoint="BOTTOM" x="0" y="-5"/>
+					</Anchors>                                                                                                                       
+				</FontString>
+				<FontString parentKey="Owned" wordwrap="false" inherits="GameFontHighlight" justifyH="LEFT">
+					<Size x="238" y="0"/>
+					<Anchors>
+						<Anchor point="TOPLEFT" relativeKey="$parent.Animation" relativePoint="BOTTOMLEFT" x="11" y="8"/>
+					</Anchors>
+					<Color r="1.0" g="0.82" b="0.0" a="1.0"/>
+				</FontString>
+				<Texture parentKey="PetTypeTexture">
+					<Size x="33" y="33"/>
+					<Anchors>
+						<Anchor point="TOPRIGHT" relativeKey="$parent.PetType" relativePoint="BOTTOMRIGHT" x="0" y="-5"/>
+					</Anchors>
+					<TexCoords left="0.79687500" right="0.49218750" top="0.50390625" bottom="0.65625000"/>
+				</Texture>
+			</Layer>
+		</Layers>
+		<Frames>
+			<Button parentKey="JournalClick" text="BATTLE_PET_TOOLTIP_CLICK">
+				<Size x="238" y="20"/>
+				<Anchors>
+					<Anchor point="TOP" relativeKey="$parent.Delimiter" relativePoint="BOTTOM" x="0" y="-3"/>
+				</Anchors>
+				<NormalFont style="GameFontNormalLeft"/>
+			</Button>
+		</Frames>
+		<Scripts>
+			<OnMouseDown>
+				self:StartMoving();
+			</OnMouseDown>
+			<OnMouseUp>
+				self:StopMovingOrSizing();
+			</OnMouseUp>
+	        <OnLoad method="OnLoad" inherit="prepend" />
+		</Scripts>
+	</Frame>
+</Ui>

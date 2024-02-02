@@ -1,0 +1,95 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/ C:ProjectsWoWBinInterfaceFrameXMLUI.xsd">
+	<Script file="OracleHUD_PB_PetPortraitTemplate.lua" />
+    <Frame name="OracleHUD_PB_PetPortraitTemplate" virtual="true">
+	    <Layers>
+			<Layer level="BACKGROUND">
+				<Texture parentKey="background">
+					<Anchors>
+						<Anchor point="TOPLEFT" relativePoint="TOPLEFT" x="0" y="0" />
+						<Anchor point="TOPRIGHT" relativePoint="TOPRIGHT" x="0" y="0" />
+						<Anchor point="BOTTOM" relativePoint="BOTTOM" x="0" y="0" />
+					</Anchors>
+                    <Color r="0.0" g="0.0" b="0.0" a="0.2" />
+				</Texture>
+            </Layer>
+        </Layers>
+		<Frames>
+			<Frame name="$parentAnimationBox" parentKey="AnimationBox" useParentLevel="true" inherits="OracleHUD_PB_PetAnimationTemplate">
+				<Anchors>
+					<Anchor point="TOPRIGHT" relativePoint="TOPRIGHT" x="0" y="0" />
+					<Anchor point="BOTTOMRIGHT" relativePoint="BOTTOMRIGHT" x="0" y="0" />
+				</Anchors>
+			</Frame>
+		</Frames>
+	    <Layers>
+			<Layer level="BORDER">
+				<Texture parentKey="border" file="Interface\Azerite\UIFrameIconBorder">
+					<Anchors>
+						<Anchor point="TOPLEFT" relativePoint="TOPLEFT" x="0" y="0" />
+						<Anchor point="TOPRIGHT" relativePoint="TOPRIGHT" x="0" y="0" />
+						<Anchor point="BOTTOM" relativePoint="BOTTOM" x="0" y="0" />
+					</Anchors>
+					<TexCoords left="0.055" right="0.59" top="0.055" bottom="0.585" />
+				</Texture>
+            </Layer>
+        </Layers>
+		<Frames>
+			<Frame name="$parentPetType" parentKey="Type" useParentLevel="true" frameLevel="2" inherits="OracleHUD_PB_PetTypeTemplate">
+				<Anchors>
+					<Anchor point="TOPLEFT" relativeKey="$parent" relativePoint="TOPLEFT" x="0" y="0" />
+				</Anchors>				
+			</Frame>
+			<Frame name="$parentCollected" parentKey="Collected" useParentLevel="true" frameLevel="2">
+				<Size x="16" y="48" />
+				<Anchors>
+					<Anchor point="TOPLEFT" relativeKey="$parent.Type" relativePoint="BOTTOMLEFT" x="6" y="0" />
+				</Anchors>
+				<Layers>
+					<Layer>
+							<FontString name="$parentSlot1" parentKey="Slot1" inherits="GameFontNormal" justifyH="CENTER" font="Fonts\FRIZQT__.TTF">
+							<Size x="8" y="8" />
+							<Anchors>
+								<Anchor point="TOPLEFT" />
+							</Anchors>
+							<Color r="1.0" g="1.0" b="1.0" a="1.0" />
+							<Shadow x="0" y="0">
+								<Color r="1" g="1" b="1" a="0.5" />
+							</Shadow>
+							<FontHeight val="8" />
+						</FontString>
+						<FontString name="$parentSlot2" parentKey="Slot2" inherits="GameFontNormal" justifyH="CENTER" font="Fonts\FRIZQT__.TTF">
+							<Size x="8" y="8" />
+							<Anchors>
+								<Anchor point="TOPLEFT" relativeKey="$parent.Slot1" relativePoint="TOPRIGHT" x="-1" y="0" />
+							</Anchors>
+							<Color r="1.0" g="1.0" b="1.0" a="1.0" />
+							<Shadow x="0" y="0">
+								<Color r="1" g="1" b="1" a="0.5" />
+							</Shadow>
+							<FontHeight val="8" />
+						</FontString>
+						<FontString name="$parentSlot3" parentKey="Slot3" inherits="GameFontNormal" justifyH="CENTER" font="Fonts\FRIZQT__.TTF">
+							<Size x="8" y="8" />
+							<Anchors>
+								<Anchor point="TOPLEFT" relativeKey="$parent.Slot2" relativePoint="TOPRIGHT" x="-1" y="0" />
+							</Anchors>
+							<Color r="1.0" g="1.0" b="1.0" a="1.0" />
+							<Shadow x="0" y="0">
+								<Color r="1" g="1" b="1" a="0.5" />
+							</Shadow>
+							<FontHeight val="8" />
+						</FontString>
+					</Layer>
+				</Layers>
+			</Frame>
+			<Frame name="$parentLevel" parentKey="Level" useParentLevel="true" frameLevel="3" inherits="OracleHUD_PB_PetLevelTemplate">
+				<Anchors>
+					<Anchor point="BOTTOMLEFT" relativeKey="$parent" relativePoint="BOTTOMLEFT" x="0" y="0" />
+				</Anchors>				
+			</Frame>
+		</Frames>
+		<Scripts>
+			<OnLoad function="OracleHUD_PB_PetPortraitTemplate_OnLoad" inherit="prepend"/>
+		</Scripts>
+    </Frame>
+</Ui>

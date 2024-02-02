@@ -1,0 +1,122 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/ C:ProjectsWoWBinInterfaceFrameXMLUI.xsd">
+	<Frame name="OracleHUD_PB_InterfaceOptions" parent="UIParent" inherits="OracleHUD_PB_OptionsOracleHUDMainTemplate" movable="true" toplevel="true">
+	</Frame>		
+	<Frame name="OracleHUD_PB_ZooTooltipPetInfo" parent="UIParent" inherits="OracleHUD_PB_TooltipPetInfoZooTemplate" movable="true" toplevel="true">
+		<Anchors>
+			<Anchor point="BOTTOM" x="0" y="80"/>
+		</Anchors>
+		<Frames>
+			<Button parentKey="CloseButton" inherits="FloatingFrameCloseButtonDefaultAnchors"/>
+		</Frames>
+		<Scripts>
+			<OnMouseDown>
+				self:StartMoving();
+			</OnMouseDown>
+			<OnMouseUp>
+				self:StopMovingOrSizing();
+			</OnMouseUp>
+		</Scripts>
+	</Frame>
+	<Frame name="OracleHUD_PB_PanelCommunity" parent="UIParent" inherits="OracleHUD_PB_PanelCommunityTemplate">
+		<Size y="80" />
+        <Anchors>
+            <Anchor point="TOPLEFT" relativeTo="UIParent" relativePoint="TOPLEFT" x="0" y="0" />
+            <Anchor point="TOPRIGHT" relativeTo="UIParent" relativePoint="TOPRIGHT" x="0" y="0" />
+        </Anchors>
+	</Frame>
+	<Frame name="OracleHUD_PB_PanelLoadoutAlly" parent="UIParent" inherits="OracleHUD_PB_PanelLoadoutBattleTemplate" hidden="false" movable="true">
+		<Size x="280" y="280" />
+		<Anchors>
+			<Anchor point="TOPLEFT" relativeTo="OracleHUD_PB_PanelCommunity" relativePoint="BOTTOMLEFT" x="10" y="-10" />
+		</Anchors>
+		<Scripts>
+			<OnDragStart>
+				self:StartMoving();
+			</OnDragStart>
+			<OnDragStop>
+				self:StopMovingOrSizing();
+			</OnDragStop>
+		</Scripts>
+	</Frame>
+	<Frame name="OracleHUD_PB_PanelPetBattleBar" parent="UIParent" inherits="OracleHUD_PB_PanelPetBattleBarTemplate" hidden="true">
+		<Size y="40" />
+		<Anchors>
+			<Anchor point="TOPLEFT" relativeTo="OracleHUD_PB_PanelLoadoutAlly" relativePoint="BOTTOMLEFT" x="0" y="-6" />
+			<Anchor point="TOPRIGHT" relativeTo="OracleHUD_PB_PanelLoadoutAlly" relativePoint="TOPRIGHT" x="0" y="-6" />
+		</Anchors>
+	</Frame>
+	<Frame name="OracleHUD_PB_PanelLoadoutEnemy" parent="UIParent" inherits="OracleHUD_PB_PanelLoadoutBattleTemplate" hidden="true" movable="true">
+		<Size x="240" y="220" />
+		<Anchors>
+			<Anchor point="TOPLEFT" relativeTo="OracleHUD_PB_PanelPetBattleBar" relativePoint="BOTTOMLEFT" x="0" y="-6" />
+		</Anchors>
+		<Scripts>
+			<OnMouseDown>
+				self:StartMoving();
+			</OnMouseDown>
+			<OnMouseUp>
+				self:StopMovingOrSizing();
+			</OnMouseUp>
+		</Scripts>
+	</Frame>
+	<Frame name="OracleHUD_PB_PanelZoo" parent="UIParent" inherits="OracleHUD_PB_ZooTemplate" hidden="true" movable="true">
+		<Anchors>
+			<Anchor point="TOPLEFT" relativeTo="OracleHUD_PB_PanelLoadoutEnemy" relativePoint="BOTTOMLEFT" x="0" y="-6" />
+			<Anchor point="RIGHT" relativeTo="OracleHUD_PB_PanelLoadoutEnemy" relativePoint="RIGHT" x="0" y="-6" />
+		</Anchors>
+		<Scripts>
+			<OnMouseDown>
+				self:StartMoving();
+			</OnMouseDown>
+			<OnMouseUp>
+				self:StopMovingOrSizing();
+			</OnMouseUp>
+		</Scripts>
+	</Frame>
+	<Frame name="OracleHUD_PB_PanelUncollected" parent="UIParent" inherits="OracleHUD_PB_PanelUncollectedTemplate" movable="true">
+		<Size y="80" />
+		<Anchors>
+			<Anchor point="TOPLEFT" relativeTo="OracleHUD_PB_PanelPetBattleBar" relativePoint="BOTTOMLEFT" x="0" y="-6" />
+			<Anchor point="TOPRIGHT" relativeTo="OracleHUD_PB_PanelPetBattleBar" relativePoint="BOTTOMRIGHT" x="0" y="-6" />
+		</Anchors>
+		<Scripts>
+			<OnMouseDown>
+				self:StartMoving();
+			</OnMouseDown>
+			<OnMouseUp>
+				self:StopMovingOrSizing();
+			</OnMouseUp>
+		</Scripts>
+	</Frame>
+	<Frame name="OracleHUD_PB_EditBox" parent="UIParent" inherits="OracleHUD_PB_EditBoxTemplate">
+		<Size x="800" y="300" />
+		<Anchors>
+			<Anchor point="TOPRIGHT" />
+		</Anchors>
+	</Frame>
+	<Frame name="OracleHUD_PB_DisplayCommunity" parent="UIParent" inherits="OracleHUD_PB_DisplayFaderTemplate">
+		<Anchors>
+			<Anchor point="TOPLEFT" relativeTo="OracleHUD_PB_PanelCommunityBar" relativePoint="BOTTOMLEFT" x="2" y="-8" />
+			<Anchor point="TOPRIGHT" relativeTo="OracleHUD_PB_PanelCommunityBar" relativePoint="BOTTOMRIGHT" x="-2" y="-8" />
+		</Anchors>
+	</Frame>
+	<Frame name="OracleHUD_PB_DisplayConsole" parent="UIParent" inherits="OracleHUD_PB_DisplayConsoleTemplate" />
+	<Frame name="OracleHUD_PB_DisplayChat" parent="UIParent" inherits="OracleHUD_PB_DisplayChatTemplate" />
+	<Frame name="OracleHUD_PB_TooltipAbility" parent="UIParent" inherits="OracleHUD_PB_TooltipAbilityTemplate" movable="true" toplevel="true">
+		<Anchors>
+			<Anchor point="BOTTOMRIGHT" x="-5" y="120"/>
+		</Anchors>
+	</Frame>
+	<Frame name="OracleHUD_PB_TooltipPetInfoSpecies" parent="UIParent" inherits="OracleHUD_PB_TooltipPetInfoSpeciesTemplate" movable="true" toplevel="true">
+		<Size x="260" y="360" />
+		<Anchors>
+			<Anchor point="BOTTOM" x="0" y="80"/>
+		</Anchors>
+	</Frame>
+	<Frame name="OracleHUD_PB_TooltipPetInfoId" parent="UIParent" inherits="OracleHUD_PB_TooltipPetInfoIdTemplate" movable="true" toplevel="true">
+		<Size x="260" y="360" />
+		<Anchors>
+			<Anchor point="BOTTOM" x="0" y="80"/>
+		</Anchors>
+	</Frame>
+</Ui>

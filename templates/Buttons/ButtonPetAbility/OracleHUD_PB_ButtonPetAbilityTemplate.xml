@@ -1,0 +1,45 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/ C:ProjectsWoWBinInterfaceFrameXMLUI.xsd">
+	<Script file="OracleHUD_PB_ButtonPetAbilityMixin.lua" />
+    <Frame name="OracleHUD_PB_ButtonPetAbilityTemplate" mixin="OracleHUD_PB_ButtonPetAbilityMixin" virtual="true">
+		<Frames>
+			<Button name="$parentButton" parentKey="Ability">
+				<Anchors>
+					<Anchor point="TOPLEFT" relativePoint="TOPLEFT" x="0" y="0" />
+					<Anchor point="TOPRIGHT" relativePoint="TOPRIGHT" x="0" y="0" />
+					<Anchor point="BOTTOMRIGHT" relativePoint="BOTTOMRIGHT" x="0" y="0" />
+				</Anchors>
+				<NormalTexture file="Interface\Icons\misc_arrowdown"/>
+				<PushedTexture file="Interface\Icons\misc_arrowdown"/>
+				<HighlightTexture file="Interface\Icons\misc_arrowdown" alphaMode="ADD"/>
+			</Button>
+		</Frames>
+        <Layers>
+            <Layer level="OVERLAY">
+				<FontString parentKey="Font" inherits="GameFontNormal" justifyH="CENTER" font="Fonts\FRIZQT__.TTF" outline="THICK">
+					<Anchors>
+						<Anchor point="TOPLEFT" relativeKey="$parent" relativePoint="TOPLEFT" x="2" y="0" />
+						<Anchor point="TOPRIGHT" relativeKey="$parent" relativePoint="TOPRIGHT" x="0" y="0" />
+						<Anchor point="BOTTOMRIGHT" relativeKey="$parent" relativePoint="BOTTOMRIGHT" x="0" y="0" />
+					</Anchors>
+					<Color r="1.0" g="1.0" b="1.0" a="1.0" />
+					<Shadow x="1" y="-1">
+						<Color r="0.0" g="0.0" b="0.0" a="1.0" />
+					</Shadow>
+					<FontHeight val="18" />
+				</FontString>
+            </Layer>
+			<Layer level="OVERLAY">
+				<Texture parentKey="Background" hidden="true">
+					<Anchors>
+						<Anchor point="TOPLEFT" relativePoint="TOPLEFT" x="0" y="0" />
+						<Anchor point="BOTTOMRIGHT" relativePoint="BOTTOMRIGHT" x="0" y="0" />
+					</Anchors>
+                    <Color r="0.0" g="0.0" b="0.0" a="0.4" />
+				</Texture>
+            </Layer>
+		</Layers>
+		<Scripts>
+	        <OnLoad method="OnLoad" />
+		</Scripts>
+    </Frame>
+</Ui>

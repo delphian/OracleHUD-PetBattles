@@ -1,0 +1,41 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/ C:ProjectsWoWBinInterfaceFrameXMLUI.xsd">
+	<Script file="OracleHUD_PB_ZooTemplate.lua" />
+    <Frame name="OracleHUD_PB_ZooTemplate" virtual="true" movable="true">
+		<Size x="500" y="500" />
+	    <Layers>
+			<Layer level="BACKGROUND">
+				<Texture parentKey="image" file="Interface\AddOns\OracleHUD_PB\images\frame-background\zoo-island-02.png">
+					<Anchors>
+						<Anchor point="TOPLEFT" relativeKey="$parent" relativePoint="TOPLEFT" x="0" y="0" />
+						<Anchor point="BOTTOMRIGHT" relativeKey="$parent" relativePoint="BOTTOMRIGHT" x="0" y="0" />
+					</Anchors>
+				</Texture>
+			</Layer>
+        </Layers>
+		<Frames>
+			<Frame name="$parentZoo" parentKey="Zoo">
+				<Size y="130" />
+				<Anchors>
+					<Anchor point="TOPLEFT" relativeKey="$parent" relativePoint="TOPLEFT" x="100" y="-130" />
+					<Anchor point="RIGHT" relativeKey="$parent" relativePoint="RIGHT" x="-100" />
+				</Anchors>
+			</Frame>
+			<Frame name="$parentChat" parentKey="Chat" inherits="OracleHUD_PB_PanelChatTemplate" hidden="true">
+				<Size y="40" />
+				<Anchors>
+					<Anchor point="TOPLEFT" relativeKey="$parent.Zoo" relativePoint="BOTTOMLEFT" x="0" y="-200" />
+					<Anchor point="RIGHT" relativeKey="$parent.Zoo" relativePoint="BOTTOMRIGHT" x="0" y="0" />
+				</Anchors>
+			</Frame>
+		</Frames>
+		<Scripts>
+			<OnLoad function="OracleHUD_PB_ZooTemplate_OnLoad" inherit="prepend"/>
+			<OnMouseDown>
+				self:StartMoving();
+			</OnMouseDown>
+			<OnMouseUp>
+				self:StopMovingOrSizing();
+			</OnMouseUp>
+		</Scripts>
+    </Frame>
+</Ui>

@@ -1,0 +1,21 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/ C:ProjectsWoWBinInterfaceFrameXMLUI.xsd">
+	<Script file="OracleHUD_PB_DisplayHTMLMixin.lua" />
+    <SimpleHTML name="OracleHUD_PB_DisplayHTMLTemplate" mixin="OracleHUD_PB_DisplayHTMLMixin" virtual="true">
+        <Anchors>
+            <Anchor point="ALL" relativePoint="ALL" x="0" y="0" />
+        </Anchors>
+	    <Layers>
+			<Layer level="BACKGROUND">
+                <Texture parentKey="color">
+					<Anchors>
+						<Anchor point="CENTER" relativePoint="CENTER" x="0" y="0" />
+					</Anchors>
+                    <Color r="0.0" g="0.0" b="0.0" a="0.0" />
+                </Texture>
+			</Layer>
+        </Layers>
+		<Scripts>
+            <OnLoad method="OnLoad" />
+		</Scripts>
+    </SimpleHTML>
+</Ui>

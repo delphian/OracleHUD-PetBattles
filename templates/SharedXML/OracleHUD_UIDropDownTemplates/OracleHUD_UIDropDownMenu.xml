@@ -1,0 +1,20 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
+..\FrameXML\UI.xsd">
+	<Script file="OracleHUD_UIDropDownMenu.lua"/>
+	<Include file="OracleHUD_UIDropDownMenuTemplates.xml"/>
+	<Button name="OracleHUD_DropDownList1" toplevel="true" frameStrata="FULLSCREEN_DIALOG" inherits="OracleHUD_UIDropDownListTemplate" hidden="true" id="1">
+		<Size x="180" y="10"/>
+		<Scripts>
+			<OnLoad>
+				local fontName, fontHeight, fontFlags = _G["OracleHUD_DropDownList1Button1NormalText"]:GetFont();
+				UIDROPDOWNMENU_DEFAULT_TEXT_HEIGHT = fontHeight;
+			</OnLoad>
+		</Scripts>
+	</Button>
+	<Button name="OracleHUD_DropDownList2" toplevel="true" frameStrata="FULLSCREEN_DIALOG" inherits="OracleHUD_UIDropDownListTemplate" clampedToScreen="true" hidden="true" id="2">
+		<Size x="180" y="10"/>
+	</Button>
+	<Button name="OracleHUD_DropDownList3" toplevel="true" frameStrata="FULLSCREEN_DIALOG" inherits="OracleHUD_UIDropDownListTemplate" clampedToScreen="true" hidden="true" id="3">
+		<Size x="180" y="10"/>
+	</Button>
+</Ui>

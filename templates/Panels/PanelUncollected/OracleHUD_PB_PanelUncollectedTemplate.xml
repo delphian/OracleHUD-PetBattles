@@ -1,0 +1,23 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/ C:ProjectsWoWBinInterfaceFrameXMLUI.xsd">
+	<Script file="OracleHUD_PB_PanelUncollectedMixin.lua" />
+    <Frame name="OracleHUD_PB_PanelUncollectedTemplate" mixin="OracleHUD_PB_PanelUncollectedMixin" virtual="true" frameStrata="LOW">
+        <Anchors>
+            <Anchor point="ALL" relativePoint="ALL" x="0" y="0" />
+        </Anchors>
+        <Frames>
+            <SimpleHTML name="$parentLeft" parentKey="Left" inherits="OracleHUD_PB_DisplayHTMLTemplate">
+                <Anchors>
+                    <Anchor point="TOPLEFT" relativePoint="TOPLEFT" relativeTo="$parent" x="2" y="0" />
+                </Anchors>
+            </SimpleHTML>
+            <SimpleHTML name="$parentRight" parentKey="Right" inherits="OracleHUD_PB_DisplayHTMLTemplate">
+                <Anchors>
+                    <Anchor point="TOPLEFT" relativePoint="TOPRIGHT" relativeTo="$parentLeft" x="2" y="0" />
+                </Anchors>
+            </SimpleHTML>
+        </Frames>
+		<Scripts>
+	        <OnLoad method="OnLoad" />
+		</Scripts>
+    </Frame>
+</Ui>

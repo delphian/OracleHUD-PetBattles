@@ -1,0 +1,46 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/ C:ProjectsWoWBinInterfaceFrameXMLUI.xsd">
+	<Script file="OracleHUD_PB_DisplayFaderMixin.lua" />
+    <Frame name="OracleHUD_PB_DisplayFaderTemplate" mixin="OracleHUD_PB_DisplayFaderMixin" virtual="true">
+        <Layers>
+            <Layer level="BACKGROUND">
+                <Texture parentKey="background" hidden="true">
+                    <Anchors>
+						<Anchor point="TOPLEFT" relativeKey="$parent" relativePoint="TOPLEFT" x="0" y="0" />
+						<Anchor point="TOPRIGHT" relativeKey="$parent" relativePoint="TOPRIGHT" x="0" y="0" />
+                        <Anchor point="BOTTOMRIGHT" relativeKey="$parent" relativePoint="BOTTOMRIGHT" x="0" y="0" />
+                    </Anchors>
+                    <Color r="0.0" g="0.0" b="0.0" a="0.2" />
+                </Texture>
+            </Layer>
+			<Layer level="BORDER">
+				<Texture parentKey="border" file="Interface\AdventureMap\AdventureMapBorder" hidden="true">
+					<Anchors>
+						<Anchor point="TOPLEFT" relativeKey="$parent" relativePoint="TOPLEFT" x="0" y="0" />
+						<Anchor point="TOPRIGHT" relativeKey="$parent" relativePoint="TOPRIGHT" x="0" y="0" />
+                        <Anchor point="BOTTOMRIGHT" relativeKey="$parent" relativePoint="BOTTOMRIGHT" x="0" y="0" />
+					</Anchors>
+					<TexCoords left="0.05" right="0.05" top="0.0" bottom="0.657" />
+				</Texture>
+            </Layer>
+        </Layers>
+        <Frames>
+            <Frame name="$parentPadding" parentKey="padding">
+                <Anchors>
+                    <Anchor point="TOPLEFT" relativeKey="$parent" relativePoint="TOPLEFT" x="10" y="-8" />
+                    <Anchor point="BOTTOMRIGHT" relativeKey="$parent" relativePoint="BOTTOMRIGHT" x="-10" y="32" />
+                </Anchors>
+                <Frames>
+                    <MessageFrame name="$parentMessages" parentKey="Messages" hidden="false">
+                        <Anchors>
+                            <Anchor point="TOPLEFT" relativeKey="$parent" relativePoint="TOPLEFT" x="0" y="0" />
+                            <Anchor point="BOTTOMRIGHT" relativeKey="$parent" relativePoint="BOTTOMRIGHT" x="0" y="0" />
+                        </Anchors>
+                    </MessageFrame>
+                </Frames>
+            </Frame>
+        </Frames>
+        <Scripts>
+            <OnLoad method="OnLoad" />
+        </Scripts>
+    </Frame>
+</Ui>

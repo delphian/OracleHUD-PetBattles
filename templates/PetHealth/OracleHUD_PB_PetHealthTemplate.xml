@@ -1,0 +1,31 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/ C:ProjectsWoWBinInterfaceFrameXMLUI.xsd">
+	<Script file="OracleHUD_PB_PetHealthTemplate.lua" />
+    <Frame name="OracleHUD_PB_PetHealthTemplate" virtual="true">
+        <Anchors>
+            <Anchor point="CENTER" relativePoint="CENTER" x="0" y="0" />
+        </Anchors>
+		<Frames>
+			<StatusBar name="$parentHealthLoss" parentKey="HealthLoss" drawLayer="BACKGROUND" minValue="0" maxValue="100" 
+					defaultValue="0" orientation="HORIZONTAL">
+				<Anchors>
+					<Anchor point="ALL" relativePoint="ALL" x="0" y="0" />
+				</Anchors>
+				<BarTexture file="Interface\TARGETINGFRAME\UI-StatusBar" />
+				<BarColor r="1.0" g="0.0" b="0.0" a="0.4" />
+			</StatusBar>		
+			<StatusBar name="$parentHealth" parentKey="Health" drawLayer="ARTWORK" minValue="0" maxValue="100" 
+					   defaultValue="25" orientation="HORIZONTAL">
+				<Anchors>
+					<Anchor point="ALL" relativePoint="ALL" relativeKey="$parent.HealthLoss" x="0" y="0" />
+				</Anchors>
+				<BarTexture file="Interface\TARGETINGFRAME\UI-StatusBar" />
+				<BarColor r="0.0" g="1.0" b="0.0" a="0.6" />
+			</StatusBar>		
+		</Frames>
+		<Scripts>
+			<OnLoad inherit="prepend">
+				OracleHUD_PB_PetHealthTemplate_OnLoad(self, OracleHUD_PB_DB)
+			</OnLoad>
+		</Scripts>
+    </Frame>
+</Ui>

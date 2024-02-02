@@ -1,0 +1,71 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/UI.xsd">
+	<Script file="OracleHUD_PB_TooltipPetInfoIdMixin.lua"/>
+	<Frame 	name="OracleHUD_PB_TooltipPetInfoIdTemplate" 
+			parent="UIParent" 
+			frameStrata="TOOLTIP" 
+			clampedToScreen="true" 
+			virtual="true" 
+			hidden="true" 
+			mixin="OracleHUD_PB_TooltipPetInfoIdMixin"
+			inherits="OracleHUD_PB_TooltipPetInfoSpeciesTemplate">
+		<Layers>
+			<Layer level="ARTWORK">
+				<FontString parentKey="Level" inherits="GameFontHighlight" justifyH="LEFT" text="BATTLE_PET_CAGE_TOOLTIP_LEVEL">
+					<Size x="238" y="0"/>
+					<Anchors>
+						<Anchor point="TOP" relativeKey="$parent.SpeciesId" relativePoint="BOTTOM" x="0" y="-2"/>
+					</Anchors>
+				</FontString>
+				<Texture parentKey="HealthTexture" file="Interface\PetBattles\PetBattle-StatIcons">
+					<Size x="16" y="16"/>
+					<TexCoords left="0.5" right="1.0" top="0.5" bottom="1.0"/>
+					<Anchors>
+						<Anchor point="TOPLEFT" relativeKey="$parent.Level" relativePoint="BOTTOMLEFT" x="0" y="-2"/>
+					</Anchors>
+				</Texture>
+				<FontString parentKey="Health" inherits="GameFontHighlight" justifyH="LEFT" text="100">
+					<Size x="0" y="0"/>
+					<Anchors>
+						<Anchor point="LEFT" relativeKey="$parent.HealthTexture" relativePoint="RIGHT" x="2" y="0"/>
+					</Anchors>
+				</FontString>
+				<Texture parentKey="PowerTexture" file="Interface\PetBattles\PetBattle-StatIcons">
+					<Size x="16" y="16"/>
+					<TexCoords left="0.0" right="0.5" top="0.0" bottom="0.5"/>
+					<Anchors>
+						<Anchor point="TOPLEFT" relativeKey="$parent.HealthTexture" relativePoint="BOTTOMLEFT" x="0" y="-2"/>
+					</Anchors>
+				</Texture>
+				<FontString parentKey="Power" inherits="GameFontHighlight" justifyH="LEFT" text="100">
+					<Size x="0" y="0"/>
+					<Anchors>
+						<Anchor point="LEFT" relativeKey="$parent.PowerTexture" relativePoint="RIGHT" x="2" y="0"/>
+					</Anchors>
+				</FontString>
+				<Texture parentKey="SpeedTexture" file="Interface\PetBattles\PetBattle-StatIcons">
+					<Size x="16" y="16"/>
+					<TexCoords left="0.0" right="0.5" top="0.5" bottom="1.0"/>
+					<Anchors>
+						<Anchor point="TOPLEFT" relativeKey="$parent.PowerTexture" relativePoint="BOTTOMLEFT" x="0" y="-2"/>
+					</Anchors>
+				</Texture>
+				<FontString parentKey="Speed" inherits="GameFontHighlight" justifyH="LEFT" text="100">
+					<Size x="0" y="0"/>
+					<Anchors>
+						<Anchor point="LEFT" relativeKey="$parent.SpeedTexture" relativePoint="RIGHT" x="2" y="0"/>
+					</Anchors>
+				</FontString>
+				<FontString parentKey="Owned" wordwrap="false" inherits="GameFontHighlight" justifyH="LEFT">
+					<Size x="238" y="0"/>
+					<Anchors>
+						<Anchor point="TOPLEFT" relativeKey="$parent.SpeedTexture" relativePoint="BOTTOMLEFT" x="0" y="-2"/>
+					</Anchors>
+					<Color r="1.0" g="0.82" b="0.0" a="1.0"/>
+				</FontString>
+			</Layer>
+		</Layers>
+		<Scripts>
+	        <OnLoad method="OnLoad" inherit="prepend" />
+		</Scripts>
+	</Frame>
+</Ui>

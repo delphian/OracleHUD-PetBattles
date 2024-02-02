@@ -1,0 +1,135 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/UI.xsd">
+	<Script file="OracleHUD_PB_TooltipPetInfoZooTemplate.lua"/>
+	<Frame name="OracleHUD_PB_TooltipPetInfoZooTemplate" parent="UIParent" frameStrata="TOOLTIP" clampedToScreen="true" virtual="true" hidden="true" inherits="OracleHUD_TooltipBackdropTemplate">
+		<Size x="260" y="428" />
+		<Layers>
+			<Layer level="ARTWORK">
+				<FontString parentKey="Name" wordwrap="false" inherits="GameFontNormalLargeLeft">
+					<Size x="238" y="0"/>
+					<Anchors>
+						<Anchor point="TOP" x="0" y="-10"/>
+					</Anchors>
+				</FontString>
+				<FontString parentKey="BattlePet" inherits="GameFontHighlight" justifyH="LEFT" text="TOOLTIP_BATTLE_PET">
+					<Size x="238" y="0"/>
+					<Anchors>
+						<Anchor point="TOP" relativeKey="$parent.Name" relativePoint="BOTTOM" x="0" y="-5"/>
+					</Anchors>
+				</FontString>
+				<FontString parentKey="PetType" inherits="GameFontHighlight" justifyH="RIGHT" text="TOOLTIP_BATTLE_PET">
+					<Size x="238" y="0"/>
+					<Anchors>
+						<Anchor point="TOP" relativeKey="$parent.Name" relativePoint="BOTTOM" x="0" y="-5"/>
+					</Anchors>
+				</FontString>
+				<Texture parentKey="PetTypeTexture">
+					<Size x="33" y="33"/>
+					<Anchors>
+						<Anchor point="TOPRIGHT" relativeKey="$parent.PetType" relativePoint="BOTTOMRIGHT" x="0" y="-5"/>
+					</Anchors>
+					<TexCoords left="0.79687500" right="0.49218750" top="0.50390625" bottom="0.65625000"/>
+				</Texture>
+				<FontString parentKey="Level" inherits="GameFontHighlight" justifyH="LEFT" text="BATTLE_PET_CAGE_TOOLTIP_LEVEL">
+					<Size x="238" y="0"/>
+					<Anchors>
+						<Anchor point="TOP" relativeKey="$parent.BattlePet" relativePoint="BOTTOM" x="0" y="-2"/>
+					</Anchors>
+				</FontString>
+				<Texture parentKey="HealthTexture" file="Interface\PetBattles\PetBattle-StatIcons">
+					<Size x="16" y="16"/>
+					<TexCoords left="0.5" right="1.0" top="0.5" bottom="1.0"/>
+					<Anchors>
+						<Anchor point="TOPLEFT" relativeKey="$parent.Level" relativePoint="BOTTOMLEFT" x="0" y="-2"/>
+					</Anchors>
+				</Texture>
+				<FontString parentKey="Health" inherits="GameFontHighlight" justifyH="LEFT" text="100">
+					<Size x="0" y="0"/>
+					<Anchors>
+						<Anchor point="LEFT" relativeKey="$parent.HealthTexture" relativePoint="RIGHT" x="2" y="0"/>
+					</Anchors>
+				</FontString>
+				<Texture parentKey="PowerTexture" file="Interface\PetBattles\PetBattle-StatIcons">
+					<Size x="16" y="16"/>
+					<TexCoords left="0.0" right="0.5" top="0.0" bottom="0.5"/>
+					<Anchors>
+						<Anchor point="TOPLEFT" relativeKey="$parent.HealthTexture" relativePoint="BOTTOMLEFT" x="0" y="-2"/>
+					</Anchors>
+				</Texture>
+				<FontString parentKey="Power" inherits="GameFontHighlight" justifyH="LEFT" text="100">
+					<Size x="0" y="0"/>
+					<Anchors>
+						<Anchor point="LEFT" relativeKey="$parent.PowerTexture" relativePoint="RIGHT" x="2" y="0"/>
+					</Anchors>
+				</FontString>
+				<Texture parentKey="SpeedTexture" file="Interface\PetBattles\PetBattle-StatIcons">
+					<Size x="16" y="16"/>
+					<TexCoords left="0.0" right="0.5" top="0.5" bottom="1.0"/>
+					<Anchors>
+						<Anchor point="TOPLEFT" relativeKey="$parent.PowerTexture" relativePoint="BOTTOMLEFT" x="0" y="-2"/>
+					</Anchors>
+				</Texture>
+				<FontString parentKey="Speed" inherits="GameFontHighlight" justifyH="LEFT" text="100">
+					<Size x="0" y="0"/>
+					<Anchors>
+						<Anchor point="LEFT" relativeKey="$parent.SpeedTexture" relativePoint="RIGHT" x="2" y="0"/>
+					</Anchors>
+				</FontString>
+			</Layer>
+		</Layers>
+		<Frames>
+			<Frame name="$parentAnimationBox" parentKey="AnimationBox" inherits="OracleHUD_PB_PetAnimationTemplate">
+				<Size x="0" y="0" />
+				<Anchors>
+					<Anchor point="TOP" relativeKey="$parent.Speed" relativePoint="TOP" x="0" y="0" />
+					<Anchor point="LEFT" relativeKey="$parent" relativePoint="LEFT" x="0" y="0" />
+					<Anchor point="RIGHT" relativeKey="$parent" relativePoint="RIGHT" x="0" y="0" />
+				</Anchors>
+			</Frame>
+		</Frames>
+		<Layers>
+			<Layer>
+				<FontString parentKey="User" inherits="GameFontHighlight" justifyH="LEFT" text="100">
+					<Size x="0" y="0"/>
+					<Anchors>
+						<Anchor point="TOPLEFT" relativeKey="$parent.AnimationBox" relativePoint="BOTTOMLEFT" x="12" y="-10" />
+					</Anchors>
+				</FontString>
+			</Layer>
+		</Layers>
+		<Frames>
+			<Button name="$parentSizeUp" parentKey="SizeUp">
+				<Anchors>
+					<Anchor point="TOPLEFT" relativeKey="$parent.User" relativePoint="BOTTOMLEFT" x="0" y="-12" />
+				</Anchors>
+				<NormalTexture file="Interface\ICONS\INV_Misc_Petbiscuit_01" />
+				<PushedTexture file="Interface\ICONS\INV_Misc_Petbiscuit_01" />
+				<HighlightTexture file="Interface\ICONS\INV_Misc_Petbiscuit_01" alphaMode="ADD" />
+			</Button>
+			<Button name="$parentSizeDown" parentKey="SizeDown">
+				<Anchors>
+					<Anchor point="TOPLEFT" relativeKey="$parent.SizeUp" relativePoint="TOPRIGHT" x="2" y="0" />
+				</Anchors>
+				<NormalTexture file="Interface\ICONS\INV_Misc_Gem_SaphireRough_03" />
+				<PushedTexture file="Interface\ICONS\INV_Misc_Gem_SaphireRough_03" />
+				<HighlightTexture file="Interface\ICONS\INV_Misc_Gem_SaphireRough_03" alphaMode="ADD" />
+			</Button>
+			<Button name="$parentCage" parentKey="Cage">
+				<Anchors>
+					<Anchor point="TOPLEFT" relativeKey="$parent.SizeDown" relativePoint="TOPRIGHT" x="2" y="0" />
+				</Anchors>
+				<NormalTexture file="Interface\ICONS\INV_Box_PetCarrier_01" />
+				<PushedTexture file="Interface\ICONS\INV_Box_PetCarrier_01" />
+				<HighlightTexture file="Interface\ICONS\INV_Box_PetCarrier_01" alphaMode="ADD" />
+			</Button>
+			<Button name="$parentTest" parentKey="PetDebug" inherits="OracleHUD_PB_ButtonPetDebugTemplate">
+				<Anchors>
+					<Anchor point="TOP" relativeKey="$parent.User" relativePoint="BOTTOM" x="0" y="-12" />
+					<Anchor point="RIGHT" relativeKey="$parent" relativePoint="RIGHT" x="-8" y="0" />
+				</Anchors>
+			</Button>
+		</Frames>
+		<Scripts>
+			<OnLoad function="OracleHUD_PB_TooltipPetInfoZooTemplate_OnLoad" inherit="prepend" />
+		</Scripts>
+	</Frame>
+</Ui>

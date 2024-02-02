@@ -1,0 +1,67 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/ C:ProjectsWoWBinInterfaceFrameXMLUI.xsd">
+	<Script file="OracleHUD_PB_PanelLoadoutBattleSlotTemplate.lua" />
+    <Frame name="OracleHUD_PB_PanelLoadoutBattleSlotTemplate" virtual="true">
+		<Frames>
+			<Frame name="$parentParent" parentKey="Parent" inherits="OracleHUD_PB_PanelLoadoutSlotTemplate">
+				<Anchors>
+					<Anchor point="TOPLEFT" relativeKey="$parent" relativePoint="TOPLEFT" x="0" y="0" />
+					<Anchor point="TOPRIGHT" relativeKey="$parent" relativePoint="TOPRIGHT" x="0" y="0" />
+					<Anchor point="BOTTOMRIGHT" relativeKey="$parent" relativePoint="BOTTOMRIGHT" x="0" y="0" />
+				</Anchors>
+			</Frame>
+			<Frame Name="$parentInCombat" parentKey="InCombat" hidden="true">
+				<Anchors>
+					<Anchor point="TOPLEFT" relativeKey="$parent.Parent.Right.ButtonsBorder.Buttons" relativePoint="TOPLEFT" x="2" y="-2" />
+					<Anchor point="TOPRIGHT" relativeKey="$parent.Parent.Right.ButtonsBorder.Buttons" relativePoint="TOPRIGHT" x="0" y="-2" />
+					<Anchor point="BOTTOMRIGHT" relativeKey="$parent.Parent.Right.ButtonsBorder.Buttons" relativePoint="BOTTOMRIGHT" x="0" y="0" />
+				</Anchors>
+				<Frames>
+					<Button Name="$parentCall" parentKey="Call" inherits="OracleHUD_PB_ButtonGenericBlackTemplate">
+						<Anchors>
+							<Anchor point="TOPRIGHT" relativePoint="TOPRIGHT" x="0" y="0" />
+						</Anchors>
+						<NormalTexture file="Interface\Icons\Ability_Hunter_BeastCall" />
+					</Button>
+					<Frame Name="$parentAbilities" parentKey="Abilities" inherits="OracleHUD_PB_PanelPetBattleAbilitiesTemplate">
+						<Anchors>
+							<Anchor point="TOPLEFT" relativePoint="TOPLEFT" x="0" y="0" />
+						</Anchors>
+					</Frame>
+				</Frames>
+			</Frame>
+			<Frame Name="$parentOutCombat" parentKey="OutCombat">
+				<Anchors>
+					<Anchor point="TOPLEFT" relativeTo="$parentParentRightButtonsBorderButtons" relativePoint="TOPLEFT" x="2" y="-2" />
+					<Anchor point="BOTTOMRIGHT" relativeTo="$parentParentRightButtonsBorderButtons" relativePoint="BOTTOMRIGHT" x="0" y="-2" />
+				</Anchors>
+				<Frames>
+					<Button Name="$parentSummon" parentKey="Summon" inherits="OracleHUD_PB_ButtonPetSummonTemplate">
+						<Anchors>
+							<Anchor point="TOPLEFT" relativePoint="TOPLEFT" x="0" y="0" />
+						</Anchors>
+					</Button>
+					<Button Name="$parentSpeak" parentKey="Speak" inherits="OracleHUD_PB_ButtonPetEmoteTemplate">
+						<Anchors>
+							<Anchor point="TOPLEFT" relativeKey="$parent.Summon" relativePoint="TOPRIGHT" x="1" y="0" />
+						</Anchors>
+					</Button>
+					<Button Name="$parentSwapRandom" parentKey="SwapRandom" inherits="OracleHUD_PB_ButtonPetSwapRandomTemplate">
+						<Anchors>
+							<Anchor point="TOPRIGHT" relativeKey="$parent" relativePoint="TOPRIGHT" x="0" y="0" />
+						</Anchors>
+					</Button>
+					<Button Name="$parentSwapDropdown" parentKey="SwapDropdown" inherits="OracleHUD_PB_ButtonPetSwapDropdownTemplate">
+						<Anchors>
+							<Anchor point="TOPRIGHT" relativeKey="$parent.SwapRandom" relativePoint="TOPLEFT" x="-1" y="0" />
+						</Anchors>
+					</Button>
+				</Frames>
+			</Frame>
+		</Frames>	
+		<Scripts>
+			<OnLoad inherit="prepend">
+				OracleHUD_PB_PanelLoadoutBattleSlotTemplate_OnLoad(self)
+			</OnLoad>
+		</Scripts>
+    </Frame>
+</Ui>

@@ -1,0 +1,141 @@
+## Interface: 100205
+## X-Min-Interface: 100002
+## X-Min-Interface-Classic: 11403
+## X-Min-Interface-BCC: 20504
+## X-Min-Interface-Wrath: 30400
+## Title: Oracle HUD Pet Battles
+## Version: 1.0.0.0
+## Author: delphianQ
+## Notes: Pet Battle HUD
+## email: bryan.hazelbaker@gmail.com
+## SavedVariables: OracleHUD_PB_DB
+
+OracleHUD_Tools.lua
+
+## Models
+models\OracleHUD_PB_PetInfo.lua
+
+## libraries
+libs\OracleHUD_Frames.lua
+
+## TEMPLATES
+
+
+
+templates\OracleHUD_PB_ButtonGenericBlackTemplate.xml
+templates\SharedXML\OracleHUD_UIDropDownTemplates\OracleHUD_UIDropDownMenu.xml
+templates\PetAnimation\OracleHUD_PB_PetAnimationTemplate.xml
+templates\PetPortrait\OracleHUD_PB_PetPortraitTemplate.xml
+templates\PanelChat\OracleHUD_PB_PanelChatTemplate.xml
+templates\PetLevel\OracleHUD_PB_PetLevelTemplate.xml
+templates\PanelLoadout\OracleHUD_PB_PanelLoadoutTemplate.xml
+templates\PanelLoadout\OracleHUD_PB_PanelLoadoutSlotTemplate.xml
+templates\PanelLoadoutBattle\OracleHUD_PB_PanelLoadoutBattleSlotTemplate.xml
+templates\PanelLoadoutBattle\OracleHUD_PB_PanelLoadoutBattleTemplate.xml
+templates\PetHealth\OracleHUD_PB_PetHealthTemplate.xml
+templates\PetExperience\OracleHUD_PB_PetExperienceTemplate.xml
+
+
+# Panels
+templates\Panels\OracleHUD_PB_PanelMixin.lua
+templates\Panels\PanelUncollected\OracleHUD_PB_PanelUncollectedTemplate.xml
+templates\Panels\PanelCommunity\OracleHUD_PB_PanelCommunityTemplate.xml
+templates\Panels\PanelCommunity\Member\OracleHUD_PB_PanelCommunityMemberTemplate.xml
+templates\Panels\PanelPetBattleAbilities\OracleHUD_PB_PanelPetBattleAbilitiesTemplate.xml
+templates\Panels\PanelPetBattleBar\OracleHUD_PB_PanelPetBattleBarTemplate.xml
+
+
+# Displays
+templates\Displays\OracleHUD_PB_DisplayMixin.lua
+templates\Displays\DisplayFader\OracleHUD_PB_DisplayFaderTemplate.xml
+templates\Displays\DisplayHTML\OracleHUD_PB_DisplayHTMLTemplate.xml
+templates\Displays\DisplayConsole\OracleHUD_PB_DisplayConsoleTemplate.xml
+templates\Displays\DisplayChat\OracleHUD_PB_DisplayChatTemplate.xml
+
+
+# Interface options
+templates\Interface\Options\OracleHUD\OracleHUD_PB_OptionsOracleHUDMainTemplate.xml
+
+
+#Edits
+templates\Edits\OracleHUD_PB_EditMixin.lua
+templates\Edits\EditBox\OracleHUD_PB_EditBoxTemplate.xml
+
+
+# Buttons
+templates\Buttons\OracleHUD_PB_ButtonMixin.lua
+templates\Buttons\ButtonPetAbility\OracleHUD_PB_ButtonPetAbilityTemplate.xml
+templates\Buttons\ButtonPetDebug\OracleHUD_PB_ButtonPetDebugTemplate.xml
+templates\Buttons\ButtonEmote\OracleHUD_PB_ButtonEmoteTemplate.xml
+templates\Buttons\ButtonPetEmote\OracleHUD_PB_ButtonPetEmoteTemplate.xml
+templates\Buttons\ButtonPetRevive\OracleHUD_PB_ButtonPetReviveTemplate.xml
+templates\Buttons\ButtonPetBandage\OracleHUD_PB_ButtonPetBandageTemplate.xml
+templates\Buttons\ButtonPetBattleAttack\OracleHUD_PB_ButtonPetBattleAttackTemplate.xml
+templates\Buttons\ButtonPetBattleForfeit\OracleHUD_PB_ButtonPetBattleForfeitTemplate.xml
+templates\Buttons\ButtonPetBattleSkip\OracleHUD_PB_ButtonPetBattleSkipTemplate.xml
+templates\Buttons\ButtonPetBattleTrap\OracleHUD_PB_ButtonPetBattleTrapTemplate.xml
+templates\Buttons\ButtonPetSummon\OracleHUD_PB_ButtonPetSummonTemplate.xml
+templates\Buttons\ButtonPetSwapRandom\OracleHUD_PB_ButtonPetSwapRandomTemplate.xml
+templates\Buttons\ButtonDropdown\OracleHUD_PB_ButtonDropdownTemplate.xml
+templates\Buttons\ButtonPetSwapDropdown\OracleHUD_PB_ButtonPetSwapDropdownTemplate.xml
+# pet elements
+templates\PetType\OracleHUD_PB_PetTypeTemplate.xml
+
+# SERVICES
+services\OracleHUD_PB_ServiceMixin.lua
+services\NetworkService\OracleHUD_PB_NetworkService.xml
+services\CombatLogService\OracleHUD_PB_CombatLogService.xml
+services\PetInfoService\OracleHUD_PB_PetInfoService.xml
+services\AchievementService\OracleHUD_PB_AchievementService.xml
+services\SpellService\OracleHUD_PB_SpellService.xml
+services\EventManager\OracleHUD_PB_EventManager.xml
+
+
+# Tooltips
+templates\SharedXML\OracleHUD_SharedTooltipTemplates\OracleHUD_SharedTooltipTemplates.xml
+templates\Tooltips\OracleHUD_PB_TooltipTemplate.xml
+templates\Tooltips\TooltipAbility\OracleHUD_PB_TooltipAbilityTemplate.xml
+templates\Tooltips\PetInfo\OracleHUD_PB_TooltipPetInfoTemplate.xml
+templates\Tooltips\PetInfo\TooltipPetInfoSpecies\OracleHUD_PB_TooltipPetInfoSpeciesTemplate.xml
+templates\Tooltips\PetInfo\TooltipPetInfoId\OracleHUD_PB_TooltipPetInfoIdTemplate.xml
+templates\Tooltips\PetInfo\TooltipPetInfoZoo\OracleHUD_PB_TooltipPetInfoZooTemplate.xml
+
+
+## ZOO
+templates\Zoo\OracleHUD_PB_ZooTemplate.xml
+templates\Zoo\ZooPetAnimation\OracleHUD_PB_ZooPetAnimationTemplate.xml
+
+
+## DATA
+database\OracleHUD_DB_SpellVisualKit.lua
+database\OracleHUD_PB_DB_PetSpeciesId.lua
+database\OracleHUD_PB_DB_PetExperience.lua
+database\OracleHUD_PB_DB_PetAnimation.lua
+database\OracleHUD_PB_DB_PetSounds.lua
+
+
+OracleHUD_PB.xml
+OracleHUD_PB_JournalFilters.lua
+OracleHUD_PB_TooltipAbility.lua
+OracleHUD_PB_Database.lua
+OracleHUD_PB_AlterPetJournal.lua
+
+
+## CONTENT
+content\comments\41_cornish_rex_cat.lua
+content\comments\43_orange_tabby_cat.lua
+content\comments\72_snowshoe_rabbit.lua
+content\comments\374_black_lamb.lua
+content\comments\378_rabbit.lua
+content\comments\379_squirrel.lua
+content\comments\391_mountain_cottontail.lua
+content\comments\419_small_frog.lua
+content\comments\412_spider.lua
+content\comments\447_fawn.lua
+content\comments\560_sea_gull.lua
+content\comments\646_chicken.lua
+content\comments\675_stormwind_rat.lua
+content\comments\1446_tiny_elephant.lua
+content\comments\2378_river_otter.lua
+
+OracleHUD_PB.lua
