@@ -223,10 +223,10 @@ function OracleHUD_PB_PanelLoadoutBattleTemplate_OnLoad(self)
     ---------------------------------------------------------------------------
     --- Process event PET_BATTLE_OPENING_START
     function self:OnPetBattleOpen()
-        if (self.db.options.loadout.showOpponents and self.owner == Enum.BattlePetOwner.Enemy) then
+        if (self.db.modules.loadout.options.showOpponents and self.owner == Enum.BattlePetOwner.Enemy) then
             self:ShowFull()
         end
-        if (self.db.options.loadout.show and self.owner == Enum.BattlePetOwner.Ally) then
+        if (self.db.modules.loadout.options.show and self.owner == Enum.BattlePetOwner.Ally) then
             self:ShowFull()
         end
         self.close = nil
