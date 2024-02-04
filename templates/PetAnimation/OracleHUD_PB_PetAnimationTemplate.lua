@@ -95,7 +95,7 @@ function OracleHUD_PB_PetAnimationTemplate_OnLoad(self)
             self.speakToken = C_Timer.NewTicker(period, function()
                 local random = math.random(1, 2)
                 if (random == 1) then
-                    self:Speak("speak")
+                    self:Speak(ORACLEHUD_PB_CONTENTEMOTE_ENUM.SPEAK)
                 end
             end)
             self.config.speak = true
@@ -306,7 +306,7 @@ function OracleHUD_PB_PetAnimationTemplate_OnLoad(self)
     end
     -------------------------------------------------------------------------------
     --- Get a random emote from the pet.
-    --- @param type     string      speak|emote|speak_win|emote_summon|speak_dead
+    --- @param type     ORACLEHUD_PB_CONTENTEMOTE_ENUM
     --- @return string|nil emote
     function self:GetEmote(type)
         local emote = nil
@@ -317,7 +317,7 @@ function OracleHUD_PB_PetAnimationTemplate_OnLoad(self)
     end
     ---------------------------------------------------------------------------
     --- Speak a random emote into the display.
-    --- @param type     string      speak|emote|speak_win|emote_summon|speak_dead
+    --- @param type     ORACLEHUD_PB_CONTENTEMOTE_ENUM
     function self:Speak(type)
         if (self.display ~= nil) then
             local emote = self:GetEmote(type)
@@ -328,7 +328,7 @@ function OracleHUD_PB_PetAnimationTemplate_OnLoad(self)
     end
     ---------------------------------------------------------------------------
     --- Reports if the pet can emote.
-    --- @param type     string      speak|emote|speak_win|emote_summon|speak_dead
+    --- @param type     ORACLEHUD_PB_CONTENTEMOTE_ENUM
     function self:CanSpeak(type)
         local canSpeak = false
         local emote = self:GetEmote(type)

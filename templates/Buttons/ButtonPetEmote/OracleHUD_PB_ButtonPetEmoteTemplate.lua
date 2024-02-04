@@ -27,7 +27,7 @@ function OracleHUD_PB_ButtonPetEmoteTemplate_OnLoad(self)
         self.petInfo = petInfo
 	end
 	self:SetScript("PostClick", function()
-        local emote = self.petInfo:GetEmote("speak|emote")
+        local emote = self.petInfo:GetEmote(ORACLEHUD_PB_CONTENTEMOTE_ENUM.SPEAK)
         SendChatMessage(emote, "EMOTE")
         if (self.callback ~= nil) then
             self.callback(self, self.slot)

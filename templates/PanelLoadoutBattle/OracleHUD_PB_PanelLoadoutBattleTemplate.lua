@@ -267,8 +267,8 @@ function OracleHUD_PB_PanelLoadoutBattleTemplate_OnLoad(self)
             local random = math.random(1, 3)
             if (random == 1) then
                 for i = 1, (self:GetSlotIndex() - 1) do
-                    if (self.Parent["Slot"..i]:CanSpeak("speak_dead")) then
-                        self.Parent["Slot"..i]:Speak("speak_dead")
+                    if (self.Parent["Slot"..i]:CanSpeak(ORACLEHUD_PB_CONTENTEMOTE_ENUM.SPEAK_LOSS)) then
+                        self.Parent["Slot"..i]:Speak(ORACLEHUD_PB_CONTENTEMOTE_ENUM.SPEAK_LOSS)
                         break
                     end
                 end
@@ -282,8 +282,8 @@ function OracleHUD_PB_PanelLoadoutBattleTemplate_OnLoad(self)
             local random = math.random(1, 3)
             if (random == 1) then
                 for i = 1, (self:GetSlotIndex() - 1) do
-                    if (self.Parent["Slot"..i]:CanSpeak("speak_win")) then
-                        self.Parent["Slot"..i]:Speak("speak_win")
+                    if (self.Parent["Slot"..i]:CanSpeak(ORACLEHUD_PB_CONTENTEMOTE_ENUM.SPEAK_WIN)) then
+                        self.Parent["Slot"..i]:Speak(ORACLEHUD_PB_CONTENTEMOTE_ENUM.SPEAK_WIN)
                         break
                     end
                 end
@@ -337,7 +337,7 @@ function OracleHUD_PB_PanelLoadoutBattleTemplate_OnLoad(self)
     function self:OnPetSummonClick(button, slot)
         C_Timer.After(1, function()
             if (self.c_petjournal.GetSummonedPetGUID() == button.petInfo.id) then
-                SendChatMessage(button.petInfo:GetEmote("emote_summon"), "EMOTE")
+                SendChatMessage(button.petInfo:GetEmote(ORACLEHUD_PB_CONTENTEMOTE_ENUM.EMOTE_SUMMON), "EMOTE")
                 self:SetSummonedStatus(slot)
             end
         end)

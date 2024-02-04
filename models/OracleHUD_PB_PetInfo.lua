@@ -29,7 +29,7 @@
 OracleHUD_PB_PetInfo = {}
 -------------------------------------------------------------------------------
 --- Get a random emote from the pet.
---- @param type     string      speak|emote|speak_win|emote_summon|speak_dead
+--- @param type     ORACLEHUD_PB_CONTENTEMOTE_ENUM
 --- @return string emote
 function OracleHUD_PB_PetInfo:GetEmote(type)
     local link = "["..self.name.."]"
@@ -38,11 +38,9 @@ function OracleHUD_PB_PetInfo:GetEmote(type)
     end
     local text = "Has nothing interesting to say"
     if (self.content.emotes ~= nil) then
-        local types = OracleHUD_StringSplit(type, "|")
-        local index = math.random(1, #types)
-        local table = self.content.emotes[types[index]]
+        local table = self.content.emotes[type]
         text = table[math.random(1, OracleHUD_TableGetLength(table))]
-        if (types[index] == "speak") then
+        if (type == ORACLEHUD_PB_CONTENTEMOTE_ENUM.SPEAK) then
             text = 'says "' .. text .. '"'
         else
             text = string.lower(text)
