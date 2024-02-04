@@ -45,6 +45,7 @@ function OracleHUD_PB_Setup(self)
 	self.tooltipPetInfoSpecies = OracleHUD_PB_TooltipPetInfoSpecies
 	---@type OracleHUD_PB_TooltipPetInfoId
 	self.tooltipPetInfoId = OracleHUD_PB_TooltipPetInfoId
+	self.tooltipPetInfoContent = OracleHUD_PB_TooltipPetInfoContent
 	self.editBox = OracleHUD_PB_EditBox
     ---------------------------------------------------------------------------
     --- Configure frame with required data.
@@ -75,13 +76,14 @@ function OracleHUD_PB_Setup(self)
 		self.uncollected:Configure(db, self.petInfoSvc, self.combatLogSvc, self.tooltipPetInfoSpecies)
 		self.loadoutAlly:Configure(db, self.displayChat, Enum.BattlePetOwner.Ally, self.networkSvc,	self.combatLogSvc, 
 								   C_PetJournal, C_PetBattles, ORACLEHUD_PB_DB_PET_ANIMATION_ENUM, self.petInfoSvc, 
-								   self.options, self.zoo, self.tooltipPetInfoId)
+								   self.options, self.zoo, self.tooltipPetInfoContent)
 		self.loadoutEnemy:Configure(db, self.displayChat, Enum.BattlePetOwner.Enemy, self.networkSvc, self.combatLogSvc, 
 									C_PetJournal, C_PetBattles, ORACLEHUD_PB_DB_PET_ANIMATION_ENUM, self.petInfoSvc, 
 									self.options, self.zoo, self.tooltipPetInfoSpecies)
 		self.eventManager:Configure(db, self.combatLogSvc, self.networkSvc, self.petInfoSvc, self.displayConsole)
 		self.tooltipPetInfoSpecies:Configure(db)
 		self.tooltipPetInfoId:Configure(db)
+		self.tooltipPetInfoContent:Configure(db)
 		self.editBox:Configure(db)
 	end
 	---------------------------------------------------------------------------
@@ -105,7 +107,8 @@ function OracleHUD_PB_Setup(self)
 		function InitDisplayConsole()			self.displayConsole:Initialize(InitDisplayCommunity) end
 		function InitDisplayCommunity()			self.displayCommunity:Initialize(InitTooltipPetInfoSpecies) end
 		function InitTooltipPetInfoSpecies()	self.tooltipPetInfoSpecies:Initialize(InitTooltipPetInfoId) end
-		function InitTooltipPetInfoId()			self.tooltipPetInfoId:Initialize(InitEditBox) end
+		function InitTooltipPetInfoId()			self.tooltipPetInfoId:Initialize(InitTooltipPetInfoContent) end
+		function InitTooltipPetInfoContent()	self.tooltipPetInfoContent:Initialize(InitEditBox) end
 		function InitEditBox()					self.editBox:Initialize(InitFinished) end
 		function InitFinished()
 			self:RegisterEvent("PLAYER_LEAVING_WORLD")

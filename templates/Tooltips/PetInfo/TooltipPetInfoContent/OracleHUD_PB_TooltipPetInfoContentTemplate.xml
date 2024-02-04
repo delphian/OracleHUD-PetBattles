@@ -1,0 +1,36 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/UI.xsd">
+	<Script file="OracleHUD_PB_TooltipPetInfoContentMixin.lua"/>
+	<Frame 	name="OracleHUD_PB_TooltipPetInfoContentTemplate" 
+			frameStrata="TOOLTIP" 
+			clampedToScreen="true" 
+			virtual="true" 
+			hidden="true" 
+			mixin="OracleHUD_PB_TooltipPetInfoContentMixin"
+			inherits="OracleHUD_PB_TooltipTemplate">
+		<Frames>
+			<Frame name="$parentLeft" parentKey="Left" inherits="OracleHUD_PB_TooltipPetInfoIdTemplate">
+				<Size x="100" />
+				<Anchors>
+					<Anchor point="TOPLEFT" relativeKey="$parent" relativePoint="TOPLEFT" />
+					<Anchor point="BOTTOMLEFT" relativeKey="$parent" relativePoint="BOTTOMLEFT" />
+				</Anchors>
+			</Frame>
+			<Frame name="$parentContent" parentKey="Content">
+				<Anchors>
+					<Anchor point="TOPLEFT" relativeKey="$parent.Left" relativePoint="TOPRIGHT" />
+					<Anchor point="TOPRIGHT" relativeKey="$parent" relativePoint="TOPRIGHT" />
+					<Anchor point="BOTTOMRIGHT" relativeKey="$parent" relativePoint="BOTTOMRIGHT" />
+				</Anchors>
+			</Frame>
+		</Frames>
+		<Scripts>
+			<OnMouseDown>
+				self:StartMoving();
+			</OnMouseDown>
+			<OnMouseUp>
+				self:StopMovingOrSizing();
+			</OnMouseUp>
+	        <OnLoad method="OnLoad" inherit="prepend" />
+		</Scripts>
+	</Frame>
+</Ui>

@@ -3,8 +3,7 @@
 	<Frame name="OracleHUD_PB_TooltipPetInfoTemplate" 
 		   mixin="OracleHUD_PB_TooltipPetInfoMixin" 
 		   inherits="OracleHUD_PB_TooltipTemplate"
-		   parent="UIParent" frameStrata="TOOLTIP" clampedToScreen="true" virtual="true" hidden="true"
-	>
+		   frameStrata="TOOLTIP" clampedToScreen="true" virtual="true" hidden="true">
 		<Frames>
 			<Frame name="$parentAnimation" parentKey="Animation" inherits="OracleHUD_PB_PetAnimationTemplate">
 				<Anchors>

@@ -2,7 +2,7 @@
 	<Script file="OracleHUD_PB_TooltipPetInfoSpeciesMixin.lua"/>
 	<Frame name="OracleHUD_PB_TooltipPetInfoSpeciesTemplate" 
 		   mixin="OracleHUD_PB_TooltipPetInfoSpeciesMixin" 
-		   parent="UIParent" frameStrata="TOOLTIP" clampedToScreen="true" virtual="true" hidden="true" 
+		   frameStrata="TOOLTIP" clampedToScreen="true" virtual="true" hidden="true" 
 		   inherits="OracleHUD_PB_TooltipPetInfoTemplate"
 	>
 		<Size x="260" y="480" />

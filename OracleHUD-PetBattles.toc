@@ -98,6 +98,7 @@ templates\Tooltips\TooltipAbility\OracleHUD_PB_TooltipAbilityTemplate.xml
 templates\Tooltips\PetInfo\OracleHUD_PB_TooltipPetInfoTemplate.xml
 templates\Tooltips\PetInfo\TooltipPetInfoSpecies\OracleHUD_PB_TooltipPetInfoSpeciesTemplate.xml
 templates\Tooltips\PetInfo\TooltipPetInfoId\OracleHUD_PB_TooltipPetInfoIdTemplate.xml
+templates\Tooltips\PetInfo\TooltipPetInfoContent\OracleHUD_PB_TooltipPetInfoContentTemplate.xml
 templates\Tooltips\PetInfo\TooltipPetInfoZoo\OracleHUD_PB_TooltipPetInfoZooTemplate.xml
 
 
