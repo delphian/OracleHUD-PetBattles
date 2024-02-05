@@ -37,9 +37,9 @@ function OracleHUD_PB_PetInfo:GetEmote(type)
         link = C_PetJournal.GetBattlePetLink(self.id);
     end
     local text = "Has nothing interesting to say"
-    if (self.content.emotes ~= nil) then
+    if (self.content.emotes ~= nil and self.content.emotes[type] ~= nil) then
         local table = self.content.emotes[type]
-        text = table[math.random(1, OracleHUD_TableGetLength(table))]
+        text = table[math.random(1, #table)]
         if (type == ORACLEHUD_PB_CONTENTEMOTE_ENUM.SPEAK) then
             text = 'says "' .. text .. '"'
         else

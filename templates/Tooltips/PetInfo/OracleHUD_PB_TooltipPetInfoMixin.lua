@@ -24,7 +24,9 @@ end
 --- All required resources and data has been loaded. Set initial state.
 --- @param callback		function?	(Optional) Execute callback when initialize has finished.
 function OracleHUD_PB_TooltipPetInfoMixin:Initialize(callback)
+	if (self.db.debug) then print("..Initialize Pet Info Tooltip") end
 	self.originalHeight = self:GetHeight()
+	if (self.originalHeight == nil) then error(self._class..":Initialize(): Original height is nil") end
 	self.JournalClick:RegisterForClicks("AnyDown")
 	Super.Initialize(self, callback)
 end
@@ -44,7 +46,7 @@ function OracleHUD_PB_TooltipPetInfoMixin:PrintPetInfo()
 	local petInfo = self.petInfo
 	self.textLineAnchor = nil
 	self:Show()
-	self.linePool:ReleaseAll();
+	self.linePool:ReleaseAll()
 	self:SetHeight(self.originalHeight)
 	self.speciesID = petInfo.speciesId; -- For the button
 	self.Name:SetText(petInfo.name);

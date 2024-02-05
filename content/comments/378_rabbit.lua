@@ -2,8 +2,10 @@ if (ORACLEHUD_PB_DB_UPDATE == nil) then
     ORACLEHUD_PB_DB_UPDATE = {}
 end
 ORACLEHUD_PB_DB_UPDATE.s378 = function(db)
+    local TEXT = ORACLEHUD_PB_CONTENTEMOTE_TEXT
+    local ENUM = ORACLEHUD_PB_CONTENTEMOTE_ENUM
     db.content.petComments.s378 = {
-        emote = {
+        [ENUM.EMOTE] = {
             "Nibbles on a patch of clover.",
             "Hops in a zigzag pattern through the grass.",
             "Sniffs the air curiously.",
@@ -113,7 +115,7 @@ ORACLEHUD_PB_DB_UPDATE.s378 = function(db)
             "Bounces through a field of tall, swaying wheat.",
             "Hides in a cozy hollow, feeling safe and secure."
         },
-        emote_summon = {
+        [ENUM.EMOTE_SUMMON] = {
             "Yawns and stretches its fluffy paws.",
             "Blinks sleepily as it gazes around.",
             "Nuzzles its face into a cozy, warm spot.",
@@ -239,7 +241,7 @@ ORACLEHUD_PB_DB_UPDATE.s378 = function(db)
             "Leaps into the air with morning enthusiasm.",
             "Sniffs a fresh, cool breeze."
         },
-        speak = {
+        [ENUM.SPEAK] = {
             "Carrots are the best!",
             "Hoppy to see you!",
             "I love digging burrows.",
@@ -353,7 +355,7 @@ ORACLEHUD_PB_DB_UPDATE.s378 = function(db)
             "Life is full of surprises, especially in the burrow.",
             "I believe in the magic of bunny kisses."
         },
-        speak_win = {
+        [ENUM.SPEAK_WIN] = {
             "Victory is ours, my furry friends!",
             "We hopped to victory and conquered all!",
             "The carrot of triumph is ours!",
@@ -472,7 +474,7 @@ ORACLEHUD_PB_DB_UPDATE.s378 = function(db)
             "We're the champions of the bunny world!",
             "Our warren stands as a testament to victory!"
         },
-        speak_dead = {
+        [ENUM.SPEAK_LOSS] = {
             "I hope my bunny friends find comfort.",
             "May my spirit find peace in the meadow.",
             "Remember the joy we shared.",

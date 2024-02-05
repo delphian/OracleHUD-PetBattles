@@ -14,6 +14,7 @@ OracleHUD_Tools.lua
 
 ## Models
 models\OracleHUD_PB_PetInfo.lua
+models\OracleHUD_PB_ContentEmote_Enum.lua
 
 
 # Libraries

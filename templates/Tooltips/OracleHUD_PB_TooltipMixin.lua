@@ -23,6 +23,7 @@ function OracleHUD_PB_TooltipMixin:Configure(db)
 --- All required resources and data has been loaded. Set initial state.
 --- @param callback		function?	(Optional) Execute callback when initialize has finished.
 function OracleHUD_PB_TooltipMixin:Initialize(callback)
+	if (self.db.debug) then print("..Initialize Tooltip") end
 	if (callback) then
 		callback()
 	end

@@ -127,7 +127,7 @@
 				self:SetFrameLevel(self:GetParent():GetFrameLevel()+2);
 			</OnLoad>
 			<OnClick>
-				UIDropDownMenuButton_OnClick(self, button, down);
+				OracleHUD_UIDropDownMenuButton_OnClick(self, button, down);
 			</OnClick>
 			<OnEnter function="OracleHUD_UIDropDownMenuButton_OnEnter"/>
 			<OnLeave function="OracleHUD_UIDropDownMenuButton_OnLeave"/>

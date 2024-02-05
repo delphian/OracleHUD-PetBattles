@@ -4,7 +4,7 @@
 --- click.
 ---
 --- @example
---- local frame = CreateFrame("FRAME", "FrameName", UIParent", "OracleHUD_PB_ButtonDropdownTemplate")
+--- local frame = CreateFrame("BUTTON", "FrameName", UIParent", "OracleHUD_PB_ButtonDropdownTemplate")
 --- frame.Configure(db)
 --- frame.SetMenuItem("test", function(self, button) print("OK") end)
 --- frame.Initialize()
@@ -30,7 +30,7 @@ function OracleHUD_PB_ButtonDropdownTemplate_OnLoad(self)
 	end
 	---------------------------------------------------------------------------
 	--- Provide callback to initialize the dropdown menu with configured values.
-	function self:Initialize()
+	function self:Initialize(callback)
 		OracleHUD_UIDropDownMenu_Initialize(self, function(frame, level, menuList)
 			for i = 1, #self.menuItems do
 				local item = self.menuItems[i]
@@ -41,6 +41,9 @@ function OracleHUD_PB_ButtonDropdownTemplate_OnLoad(self)
 				OracleHUD_UIDropDownMenu_AddButton(info, 1);
 			end
 		end)
+		if (callback ~= nil) then
+			callback()
+		end
 	end
     ---------------------------------------------------------------------------
     --- Dynamically resize all child elements when frame changes size.
@@ -54,9 +57,9 @@ function OracleHUD_PB_ButtonDropdownTemplate_OnLoad(self)
 		self.Icon:SetSize(self:GetWidth(), self:GetHeight());
 	end
 	self:ClearPoint("TOPLEFT")
+	self:RegisterForClicks("AnyDown")
 	self:SetScript("OnClick", function(self, button, down)
 	end)
-	self:RegisterForClicks("AnyDown")
     ---------------------------------------------------------------------------
     --- Catch frame being resized and forward to resize handler.
 	self:SetScript("OnSizeChanged", function()

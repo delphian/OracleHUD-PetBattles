@@ -153,7 +153,7 @@ function OracleHUD_PB_PanelLoadoutBattleSlotTemplate_OnLoad(self, db)
     -- @param slot      True/false
 	function self:SetSummonedStatus(summon)
 		if (summon == true) then
-			if (self.db.content.petComments["s" .. self.petInfo.speciesId] ~= nil) then
+			if (self.petInfo.content ~= nil and self.petInfo.content.emotes ~= nil) then
 				self.OutCombat.Speak:SetPetInfo(self.petInfo, self.db)
 				self.OutCombat.Speak:ShowFull()
 			else

@@ -5,7 +5,7 @@
 --- @field	Power			any			Inherited from mixin XML frame.
 --- @field	Level			any			Inherited from mixin XML frame.
 OracleHUD_PB_TooltipPetInfoIdMixin = CreateFromMixins(OracleHUD_PB_TooltipPetInfoSpeciesMixin)
-OracleHUD_PB_TooltipPetInfoIdMixin._class = "OracleHUD_PB_TooltipPetInfoSpeciesMixin"
+OracleHUD_PB_TooltipPetInfoIdMixin._class = "OracleHUD_PB_TooltipPetInfoIdMixin"
 --- Create Supers (this seems weird)
 local Super = OracleHUD_PB_TooltipPetInfoSpeciesMixin
 ---------------------------------------------------------------------------
