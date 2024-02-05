@@ -1,6 +1,6 @@
 --- Display an output panel capable of handling basic HTML.
 --- @class	OracleHUD_PB_EditBox : OracleHUD_PB_Edit, OracleHUD_PB_Tooltip
---- @field	EditBox		any		Inherited from mixin XML frame.
+--- @field	Scroll		any		Inherited from mixin XML frame.
 OracleHUD_PB_EditBoxMixin = CreateFromMixins(OracleHUD_PB_EditMixin)
 OracleHUD_PB_EditBoxMixin._class = "OracleHUD_PB_EditBoxMixin"
 ---------------------------------------------------------------------------
@@ -11,14 +11,14 @@ function OracleHUD_PB_EditBoxMixin:Configure(db)
 		error(self._class..":Configure(): Invalid arguments")
 	end
 	self.db = db
-	self:SetBackdropColor(0, 0, 0, 0.8)
+	self.Scroll.Box:SetAutoFocus(false)
+	self.Scroll.Box:SetMultiLine(true)
 end
 ---------------------------------------------------------------------------
 --- All required resources and data has been loaded. Set initial state.
 --- @param callback		function?	(Optional) Execute callback when initialize has finished.
 function OracleHUD_PB_EditBoxMixin:Initialize(callback)
 	if (self.db.debug) then print("..Initialize Edit Box") end
-	self.EditBox:SetAutoFocus(false)
 	if (callback) then
 		callback()
 	end
@@ -45,6 +45,7 @@ end
 --- Dynamically resize all child elements when frame changes size.
 --- @param self			any	Main XML frame.
 function OracleHUD_PB_EditBoxMixin:OnSizeChanged()
+	self.Scroll.Box:SetWidth(self:GetWidth())
 end
 --- Called by XML onload.
 --- @param self			any	Main XML frame.
@@ -65,14 +66,14 @@ function OracleHUD_PB_EditBoxMixin:OnLoad()
     --- Catch submit button click.
     self.Submit:HookScript("PostClick", function()
 		if (self.submitCallback ~= nil) then
-			self.submitCallback(self, self.EditBox:GetDisplayText())
+			self.submitCallback(self, self.Scroll.Box:GetText())
 		end
     end)
     ---------------------------------------------------------------------------
     --- Catch cancel button click.
     self.Cancel:HookScript("PostClick", function()
 		if (self.cancelCallback ~= nil) then
-			self.cancelCallback(self, self.EditBox:GetDisplayText())
+			self.cancelCallback(self, self.Scroll.Box:GetText())
 		end
     end)
 end

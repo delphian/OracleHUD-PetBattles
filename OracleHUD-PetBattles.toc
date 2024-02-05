@@ -15,13 +15,13 @@ OracleHUD_Tools.lua
 ## Models
 models\OracleHUD_PB_PetInfo.lua
 
-## libraries
+
+# Libraries
 libs\OracleHUD_Frames.lua
-
-## TEMPLATES
-
+libs\OracleHUD_Json.lua
 
 
+## Templates
 templates\OracleHUD_PB_ButtonGenericBlackTemplate.xml
 templates\SharedXML\OracleHUD_UIDropDownTemplates\OracleHUD_UIDropDownMenu.xml
 templates\PetAnimation\OracleHUD_PB_PetAnimationTemplate.xml

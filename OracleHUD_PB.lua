@@ -46,7 +46,6 @@ function OracleHUD_PB_Setup(self)
 	---@type OracleHUD_PB_TooltipPetInfoId
 	self.tooltipPetInfoId = OracleHUD_PB_TooltipPetInfoId
 	self.tooltipPetInfoContent = OracleHUD_PB_TooltipPetInfoContent
-	self.editBox = OracleHUD_PB_EditBox
     ---------------------------------------------------------------------------
     --- Configure frame with required data.
     -- @param db		    Oracle HUD Pet Battle database.
@@ -84,7 +83,6 @@ function OracleHUD_PB_Setup(self)
 		self.tooltipPetInfoSpecies:Configure(db)
 		self.tooltipPetInfoId:Configure(db)
 		self.tooltipPetInfoContent:Configure(db)
-		self.editBox:Configure(db)
 	end
 	---------------------------------------------------------------------------
 	--- All required resources and data has been loaded. Set initial state.
@@ -108,8 +106,7 @@ function OracleHUD_PB_Setup(self)
 		function InitDisplayCommunity()			self.displayCommunity:Initialize(InitTooltipPetInfoSpecies) end
 		function InitTooltipPetInfoSpecies()	self.tooltipPetInfoSpecies:Initialize(InitTooltipPetInfoId) end
 		function InitTooltipPetInfoId()			self.tooltipPetInfoId:Initialize(InitTooltipPetInfoContent) end
-		function InitTooltipPetInfoContent()	self.tooltipPetInfoContent:Initialize(InitEditBox) end
-		function InitEditBox()					self.editBox:Initialize(InitFinished) end
+		function InitTooltipPetInfoContent()	self.tooltipPetInfoContent:Initialize(InitFinished) end
 		function InitFinished()
 			self:RegisterEvent("PLAYER_LEAVING_WORLD")
 			if (callback ~= nil) then

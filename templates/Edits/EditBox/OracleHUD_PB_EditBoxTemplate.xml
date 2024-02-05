@@ -1,6 +1,6 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/ C:ProjectsWoWBinInterfaceFrameXMLUI.xsd">
 	<Script file="OracleHUD_PB_EditBoxMixin.lua" />
-    <Frame name="OracleHUD_PB_EditBoxTemplate" mixin="OracleHUD_PB_EditBoxMixin" virtual="true" movable="true" hidden="true" inherits="OracleHUD_PB_TooltipTemplate">
+    <Frame name="OracleHUD_PB_EditBoxTemplate" mixin="OracleHUD_PB_EditBoxMixin" virtual="true">
         <Size x="100" y="100" />
         <Frames>
             <Button name="$parentSubmit" parentKey="Submit" text="Submit" inherits="UIPanelButtonTemplate">
@@ -15,23 +15,26 @@
                     <Anchor point="TOPLEFT" relativeKey="$parent.Submit" relativePoint="TOPRIGHT" x="10" y="0" />
                 </Anchors>
             </Button>
-            <EditBox name="$parentEditBox" parentKey="EditBox" multiLine="true" clipChildren="true">
+            <ScrollFrame name="$parentScroll" parentKey="Scroll" inherits="UIPanelScrollFrameTemplate">
                 <Anchors>
                     <Anchor point="TOPLEFT" relativeKey="$parent" relativePoint="TOPLEFT" x="20" y="-20" />
                     <Anchor point="TOPRIGHT" relativeKey="$parent" relativePoint="TOPRIGHT" x="-20" y="-20" />
                     <Anchor point="BOTTOMRIGHT" relativeKey="$parent" relativePoint="BOTTOMRIGHT" x="-20" y="44" />
                 </Anchors>
-                <FontString inherits="GameFontNormal" />
-            </EditBox>
+                <ScrollChild>
+                    <EditBox name="$parentBox" parentKey="Box" multiLine="true" clipChildren="true">
+                        <Anchors>
+                            <Anchor point="TOPLEFT" relativeKey="$parent" relativePoint="TOPLEFT" x="20" y="-20" />
+                            <Anchor point="TOPRIGHT" relativeKey="$parent" relativePoint="TOPRIGHT" x="-60" y="-20" />
+                            <Anchor point="BOTTOMRIGHT" relativeKey="$parent" relativePoint="BOTTOMRIGHT" x="-60" y="44" />
+                        </Anchors>
+                        <FontString inherits="GameFontNormal" />
+                    </EditBox>
+                </ScrollChild>
+            </ScrollFrame>
         </Frames>
         <Scripts>
             <OnLoad method="OnLoad" />
-			<OnMouseDown>
-				self:StartMoving();
-			</OnMouseDown>
-			<OnMouseUp>
-				self:StopMovingOrSizing();
-			</OnMouseUp>
         </Scripts>
     </Frame>
 </Ui>

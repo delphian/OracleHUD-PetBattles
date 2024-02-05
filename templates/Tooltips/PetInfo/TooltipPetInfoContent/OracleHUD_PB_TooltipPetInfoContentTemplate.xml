@@ -18,9 +18,16 @@
 			<Frame name="$parentContent" parentKey="Content">
 				<Anchors>
 					<Anchor point="TOPLEFT" relativeKey="$parent.Left" relativePoint="TOPRIGHT" />
-					<Anchor point="TOPRIGHT" relativeKey="$parent" relativePoint="TOPRIGHT" />
 					<Anchor point="BOTTOMRIGHT" relativeKey="$parent" relativePoint="BOTTOMRIGHT" />
 				</Anchors>
+				<Frames>
+					<Frame name="$parentEditBox" parentKey="EditBox" inherits="OracleHUD_PB_EditBoxTemplate">
+						<Anchors>
+							<Anchor point="TOPLEFT" relativeKey="$parent" relativePoint="TOPLEFT" />
+							<Anchor point="BOTTOMRIGHT" relativeKey="$parent" relativePoint="BOTTOMRIGHT" x="-30" y="0" />
+						</Anchors>
+					</Frame>
+				</Frames>
 			</Frame>
 		</Frames>
 		<Scripts>

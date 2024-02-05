@@ -1,6 +1,7 @@
 --- @class 	OracleHUD_PB_Tooltip
 --- @field	NineSlice		any			Inherited from mixin XML frame.
 --- @field	GetHeight		function	Inherited from mixin XML frame.
+--- @field	GetWidth		function	Inherited from mixin XML frame.
 --- @field	SetHeight		function	Inherited from mixin XML frame.
 --- @field	Show			function	Inherited from mixin XML frame.
 --- @field	linePool		any			
