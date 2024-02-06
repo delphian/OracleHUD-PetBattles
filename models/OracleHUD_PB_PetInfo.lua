@@ -49,3 +49,19 @@ function OracleHUD_PB_PetInfo:GetEmote(type)
     local emote = link .. ' ' .. text
     return emote
 end
+-------------------------------------------------------------------------------
+--- Set the emotes for a type.
+--- @param type     ORACLEHUD_PB_CONTENTEMOTE_ENUM
+--- @param emotes   any     Table containing an array of emotes.
+function OracleHUD_PB_PetInfo:SetEmotes(type, emotes)
+    if (self.content == nil) then self.content = {} end
+    if (self.content.emotes == nil) then self.content.emotes = {} end
+    self.content.emotes[type] = emotes
+end
+-------------------------------------------------------------------------------
+--- Save the emotes to the datastore.
+--- @param db 		    OracleHUD_PB_DB	        OracleHUD Pet Battles Database.
+function OracleHUD_PB_PetInfo:SaveEmotes(db)
+    local key = "s" .. self.speciesId
+    db.content.petComments[key] = self.content.emotes
+end

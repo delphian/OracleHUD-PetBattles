@@ -6,7 +6,7 @@
             <Button name="$parentSubmit" parentKey="Submit" text="Submit" inherits="UIPanelButtonTemplate">
                 <Size x="80" y="30" />
                 <Anchors>
-                    <Anchor point="BOTTOMLEFT" relativeKey="$parent" relativePoint="BOTTOMLEFT" x="20" y="10" />
+                    <Anchor point="BOTTOMLEFT" relativeKey="$parent" relativePoint="BOTTOMLEFT" x="0" y="10" />
                 </Anchors>
             </Button>
             <Button name="$parentCancel" parentKey="Cancel" text="Cancel" inherits="UIPanelButtonTemplate">
@@ -15,19 +15,41 @@
                     <Anchor point="TOPLEFT" relativeKey="$parent.Submit" relativePoint="TOPRIGHT" x="10" y="0" />
                 </Anchors>
             </Button>
+            <Frame name="$parentPadding" parentKey="Padding">
+                <Anchors>
+                    <Anchor point="TOPLEFT" relativeKey="$parent" relativePoint="TOPLEFT" x="0" y="0" />
+                    <Anchor point="BOTTOMRIGHT" relativeKey="$parent" relativePoint="BOTTOMRIGHT" x="0" y="44" />
+                </Anchors>
+                <Layers>
+                    <Layer>
+                        <Texture parentKey="Color">
+                            <Anchors>
+                                <Anchor point="TOPLEFT" />
+                                <Anchor point="BOTTOMRIGHT" />
+                            </Anchors>
+                            <Color r="0.0" g="0.0" b="0.0" a="0.5" />
+                        </Texture>
+                    </Layer>
+                </Layers>
+            </Frame>
             <ScrollFrame name="$parentScroll" parentKey="Scroll" inherits="UIPanelScrollFrameTemplate">
                 <Anchors>
-                    <Anchor point="TOPLEFT" relativeKey="$parent" relativePoint="TOPLEFT" x="20" y="-20" />
-                    <Anchor point="TOPRIGHT" relativeKey="$parent" relativePoint="TOPRIGHT" x="-20" y="-20" />
-                    <Anchor point="BOTTOMRIGHT" relativeKey="$parent" relativePoint="BOTTOMRIGHT" x="-20" y="44" />
+                    <Anchor point="TOPLEFT" relativeKey="$parent.Padding" relativePoint="TOPLEFT" x="6" y="-6" />
+                    <Anchor point="BOTTOMRIGHT" relativeKey="$parent.Padding" relativePoint="BOTTOMRIGHT" x="-28" y="6" />
                 </Anchors>
+                <Layers>
+                    <Layer>
+                        <Texture parentKey="Color">
+                            <Anchors>
+                                <Anchor point="TOPLEFT"  />
+                                <Anchor point="BOTTOMRIGHT" />
+                            </Anchors>
+                            <Color r="0.0" g="0.0" b="0.0" a="0.0" />
+                        </Texture>
+                    </Layer>
+                </Layers>
                 <ScrollChild>
                     <EditBox name="$parentBox" parentKey="Box" multiLine="true" clipChildren="true">
-                        <Anchors>
-                            <Anchor point="TOPLEFT" relativeKey="$parent" relativePoint="TOPLEFT" x="20" y="-20" />
-                            <Anchor point="TOPRIGHT" relativeKey="$parent" relativePoint="TOPRIGHT" x="-60" y="-20" />
-                            <Anchor point="BOTTOMRIGHT" relativeKey="$parent" relativePoint="BOTTOMRIGHT" x="-60" y="44" />
-                        </Anchors>
                         <FontString inherits="GameFontNormal" />
                     </EditBox>
                 </ScrollChild>

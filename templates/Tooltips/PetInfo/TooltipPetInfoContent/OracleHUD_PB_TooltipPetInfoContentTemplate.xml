@@ -17,14 +17,14 @@
 			</Frame>
 			<Frame name="$parentRight" parentKey="Right">
 				<Anchors>
-					<Anchor point="TOPLEFT" relativeKey="$parent.Left" relativePoint="TOPRIGHT" />
+					<Anchor point="TOPLEFT" relativeKey="$parent.Left" relativePoint="TOPRIGHT" x="12" y="0" />
 					<Anchor point="BOTTOMRIGHT" relativeKey="$parent" relativePoint="BOTTOMRIGHT" />
 				</Anchors>
 				<Frames>
 					<Button name="$parentMenuButton" parentKey="MenuButton" inherits="OracleHUD_PB_ButtonDropdownTemplate">
 						<Size x="32" y="32" />
 						<Anchors>
-							<Anchor point="TOPRIGHT" relativeKey="$parent.Right" relativePoint="TOPRIGHT" x="0" y="0" />
+							<Anchor point="TOPRIGHT" relativeKey="$parent.Right" relativePoint="TOPRIGHT" x="32" y="0" />
 						</Anchors>
 					</Button>
 					<Frame name="$parentEditBox" parentKey="EditBox" inherits="OracleHUD_PB_EditBoxTemplate">

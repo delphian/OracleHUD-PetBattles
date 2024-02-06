@@ -27,8 +27,14 @@ function OracleHUD_PB_TooltipPetInfoContentMixin:Configure(db)
 	self.Left.CloseButton:Hide()
 	self.Left.PetType:ClearAllPoints()
 	self.Left.PetType:SetPoint("TOPRIGHT", self.Left, "TOPRIGHT", 0, -12)
+	self.Left:SetBackdropColor(0, 0, 0, 0.95)
+	-- Change layout of the edit box.
+	self.Right.EditBox.Cancel:Hide()
+	self.Right.EditBox.Submit:SetText("Update")
+	self.Right.EditBox.Submit:ClearAllPoints()
+	self.Right.EditBox.Submit:SetPoint("BOTTOMRIGHT", self.Right.EditBox, "BOTTOMRIGHT", 0, 10)
 	--
-	self:SetBackdropColor(0, 0, 0, 0.8)
+	self:SetBackdropColor(0, 0, 0, 0.95)
 	self.emoteEnum = ORACLEHUD_PB_CONTENTEMOTE_ENUM.SPEAK
 end
 ---------------------------------------------------------------------------
@@ -39,9 +45,8 @@ function OracleHUD_PB_TooltipPetInfoContentMixin:Initialize(callback)
 	self.Right.EditBox:SetSubmitCallback(function(editbox, content)
 		local emotesTable = json.parse(content)
 		if (emotesTable ~= nil) then
-			if (self.petInfo.content == nil) then self.petInfo.content = {} end
-			if (self.petInfo.content.emotes == nil) then self.petInfo.content.emotes = {} end
-			self.petInfo.content.emotes[self.emoteEnum] = emotesTable
+			self.petInfo:SetEmotes(self.emoteEnum, emotesTable)
+			self.petInfo:SaveEmotes(self.db)
 		end
 		self:PrintPetInfo()
 	end)
@@ -82,7 +87,7 @@ function OracleHUD_PB_TooltipPetInfoContentMixin:Initialize(callback)
 		self.Right.MenuText:SetText(TEXT[ENUM.SPEAK])
 		self.Right.MenuButton:SetSize(32, 32)
 		self.Right.MenuButton:ClearAllPoints()
-		self.Right.MenuButton:SetPoint("TOPRIGHT", self.Right, "TOPRIGHT", -48, -18)
+		self.Right.MenuButton:SetPoint("TOPRIGHT", self.Right, "TOPRIGHT", -32, -18)
 		self.Right.MenuButton:Show()
 		self.Right.MenuButton:ShowFull()
 		if (callback ~= nil) then
@@ -107,7 +112,13 @@ function OracleHUD_PB_TooltipPetInfoContentMixin:PrintPetInfo()
 	if (self.petInfo.content ~= nil and self.petInfo.content.emotes ~= nil and
 		self.petInfo.content.emotes[self.emoteEnum] ~= nil)
 	then
-		self.Right.EditBox.Scroll.Box:SetText(json.stringify(self.petInfo.content.emotes[self.emoteEnum]))
+		local text = json.stringify(self.petInfo.content.emotes[self.emoteEnum])
+		-- Brutal.
+		text = strsub(text, 2, strlen(text) - 1)
+		text = text:gsub("\",", "\",\n    ")
+		text = strsub(text, 1, strlen(text))
+		text = "[\n    "..text.."\n]"
+		self.Right.EditBox.Scroll.Box:SetText(text)
 	else
 		self.Right.EditBox.Scroll.Box:SetText("[\n\n]")
 	end
@@ -115,8 +126,8 @@ end
 ---------------------------------------------------------------------------
 --- Dynamically resize all child elements when frame changes size.
 function OracleHUD_PB_TooltipPetInfoContentMixin:OnSizeChanged()
-	OracleHUD_FrameSetWidthPct(self.Left, 0.4)
-	OracleHUD_FrameSetWidthPct(self.Right, 0.6)
+	OracleHUD_FrameSetWidthPct(self.Left, 0.35)
+	OracleHUD_FrameSetWidthPct(self.Right, 0.65)
 end
 --- Called by XML onload.
 --- @param self			any	Main XML frame.
