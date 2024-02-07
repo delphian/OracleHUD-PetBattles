@@ -1,0 +1,83 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/ C:ProjectsWoWBinInterfaceFrameXMLUI.xsd">
+	<Script file="OracleHUD_PB_TabsMixin.lua" />
+    <Frame name="OracleHUD_PB_TabsTemplate" mixin="OracleHUD_PB_TabsMixin" virtual="true">
+		<Frames>
+			<Frame name="$parentMenu" parentKey="Menu">
+				<Size y="30" />
+				<Anchors>
+					<Anchor point="TOPLEFT" relativeKey="$parent" relativePoint="TOPLEFT" x="0" y="0" />
+					<Anchor point="RIGHT" relativeKey="$parent" relativePoint="RIGHT" x="0" y="0" />
+				</Anchors>
+				<Layers>
+					<Layer level="OVERLAY">
+						<Texture name="$parentBackground" parentKey="Background" hidden="false">
+							<Anchors>
+								<Anchor point="TOPLEFT" relativePoint="TOPLEFT" x="0" y="0" />
+								<Anchor point="BOTTOMRIGHT" relativePoint="BOTTOMRIGHT" x="0" y="0" />
+							</Anchors>
+							<Color r="0.0" g="0.0" b="1.0" a="0.0" />
+						</Texture>
+					</Layer>
+					<Layer level="OVERLAY">
+						<Texture name="$parentBorder" parentKey="Border" hidden="false">
+							<Anchors>
+								<Anchor point="TOPLEFT" relativePoint="TOPLEFT" x="0" y="0" />
+								<Anchor point="BOTTOMRIGHT" relativePoint="BOTTOMRIGHT" x="0" y="0" />
+							</Anchors>
+							<Color r="0.0" g="0.0" b="0.0" a="0.0" />
+						</Texture>
+					</Layer>
+				</Layers>
+			</Frame>
+			<Frame name="$parentBody" parentKey="Body">
+				<Anchors>
+					<Anchor point="TOPLEFT" relativeKey="$parent.Menu" relativePoint="BOTTOMLEFT" x="0" y="0" />
+					<Anchor point="BOTTOMRIGHT" relativeKey="$parent" relativePoint="BOTTOMRIGHT" x="0" y="0" />
+				</Anchors>
+				<Layers>
+					<Layer level="OVERLAY">
+						<Texture name="$parentBackground" parentKey="Background" hidden="false">
+							<Anchors>
+								<Anchor point="TOPLEFT" relativePoint="TOPLEFT" x="0" y="0" />
+								<Anchor point="BOTTOMRIGHT" relativePoint="BOTTOMRIGHT" x="0" y="0" />
+							</Anchors>
+							<Color r="1.0" g="0.0" b="0.0" a="0.0" />
+						</Texture>
+					</Layer>
+					<Layer level="OVERLAY">
+						<Texture name="$parentBorder" parentKey="Border" hidden="false">
+							<Anchors>
+								<Anchor point="TOPLEFT" relativePoint="TOPLEFT" x="0" y="0" />
+								<Anchor point="BOTTOMRIGHT" relativePoint="BOTTOMRIGHT" x="0" y="0" />
+							</Anchors>
+							<Color r="0.0" g="0.0" b="0.0" a="0.0" />
+						</Texture>
+					</Layer>
+				</Layers>
+			</Frame>
+		</Frames>
+        <Layers>
+			<Layer level="OVERLAY">
+				<Texture name="$parentBackground" parentKey="Background" hidden="true">
+					<Anchors>
+						<Anchor point="TOPLEFT" relativePoint="TOPLEFT" x="0" y="0" />
+						<Anchor point="BOTTOMRIGHT" relativePoint="BOTTOMRIGHT" x="0" y="0" />
+					</Anchors>
+                    <Color r="0.0" g="0.0" b="0.0" a="0.4" />
+				</Texture>
+            </Layer>
+			<Layer level="OVERLAY">
+				<Texture name="$parentBorder" parentKey="Border" hidden="true">
+					<Anchors>
+						<Anchor point="TOPLEFT" relativePoint="TOPLEFT" x="0" y="0" />
+						<Anchor point="BOTTOMRIGHT" relativePoint="BOTTOMRIGHT" x="0" y="0" />
+					</Anchors>
+                    <Color r="0.0" g="0.0" b="0.0" a="0.4" />
+				</Texture>
+            </Layer>
+		</Layers>
+		<Scripts>
+	        <OnLoad method="OnLoad" />
+		</Scripts>
+    </Frame>
+</Ui>

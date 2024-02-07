@@ -37,6 +37,12 @@ templates\PetHealth\OracleHUD_PB_PetHealthTemplate.xml
 templates\PetExperience\OracleHUD_PB_PetExperienceTemplate.xml
 
 
+# Tabs
+templates\Tabs\TabButton\OracleHUD_PB_TabButtonTemplate.xml
+templates\Tabs\TabPanel\OracleHUD_PB_TabPanelTemplate.xml
+templates\Tabs\OracleHUD_PB_TabsTemplate.xml
+
+
 # Panels
 templates\Panels\OracleHUD_PB_PanelMixin.lua
 templates\Panels\PanelUncollected\OracleHUD_PB_PanelUncollectedTemplate.xml

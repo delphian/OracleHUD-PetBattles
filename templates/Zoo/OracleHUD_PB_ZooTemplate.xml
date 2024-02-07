@@ -4,7 +4,7 @@
 		<Size x="500" y="500" />
 	    <Layers>
 			<Layer level="BACKGROUND">
-				<Texture parentKey="image" file="Interface\AddOns\OracleHUD_PB\images\frame-background\zoo-island-02.png">
+				<Texture parentKey="Image" file="Interface\AddOns\OracleHUD-PetBattles\images\frame-background\zoo-island-02.png">
 					<Anchors>
 						<Anchor point="TOPLEFT" relativeKey="$parent" relativePoint="TOPLEFT" x="0" y="0" />
 						<Anchor point="BOTTOMRIGHT" relativeKey="$parent" relativePoint="BOTTOMRIGHT" x="0" y="0" />

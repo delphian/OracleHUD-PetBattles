@@ -1,6 +1,14 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/ C:ProjectsWoWBinInterfaceFrameXMLUI.xsd">
 	<Script file="OracleHUD_PB_OptionsOracleHUDMainTemplate.lua" />
-    <Frame name="OracleHUD_PB_OptionsOracleHUDMainTemplate" virtual="true" movable="true" toplevel="true">
+    <Frame name="OracleHUD_PB_OptionsOracleHUDMainTemplate" virtual="true" movable="true" toplevel="true" inherits="OracleHUD_PB_TabsTemplate">
+		<Frames>
+		    <Frame name="$parentTabs" parentKey="Tabs" inherits="OracleHUD_PB_TabsTemplate">
+				<Anchors>
+					<Anchor point="TOPLEFT" relativeKey="$parent" relativePoint="TOPLEFT" x="0" y="0" />
+					<Anchor point="BOTTOMRIGHT" relativeKey="$parent" relativePoint="BOTTOMRIGHT" x="0" y="0" />
+				</Anchors>
+			</Frame>
+		</Frames>
 		<Scripts>
 			<OnLoad function="OracleHUD_PB_OptionsOracleHUDMainTemplate_OnLoad" inherit="prepend"/>
 		</Scripts>
