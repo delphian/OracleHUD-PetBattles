@@ -9,17 +9,15 @@ function OracleHUD_PB_OptionsOracleHUDMainTemplate_OnLoad(self)
     -- @param combatLogSvc      Oracle HUD Combat Log Service.
     -- @param uncollectedPanel  Oracle HUD Uncollected Panel.
     -- @param zooPanel          Oracle HUD Zoo Panel.
-	function self:Configure(db, networkSvc, combatLogSvc, uncollectedPanel, 
-                            zooPanel)
-        if (db == nil or networkSvc == nil or combatLogSvc == nil or 
-            uncollectedPanel == nil or zooPanel == nil) 
+	function self:Configure(db, networkSvc, combatLogSvc, uncollected, zooPanel)
+        if (db == nil or networkSvc == nil or combatLogSvc == nil or uncollected == nil or zooPanel == nil)
         then
             error("OracleHUD_PB_OptionsOracleHUDMainTemplate:Configure(): Invalid arguments.")
 		end
         self.db = db
         self.networkSvc = networkSvc
         self.combatLogSvc = combatLogSvc
-        self.uncollectedPanel = uncollectedPanel
+        self.uncollected = uncollected
         self.zooPanel = zooPanel
         self.Tabs:Configure(db)
     end
@@ -30,7 +28,7 @@ function OracleHUD_PB_OptionsOracleHUDMainTemplate_OnLoad(self)
     function self:BuildLoadouts(db, tab)
         -- Show Ally Loadout
         self.LoadoutShowAlly = CreateFrame("CheckButton", nil, tab.panel, "InterfaceOptionsCheckButtonTemplate")
-        self.LoadoutShowAlly:SetPoint("TOPLEFT", tab.panel, "TOPLEFT", 4, -12)
+        self.LoadoutShowAlly:SetPoint("TOPLEFT", tab.panel, "TOPLEFT", 4, -14)
         self.LoadoutShowAlly.Text:SetText("Show My Loadout")
         self.LoadoutShowAlly:HookScript("OnClick", function(_, btn, down)
             db.modules.loadout.options.show = self.LoadoutShowAlly:GetChecked()
@@ -41,9 +39,22 @@ function OracleHUD_PB_OptionsOracleHUDMainTemplate_OnLoad(self)
             end
         end)
         self.LoadoutShowAlly:SetChecked(self.db.modules.loadout.options.show)
+        -- Show Ally Loadout as Horizontal
+        self.LoadoutAllyHorizontal = CreateFrame("CheckButton", nil, tab.panel, "InterfaceOptionsCheckButtonTemplate")
+        self.LoadoutAllyHorizontal:SetPoint("TOPLEFT", self.LoadoutShowAlly, "TOPLEFT", 18, -26)
+        self.LoadoutAllyHorizontal.Text:SetText("Horizontal")
+        self.LoadoutAllyHorizontal:HookScript("OnClick", function(_, btn, down)
+            db.modules.loadout.options.allyHorizontal = self.LoadoutAllyHorizontal:GetChecked()
+            if (db.modules.loadout.options.allyHorizontal) then
+                OracleHUD_PB_PanelLoadoutAlly:Horizontal()
+            else
+                OracleHUD_PB_PanelLoadoutAlly:Vertical()
+            end
+        end)
+        self.LoadoutAllyHorizontal:SetChecked(db.modules.loadout.options.allyHorizontal)
         -- Show Enemy Loadout
         self.LoadoutShowEnemy = CreateFrame("CheckButton", nil, tab.panel, "InterfaceOptionsCheckButtonTemplate")
-        self.LoadoutShowEnemy:SetPoint("TOPLEFT", self.LoadoutShowAlly, "TOPLEFT", 0, -22)
+        self.LoadoutShowEnemy:SetPoint("TOPLEFT", self.LoadoutAllyHorizontal, "TOPLEFT", -18, -26)
         self.LoadoutShowEnemy.Text:SetText("Show Enemy Loadout")
         self.LoadoutShowEnemy:HookScript("OnClick", function(_, btn, down)
             db.modules.loadout.options.showOpponents = self.LoadoutShowEnemy:GetChecked()
@@ -54,6 +65,19 @@ function OracleHUD_PB_OptionsOracleHUDMainTemplate_OnLoad(self)
             end
         end)
         self.LoadoutShowEnemy:SetChecked(self.db.modules.loadout.options.showOpponents)
+        -- Show Ally Loadout as Horizontal
+        self.LoadoutEnemyHorizontal = CreateFrame("CheckButton", nil, tab.panel, "InterfaceOptionsCheckButtonTemplate")
+        self.LoadoutEnemyHorizontal:SetPoint("TOPLEFT", self.LoadoutShowEnemy, "TOPLEFT", 18, -26)
+        self.LoadoutEnemyHorizontal.Text:SetText("Horizontal")
+        self.LoadoutEnemyHorizontal:HookScript("OnClick", function(_, btn, down)
+            db.modules.loadout.options.enemyHorizontal = self.LoadoutEnemyHorizontal:GetChecked()
+            if (db.modules.loadout.options.enemyHorizontal) then
+                OracleHUD_PB_PanelLoadoutEnemy:Horizontal()
+            else
+                OracleHUD_PB_PanelLoadoutEnemy:Vertical()
+            end
+        end)
+        self.LoadoutEnemyHorizontal:SetChecked(db.modules.loadout.options.enemyHorizontal)
     end
     ---------------------------------------------------------------------------
     --- Build xml on quips page.
@@ -62,7 +86,7 @@ function OracleHUD_PB_OptionsOracleHUDMainTemplate_OnLoad(self)
     function self:BuildQuips(db, tab)
         -- Allow quip after battle.
         self.QuipAfterBattle = CreateFrame("CheckButton", nil, tab.panel, "InterfaceOptionsCheckButtonTemplate")
-        self.QuipAfterBattle:SetPoint("TOPLEFT", tab.panel, "TOPLEFT", 4, -12)
+        self.QuipAfterBattle:SetPoint("TOPLEFT", tab.panel, "TOPLEFT", 4, -14)
         self.QuipAfterBattle.Text:SetText("Allow quip after battle.")
         self.QuipAfterBattle:HookScript("OnClick", function(_, btn, down)
             self.db.modules.loadout.options.afterBattleQuip = self.QuipAfterBattle:GetChecked()
@@ -76,7 +100,7 @@ function OracleHUD_PB_OptionsOracleHUDMainTemplate_OnLoad(self)
     function self:BuildZoo(db, tab)
         -- Show Zoo
         self.ZooShow = CreateFrame("CheckButton", nil, tab.panel, "InterfaceOptionsCheckButtonTemplate")
-        self.ZooShow:SetPoint("TOPLEFT", tab.panel, "TOPLEFT", 4, -12)
+        self.ZooShow:SetPoint("TOPLEFT", tab.panel, "TOPLEFT", 4, -14)
         self.ZooShow.Text:SetText("Show Zoo")
         self.ZooShow:HookScript("OnClick", function(_, btn, down)
             self:SetZooShow(self.ZooShow:GetChecked())
@@ -90,7 +114,7 @@ function OracleHUD_PB_OptionsOracleHUDMainTemplate_OnLoad(self)
     function self:BuildCommunity(db, tab)
         -- Show Community
         self.CommunityShow = CreateFrame("CheckButton", nil, tab.panel, "InterfaceOptionsCheckButtonTemplate")
-        self.CommunityShow:SetPoint("TOPLEFT", tab.panel, "TOPLEFT", 4, -12)
+        self.CommunityShow:SetPoint("TOPLEFT", tab.panel, "TOPLEFT", 4, -14)
         self.CommunityShow.Text:SetText("Show Community")
         self.CommunityShow:HookScript("OnClick", function(_, btn, down)
             self.db.options.community.show = self.CommunityShow:GetChecked()
@@ -109,14 +133,14 @@ function OracleHUD_PB_OptionsOracleHUDMainTemplate_OnLoad(self)
     function self:BuildUncollected(db, tab)
         -- Show Missing Pets
         self.ShowMissing = CreateFrame("CheckButton", nil, tab.panel, "InterfaceOptionsCheckButtonTemplate")
-        self.ShowMissing:SetPoint("TOPLEFT", tab.panel, "TOPLEFT", 4, -12)
+        self.ShowMissing:SetPoint("TOPLEFT", tab.panel, "TOPLEFT", 4, -14)
         self.ShowMissing.Text:SetText("Show Uncaptured Pets")
         self.ShowMissing:HookScript("OnClick", function(_, btn, down)
             db.options.uncaptured.show = self.ShowMissing:GetChecked()
             if (db.options.uncaptured.show) then
-                self.uncollectedPanel:ShowFull()
+                self.uncollected:ShowFull()
             else
-                self.uncollectedPanel:HideFull()
+                self.uncollected:HideFull()
             end
         end)
         self.ShowMissing:SetChecked(db.options.uncaptured.show)
@@ -128,7 +152,7 @@ function OracleHUD_PB_OptionsOracleHUDMainTemplate_OnLoad(self)
     function self:BuildDebug(db, tab)
         -- Debug
         self.Debug = CreateFrame("CheckButton", nil, tab.panel, "InterfaceOptionsCheckButtonTemplate")
-        self.Debug:SetPoint("TOPLEFT", tab.panel, "TOPLEFT", 4, -12)
+        self.Debug:SetPoint("TOPLEFT", tab.panel, "TOPLEFT", 4, -14)
         self.Debug.Text:SetText("Module Loading")
         self.Debug:HookScript("OnClick", function(_, btn, down)
             db.debug = self.Debug:GetChecked()
@@ -136,7 +160,7 @@ function OracleHUD_PB_OptionsOracleHUDMainTemplate_OnLoad(self)
         self.Debug:SetChecked(db.debug)
         -- Debug Show Combat Log
         self.ShowCombatLog = CreateFrame("CheckButton", nil, tab.panel, "InterfaceOptionsCheckButtonTemplate")
-        self.ShowCombatLog:SetPoint("TOPLEFT", self.Debug, "BOTTOMLEFT", 0, -22)
+        self.ShowCombatLog:SetPoint("TOPLEFT", self.Debug, "BOTTOMLEFT", 0, -26)
         self.ShowCombatLog.Text:SetText("Show Combat Log")
         self.ShowCombatLog:HookScript("OnClick", function(_, btn, down)
             db.modules.combatLogService.options.showLog = self.ShowCombatLog:GetChecked()
@@ -144,7 +168,7 @@ function OracleHUD_PB_OptionsOracleHUDMainTemplate_OnLoad(self)
         self.ShowCombatLog:SetChecked(db.modules.combatLogService.options.showLog)
         -- Debug combat log
         self.DebugCombatLogEvents = CreateFrame("CheckButton", nil, tab.panel, "InterfaceOptionsCheckButtonTemplate")
-        self.DebugCombatLogEvents:SetPoint("TOPLEFT", self.ShowCombatLog, "BOTTOMLEFT", 0, -22)
+        self.DebugCombatLogEvents:SetPoint("TOPLEFT", self.ShowCombatLog, "BOTTOMLEFT", 0, -26)
         self.DebugCombatLogEvents.Text:SetText("Show Combat Log Events")
         self.DebugCombatLogEvents:HookScript("OnClick", function(_, btn, down)
             db.modules.combatLogService.options.debugEvents = self.DebugCombatLogEvents:GetChecked()

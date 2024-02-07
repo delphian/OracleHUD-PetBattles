@@ -7,6 +7,9 @@ function OracleHUD_PB_PanelLoadoutTemplate_OnLoad(self)
 	self.HideFull = OracleHUD_FrameHideFull
     self.ShowFull = OracleHUD_FrameShowFull
     self.slotIndex = 1
+    self.state = {
+        horizontal = false
+    }
     ---------------------------------------------------------------------------
     --- Configure frame with required data.
     -- @param db			Oracle HUD Pet Battle database.
@@ -61,6 +64,36 @@ function OracleHUD_PB_PanelLoadoutTemplate_OnLoad(self)
         self:OnSizeChanged_PanelLoadoutTemplate()
     end
     ---------------------------------------------------------------------------
+    --- Arrange the loadout horizontally.
+    function self:Horizontal()
+        for i = 1, (self:GetSlotIndex() - 1) do
+            self["Slot"..i]:ClearAllPoints()
+            if (i == 1) then
+                self["Slot"..i]:SetPoint("TOPLEFT", self, "TOPLEFT", 0, 0)
+            else
+                self["Slot"..i]:SetPoint("TOPLEFT", self["Slot"..(i - 1)], "TOPRIGHT", 0, 0)
+            end
+        end
+        self.state.horizontal = true
+    end
+    ---------------------------------------------------------------------------
+    --- Arrange the loadout horizontally.
+    function self:Vertical()
+        for i = 1, (self:GetSlotIndex() - 1) do
+            self["Slot"..i]:ClearAllPoints()
+            if (i == 1) then
+                self["Slot"..i]:SetPoint("TOP", self, "TOP", 0, 0)
+                self["Slot"..i]:SetPoint("LEFT", self, "LEFT", 0, 0)
+                self["Slot"..i]:SetPoint("RIGHT", self, "RIGHT", 0, 0)
+            else
+                self["Slot"..i]:SetPoint("TOP", self["Slot"..(i - 1)], "BOTTOM", 0, 0)
+                self["Slot"..i]:SetPoint("LEFT", self, "LEFT", 0, 0)
+                self["Slot"..i]:SetPoint("RIGHT", self, "RIGHT", 0, 0)
+            end
+        end
+        self.state.horizontal = false
+    end
+    ---------------------------------------------------------------------------
     --- Load a pet into a slot.
 	--- @param petInfo	OracleHUD_PB_PetInfo		OracleHUD_PB Uniform pet table.
     -- @param slot      Slot number to load pet into.
@@ -94,7 +127,11 @@ function OracleHUD_PB_PanelLoadoutTemplate_OnLoad(self)
     function self:OnSizeChanged_PanelLoadoutTemplate()
         if (self.slotIndex > 1) then
             for i = 1, (self.slotIndex - 1) do
-                OracleHUD_FrameSetSizePct(self["Slot"..i], 1.0, 0.3333)
+                if (self.state.horizontal) then
+                    OracleHUD_FrameSetSizePct(self["Slot"..i], 0.3333, 1.0)
+                else
+                    OracleHUD_FrameSetSizePct(self["Slot"..i], 1.0, 0.3333)
+                end
             end
         end
     end

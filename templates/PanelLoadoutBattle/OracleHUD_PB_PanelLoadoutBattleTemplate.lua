@@ -4,6 +4,10 @@ function OracleHUD_PB_PanelLoadoutBattleTemplate_OnLoad(self)
     self._class = "OracleHUD_PB_PanelLoadoutBattleTemplate"
 	self.HideFull = OracleHUD_FrameHideFull
     self.ShowFull = OracleHUD_FrameShowFull
+    self.state = {
+        originalWidth = self:GetWidth(),
+        originalHeight = self:GetHeight()
+    }
     -- Emulate inheritence even though we are composition.
     function self:AddSlot(panelLoadoutSlot) return self.Parent:AddSlot(panelLoadoutSlot) end
     function self:SetPetInfo(...) return self.Parent:SetPetInfo(...) end
@@ -11,6 +15,18 @@ function OracleHUD_PB_PanelLoadoutBattleTemplate_OnLoad(self)
     function self:Revive(...) return self.Parent:Revive(...) end
     function self:GetSlotIndex(...) return self.Parent:GetSlotIndex(...) end
     function self:GetSummonedSlot(...) return self.Parent:GetSummonedSlot(...) end
+    function self:Horizontal(...)
+        self:SetWidth(self.state.originalWidth * (self:GetSlotIndex() - 1))
+        self:SetHeight(self.state.originalHeight / (self:GetSlotIndex() - 1))
+        local result = self.Parent:Horizontal(...)
+        return result
+    end
+    function self:Vertical(...)
+        self:SetWidth(self.state.originalWidth)
+        self:SetHeight(self.state.originalHeight)
+        local result = self.Parent:Vertical(...)
+        return result
+    end
     ---------------------------------------------------------------------------
     --- Configure frame with required data.
     -- @param db			Oracle HUD Pet Battle database.
@@ -54,7 +70,14 @@ function OracleHUD_PB_PanelLoadoutBattleTemplate_OnLoad(self)
         end
         if (owner == Enum.BattlePetOwner.Ally) then
             self:Configure_Location()
-        end
+            if (db.modules.loadout.options.allyHorizontal == true) then
+                self:Horizontal()
+            end
+        else
+            if (db.modules.loadout.options.enemyHorizontal == true) then
+                self:Horizontal()
+            end
+       end
         return self.Parent:Configure(db, c_petjournal)
     end
     function self:Configure_Location()
@@ -103,9 +126,13 @@ function OracleHUD_PB_PanelLoadoutBattleTemplate_OnLoad(self)
                 options = {
                     afterBattleQuip = true,
                     showOpponents = true,
-                    show = true
+                    show = true,
+                    allyHorizontal = false
                 }
             }
+        end
+        if (db.modules.loadout.options.allyHorizontal == nil) then
+            db.modules.loadout.options.allyHorizontal = false
         end
     end
 	---------------------------------------------------------------------------
@@ -141,10 +168,10 @@ function OracleHUD_PB_PanelLoadoutBattleTemplate_OnLoad(self)
 				self:HideFull()
 			end
 		end
+        self:ListenCombatLog()
         if (callback) then
             callback()
         end
-        self:ListenCombatLog()
     end
     ---------------------------------------------------------------------------
     --- Match frame state to actual game state.
