@@ -1,4 +1,4 @@
---- @class  OracleHUD_PB_Frame
+--- @class  OracleHUD_PB_Frame : Frame
 --- @field	IsShown     function    Inherited from mixin XML frame.
 --- @field	Show        function    Inherited from mixin XML frame.
 --- @field	Hide        function    Inherited from mixin XML frame.

@@ -417,9 +417,38 @@ end
 --- Report which journal order slot has it's pet on the battlefield.
 --- @param  owner    Enum.BattlePetOwner
 --- @return number|nil
-function OracleHUD_PB_CombatLogServiceMixin:GetActiveJSlot(owner)
+function OracleHUD_PB_CombatLogServiceMixin:GetJSlotActive(owner)
     local petIndex = C_PetBattles.GetActivePet(owner)
     return self.petInfoSvc:GetJournalOrderSlot(petIndex, self.db, owner, self:GetBattleOrder())
+end
+---------------------------------------------------------------------------
+--- Report which battle order slot should be the next active on the battlefield.
+--- @param  owner    Enum.BattlePetOwner    (Optional, defaults to Ally)
+--- @return number
+function OracleHUD_PB_CombatLogServiceMixin:GetBSlotActiveNext(owner)
+    if (owner == nil) then owner = Enum.BattlePetOwner.Ally end
+    local nextBSlot = 1
+    local hp1 = C_PetBattles.GetHealth(owner, 1)
+    local hp2 = C_PetBattles.GetHealth(owner, 2)
+    local hp3 = C_PetBattles.GetHealth(owner, 3)
+    if (math.max(hp1, hp2, hp3) == hp1) then
+        nextBSlot = 1
+    end
+    if (math.max(hp1, hp2, hp3) == hp2) then
+        nextBSlot = 2
+    end
+    if (math.max(hp1, hp2, hp3) == hp3) then
+        nextBSlot = 3
+    end
+    return nextBSlot
+end
+---------------------------------------------------------------------------
+--- Report which journal order slot should be the next active on the battlefield.
+--- @param  owner    Enum.BattlePetOwner
+--- @return number|nil
+function OracleHUD_PB_CombatLogServiceMixin:GetJSlotActiveNext(owner)
+    local nextBSlot = self:GetBSlotActiveNext(owner)
+    return self.petInfoSvc:GetJournalOrderSlot(nextBSlot, self.db, owner, self:GetBattleOrder())
 end
 ---------------------------------------------------------------------------
 --- Set callback to be invoked when an addon message is received.

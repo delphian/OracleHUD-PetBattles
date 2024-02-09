@@ -10,6 +10,14 @@
                     <Anchor point="TOPLEFT" relativeKey="$parent" relativePoint="TOPLEFT" x="0" y="0" />
                 </Anchors>
             </Frame>
+            <Button name="$parentSwap" parentKey="Switch">
+                <Anchors>
+                    <Anchor point="TOPLEFT" relativeKey="$parent.Abilities" relativePoint="TOPRIGHT" x="2" y="0" />
+                </Anchors>
+                <NormalTexture file="Interface\Icons\INV_Pet_SwapPet" />
+                <PushedTexture file="Interface\Icons\INV_Pet_SwapPet" />
+                <HighlightTexture file="Interface\Icons\INV_Pet_SwapPet" alphaMode="ADD" />
+            </Button>
             <Button name="$parentRevive" parentKey="Revive" inherits="OracleHUD_PB_ButtonPetReviveTemplate">
                 <Anchors>
                     <Anchor point="TOPLEFT" relativeKey="$parent" relativePoint="TOPLEFT" x="0" y="0" />

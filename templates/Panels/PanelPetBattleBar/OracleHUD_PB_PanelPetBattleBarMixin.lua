@@ -5,6 +5,7 @@
 --- @field	Skip		    any     	                                Inherited from mixin XML frame.
 --- @field	Forfeit		    any     	                                Inherited from mixin XML frame.
 --- @field	Trap		    any     	                                Inherited from mixin XML frame.
+--- @field	Switch		    any     	                                Inherited from mixin XML frame.
 --- @field	Abilities	    OracleHUD_PB_PanelPetBattleAbilities     	Inherited from mixin XML frame.
 OracleHUD_PB_PanelPetBattleBarMixin = CreateFromMixins(OracleHUD_PB_PanelMixin)
 OracleHUD_PB_PanelPetBattleBarMixin._class = "OracleHUD_PB_PanelPetBattleBarMixin"
@@ -41,6 +42,8 @@ function OracleHUD_PB_PanelPetBattleBarMixin:Initialize(callback)
     self.Abilities:Initialize()
     if (self.combatLogSvc:IsInBattle()) then
         self:OnPetBattleOpen()
+    else
+        self:OnPetBattleClose()
     end
     self:ListenCombatLog()
     C_Timer.After(1.0, function()
@@ -57,7 +60,7 @@ end
 -------------------------------------------------------------------------------
 --- Set the pet battle bar ability buttons to the currently active pet.
 function OracleHUD_PB_PanelPetBattleBarMixin:SetAbilities()
-    local jSlot = self.combatLogSvc:GetActiveJSlot(Enum.BattlePetOwner.Ally)
+    local jSlot = self.combatLogSvc:GetJSlotActive(Enum.BattlePetOwner.Ally)
     if (jSlot ~= nil) then
         self.Abilities:Configure(jSlot, Enum.BattlePetOwner.Ally, self.db, self.petInfoSvc, self.combatLogSvc)
         local petInfo = self.petInfoSvc:GetPetInfoBySlot(jSlot, self.db, Enum.BattlePetOwner.Ally)
@@ -72,18 +75,22 @@ end
 function OracleHUD_PB_PanelPetBattleBarMixin:OnPetBattleOpen()
     self:SetAbilities()
     self.Abilities:ShowFull()
+    self.Switch:Show()
     self:ShowFull()
     SetOverrideBinding(self.Abilities.Ability1.Ability, true, "Q", "CLICK " .. self.Abilities.Ability1.Ability:GetName() .. ":LeftButton")
     SetOverrideBinding(self.Abilities.Ability2.Ability, true, "E", "CLICK " .. self.Abilities.Ability2.Ability:GetName() .. ":LeftButton")
     SetOverrideBinding(self.Abilities.Ability3.Ability, true, "R", "CLICK " .. self.Abilities.Ability3.Ability:GetName() .. ":LeftButton")
+    SetOverrideBinding(self.Switch, true, "Z", "CLICK " .. self.Switch:GetName() .. ":LeftButton")
 end
 -------------------------------------------------------------------------------
 --- When battle is over then hide the buttons and clear the hotkey overrides.
 function OracleHUD_PB_PanelPetBattleBarMixin:OnPetBattleClose()
     self.Abilities:HideFull()
+    self.Switch:Hide()
     ClearOverrideBindings(self.Abilities.Ability1.Ability)
     ClearOverrideBindings(self.Abilities.Ability2.Ability)
     ClearOverrideBindings(self.Abilities.Ability3.Ability)
+    ClearOverrideBindings(self.Switch)
     C_Timer.After(1.0, function()
         if (self:ShouldShow() == true) then
             self:ShowFull()
@@ -141,6 +148,7 @@ end
 --- Dynamically resize all child elements when frame changes size.
 function OracleHUD_PB_PanelPetBattleBarMixin:OnSizeChanged()
     OracleHUD_FrameSetHeightSquarePct(self.Abilities, 3.0)
+    OracleHUD_FrameSetHeightSquarePct(self.Switch, 1.0)
     OracleHUD_FrameSetHeightSquarePct(self.Revive, 1.0)
     OracleHUD_FrameSetHeightSquarePct(self.Bandage, 1.0)
     OracleHUD_FrameSetHeightSquarePct(self.Forfeit, 1.0)
@@ -153,13 +161,19 @@ end
 function OracleHUD_PB_PanelPetBattleBarMixin:OnLoad()
     ---------------------------------------------------------------------------
     --- Catch frame being resized and forward to resize handler.
-    self:SetScript("OnSizeChanged", function()
+    self:HookScript("OnSizeChanged", function()
         self:OnSizeChanged()
     end)
     ---------------------------------------------------------------------------
     --- Catch events and forward to handler.
-    self:SetScript("OnEvent", function(event, eventName, ...)
+    self:HookScript("OnEvent", function(event, eventName, ...)
         self:OnEvent(event, eventName, ...)
+    end)
+    ---------------------------------------------------------------------------
+    --- Swap to the next pet.
+    self.Switch:HookScript("PostClick", function()
+        local nextBSlot = self.combatLogSvc:GetBSlotActiveNext(Enum.BattlePetOwner.Ally)
+        C_PetBattles.ChangePet(nextBSlot)
     end)
     ---------------------------------------------------------------------------
     --- Listen to ability panel and execute ability when button is clicked.

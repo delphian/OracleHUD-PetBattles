@@ -36,7 +36,7 @@ function OracleHUD_PB_PanelPetBattleAbilitiesMixin:Initialize(callback)
     self.Ability2:Initialize()
     self.Ability3:Initialize()
     if (self.combatLogSvc:IsInBattle()) then
-        local jSlot = self.combatLogSvc:GetActiveJSlot(self.owner)
+        local jSlot = self.combatLogSvc:GetJSlotActive(self.owner)
         self:SetPetActive(jSlot == self.slot)
     end
     self:ListenCombatLog()
