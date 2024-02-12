@@ -32,6 +32,7 @@ function OracleHUD_PB_EventManagerMixin:Initialize(callback)
 	self:ListenCombatLogSvc()
 	self:ListenNetworkSvc()
 	self:RegisterEvent("PET_BATTLE_CAPTURED")
+	self:RegisterEvent("NEW_PET_ADDED")
 	self:RegisterEvent("GROUP_JOINED")
 	if (callback ~= nil) then
 		callback()
@@ -109,6 +110,13 @@ function OracleHUD_PB_EventManagerMixin:SendPetCaptured(petInfo)
 	self.networkSvc:Send(message, false)
 end
 ---------------------------------------------------------------------------
+--- Pet added, via inventory etc.
+--- @param petInfo	OracleHUD_PB_PetInfo		OracleHUD_PB Uniform pet table.
+function OracleHUD_PB_EventManagerMixin:SendPetCaptured(petInfo)
+	local message = "petAdded" .. ":" .. petInfo.speciesId .. ":" .. petInfo.name
+	self.networkSvc:Send(message, false)
+end
+---------------------------------------------------------------------------
 --- Announce ourselves to the party.
 function OracleHUD_PB_EventManagerMixin:SendPartyHello(num, partyId)
 	self.networkSvc:SendParty("hello", false)
@@ -127,6 +135,11 @@ function OracleHUD_PB_EventManagerMixin:OnEvent(event, eventName, ...)
 	if (eventName == "GROUP_JOINED") then
 		local num, partyId = ...
 		self:SendPartyHello(num, partyId)
+	end
+	if (eventName == "NEW_PET_ADDED") then
+		local petId = ...
+		local petInfo = self.petInfoSvc:GetPetInfoById(petId, self.db, owner)
+		self:SendPetAdded(petInfo)		
 	end
 end
 ---------------------------------------------------------------------------
