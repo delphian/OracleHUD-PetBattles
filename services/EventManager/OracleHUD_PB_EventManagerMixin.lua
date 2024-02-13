@@ -112,7 +112,7 @@ end
 ---------------------------------------------------------------------------
 --- Pet added, via inventory etc.
 --- @param petInfo	OracleHUD_PB_PetInfo		OracleHUD_PB Uniform pet table.
-function OracleHUD_PB_EventManagerMixin:SendPetCaptured(petInfo)
+function OracleHUD_PB_EventManagerMixin:SendPetAdded(petInfo)
 	local message = "petAdded" .. ":" .. petInfo.speciesId .. ":" .. petInfo.name
 	self.networkSvc:Send(message, false)
 end
@@ -138,8 +138,8 @@ function OracleHUD_PB_EventManagerMixin:OnEvent(event, eventName, ...)
 	end
 	if (eventName == "NEW_PET_ADDED") then
 		local petId = ...
-		local petInfo = self.petInfoSvc:GetPetInfoById(petId, self.db, owner)
-		self:SendPetAdded(petInfo)		
+		local petInfo = self.petInfoSvc:GetPetInfoByPetId(petId)
+		self:SendPetAdded(petInfo)
 	end
 end
 ---------------------------------------------------------------------------
