@@ -139,6 +139,7 @@ function OracleHUD_PB_EventManagerMixin:OnEvent(event, eventName, ...)
 	if (eventName == "NEW_PET_ADDED") then
 		local petId = ...
 		local petInfo = self.petInfoSvc:GetPetInfoByPetId(petId)
+		if (petInfo == nil) then error(self._class..":OnEvent(): petInfo is nil.") end
 		self:SendPetAdded(petInfo)
 	end
 end

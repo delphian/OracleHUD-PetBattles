@@ -116,7 +116,7 @@ function OracleHUD_PB_SpellService_OnLoad(self)
     ---------------------------------------------------------------------------
     --- Catch events and forward to handler.
     self:SetScript("OnEvent", function(event, eventName, ...)
-        self:OnEvent(events, eventName, ...)
+        self:OnEvent(event, eventName, ...)
     end)
 	---	
 	--- Spell slash command

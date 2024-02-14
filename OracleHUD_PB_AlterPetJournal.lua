@@ -37,8 +37,10 @@ function OracleHUD_PB_AlterPetJournal(slot, db, zoo, petInfoSvc, options)
 		nil
 	)
 	-- Force AddInitializedFrameCallback to fire _now_.
-	PetJournal:Hide()
-	PetJournal:Show()
+	if (PetJournal:IsShown()) then
+		PetJournal:Hide()
+		PetJournal:Show()
+	end
 end
 -- Poll for the existence of the PetJournal, which does not exist until it's first opened.
 local myTimer = C_Timer.NewTicker(2, function(myTimer) 
@@ -47,7 +49,7 @@ local myTimer = C_Timer.NewTicker(2, function(myTimer)
 		OracleHUD_PB_AlterPetJournal(
 			1, 
 			OracleHUD_PB_DB, 
-			OracleHUD_PB.Zoo, 
+			OracleHUD_PB.zoo, 
 			OracleHUD_PB_PetInfoService,
 			OracleHUD_PB_InterfaceOptions)
 	end
