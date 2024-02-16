@@ -65,3 +65,39 @@ function OracleHUD_PB_PetInfo:SaveEmotes(db)
     local key = "s" .. self.speciesId
     db.content.petComments[key] = self.content.emotes
 end
+-------------------------------------------------------------------------------
+--- Get the database table where pet can store information.
+--- @param db   OracleHUD_PB_DB (Optional, defaults to self.db) OracleHUD Pet Battles Database.
+--- @return OracleHUD_PB_PetInfo_Table
+function OracleHUD_PB_PetInfo:GetDBTable(db)
+    if (db == nil) then db = self.db end
+    local key = "s" .. self.id
+    if (db.pets == nil) then db.pets = {} end
+    if (db.pets[key] == nil) then
+        db.pets[key] = {
+            stats = {
+                kills = 0
+            }
+        }
+    end
+    return db.pets[key]
+end
+-------------------------------------------------------------------------------
+--- Get number of others that this pet has killed.
+--- @param db   OracleHUD_PB_DB (Optional, defaults to self.db) OracleHUD Pet Battles Database.
+function OracleHUD_PB_PetInfo:GetKills(db)
+    if (db == nil) then db = self.db end
+    local kills = 0
+    local storage = self:GetDBTable(db)
+    kills = storage.stats.kills
+    return kills
+end
+-------------------------------------------------------------------------------
+--- Set number of others that this pet has killed.
+--- @param kills    number  Number of others that this pet has killed.
+--- @param db       OracleHUD_PB_DB (Optional, defaults to self.db) OracleHUD Pet Battles Database.
+function OracleHUD_PB_PetInfo:SetKills(kills, db)
+    if (db == nil) then db = self.db end
+    local storage = self:GetDBTable(db)
+    storage.stats.kills = kills
+end

@@ -535,6 +535,13 @@ function OracleHUD_PB_CombatLogServiceMixin:ParseTrap(message, owner)
     self:Send(self.ENUM.TRAP, targetName, targetId)
 end
 function OracleHUD_PB_CombatLogServiceMixin:ParseDie(message, owner)
+    if (owner == Enum.BattlePetOwner.Enemy) then
+        local petInfo = self.petInfoSvc:GetPetInfoByActive(self.db, Enum.BattlePetOwner.Ally)
+        if (petInfo ~= nil) then
+            petInfo:SetKills(petInfo:GetKills(self.db) + 1, self.db)
+print(petInfo.name, petInfo:GetKills(self.db))
+        end
+    end
 end
 function OracleHUD_PB_CombatLogServiceMixin:ParseApply(message, owner)
 end
