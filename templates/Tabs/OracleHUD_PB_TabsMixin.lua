@@ -22,6 +22,17 @@ end
 --- @param callback		function?	(Optional) Execute callback when initialize has finished.
 function OracleHUD_PB_TabsMixin:Initialize(callback)
 	if (self.db.debug) then print("..Initialize Tabs") end
+	-- Pull in any XML defined tabs.
+	local children = { self:GetChildren() };
+	for _, child in ipairs(children) do
+		local name = child:GetName()
+		if (name ~= self:GetName().."Menu" and name ~= self:GetName().."Body") then
+			if (self:TabExists(child:GetName()) == false) then
+				self:AddTab(child.name, child)
+			end
+		end
+	end
+	-- Now look for lua tabs.
 	for i = 1, #self.tabs do
 		self.tabs[i]:Initialize()
 	end
@@ -30,15 +41,29 @@ function OracleHUD_PB_TabsMixin:Initialize(callback)
 	end
 end
 -------------------------------------------------------------------------------
+--- Check if a tab already exists with this name.
+--- @param	name	string	Frame's unique global name.
+--- @return boolean
+function OracleHUD_PB_TabsMixin:TabExists(name)
+	local exists = false
+	for i = 1, #self.tabs do
+		if (self.tabs[i]:GetName() == name) then
+			exists = true
+			break
+		end
+	end
+	return exists
+end
+-------------------------------------------------------------------------------
 --- Create a new tab and call configure on it.
 --- @param	name	string		Name of tab.
 --- @param	panel	any?		(Optional) Already existing frame to use as the tab's panel.
---- @return	any	Frame	Frame of newly created tab.
+--- @return	any	Frame			Frame of newly created tab.
 function OracleHUD_PB_TabsMixin:AddTab(name, panel)
 	if (panel == nil) then
 		panel = CreateFrame("Frame", "$parent"..name.."Panel", self.Body, "OracleHUD_PB_TabPanelTemplate")
 	end
-	panel:SetParent(self)
+	panel:SetParent(self.Body)
 	panel:ClearAllPoints()
 	panel:SetPoint("TOPLEFT", self.Body, "TOPLEFT", 0, 0)
 	panel:SetPoint("BOTTOMRIGHT", self.Body, "BOTTOMRIGHT", 0, 0)
@@ -68,6 +93,19 @@ function OracleHUD_PB_TabsMixin:SetFocus(tab)
 			self.tabs[i]:FocusLost()
 		end
 	end
+end
+-------------------------------------------------------------------------------
+--- Get a tab frame by it's name.
+--- @param	name	string		Text displayed on tab.
+function OracleHUD_PB_TabsMixin:GetTabByName(name)
+	local tab = nil
+	for i = 1, #self.tabs do
+		if (self.tabs[i].name == name) then
+			tab = self.tabs[i]
+			break
+		end
+	end
+	return tab
 end
 -------------------------------------------------------------------------------
 --- Dynamically resize all child elements when frame changes size.

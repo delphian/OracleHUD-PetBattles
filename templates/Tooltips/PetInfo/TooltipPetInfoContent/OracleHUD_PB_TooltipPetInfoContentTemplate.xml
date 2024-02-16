@@ -17,39 +17,79 @@
 			</Frame>
 			<Frame name="$parentRight" parentKey="Right">
 				<Anchors>
-					<Anchor point="TOPLEFT" relativeKey="$parent.Left" relativePoint="TOPRIGHT" x="12" y="0" />
+					<Anchor point="TOPLEFT" relativeKey="$parent.Left" relativePoint="TOPRIGHT" x="14" y="-16" />
 					<Anchor point="BOTTOMRIGHT" relativeKey="$parent" relativePoint="BOTTOMRIGHT" />
 				</Anchors>
 				<Frames>
-					<Button name="$parentMenuButton" parentKey="MenuButton" inherits="OracleHUD_PB_ButtonDropdownTemplate">
-						<Size x="32" y="32" />
+					<Frame name="$parentTabs" parentKey="Tabs" inherits="OracleHUD_PB_TabsTemplate">
 						<Anchors>
-							<Anchor point="TOPRIGHT" relativeKey="$parent.Right" relativePoint="TOPRIGHT" x="32" y="0" />
+							<Anchor point="TOPLEFT" relativeKey="$parent" relativePoint="TOPLEFT" x="0" y="0" />
+							<Anchor point="BOTTOMRIGHT" relativeKey="$parent" relativePoint="BOTTOMRIGHT" x="0" y="0" />
 						</Anchors>
-					</Button>
-					<Frame name="$parentEditBox" parentKey="EditBox" inherits="OracleHUD_PB_EditBoxTemplate">
-						<Anchors>
-							<Anchor point="LEFT" relativeKey="$parent.Right" relativePoint="LEFT" x="0" y="0" />
-							<Anchor point="TOP" relativeKey="$parent.MenuButton" relativePoint="BOTTOM" x="0" y="-2" />
-							<Anchor point="BOTTOMRIGHT" relativeKey="$parent.Right" relativePoint="BOTTOMRIGHT" x="-30" y="0" />
-						</Anchors>
+						<Frames>
+							<Frame name="$parentStats" parentKey="Stats" inherits="OracleHUD_PB_TabPanelTemplate">
+								<KeyValues>
+									<KeyValue key="name" value="Stats" keyType="string" type="string" />
+								</KeyValues>
+								<Layers>
+									<Layer level="OVERLAY">
+										<FontString parentKey="OtherPetsKilledDesc" inherits="GameFontNormal" text="Other pets killed: " font="Fonts\FRIZQT__.TTF">
+											<Size y="32" />
+											<Anchors>
+												<Anchor point="TOPLEFT" relativeKey="$parent" relativePoint="TOPLEFT" x="0" y="-8" />
+											</Anchors>
+											<Color r="1.0" g="1.0" b="1.0" a="1.0" />
+											<FontHeight val="16" />
+										</FontString>
+										<FontString parentKey="OtherPetsKilled" inherits="GameFontNormal" text="Other pets killed: " font="Fonts\FRIZQT__.TTF">
+											<Size y="32" />
+											<Anchors>
+												<Anchor point="TOPLEFT" relativeKey="$parent.OtherPetsKilledDesc" relativePoint="TOPRIGHT" x="4" y="0" />
+											</Anchors>
+											<Color r="1.0" g="1.0" b="1.0" a="1.0" />
+											<FontHeight val="16" />
+										</FontString>
+									</Layer>
+								</Layers>
+							</Frame>						
+							<Frame name="$parentQuip" parentKey="Quips" inherits="OracleHUD_PB_TabPanelTemplate">
+								<KeyValues>
+									<KeyValue key="name" value="Quip" keyType="string" type="string" />
+								</KeyValues>
+								<Frames>
+									<Button name="$parentMenuButton" parentKey="MenuButton" inherits="OracleHUD_PB_ButtonDropdownTemplate">
+										<Size x="32" y="32" />
+										<Anchors>
+											<Anchor point="TOPRIGHT" relativeKey="$parent.Right" relativePoint="TOPRIGHT" x="32" y="0" />
+										</Anchors>
+									</Button>
+									<Frame name="$parentEditBox" parentKey="EditBox" inherits="OracleHUD_PB_EditBoxTemplate">
+										<Anchors>
+											<Anchor point="LEFT" relativeKey="$parent.Right" relativePoint="LEFT" x="0" y="0" />
+											<Anchor point="TOP" relativeKey="$parent.MenuButton" relativePoint="BOTTOM" x="0" y="-2" />
+											<Anchor point="BOTTOMRIGHT" relativeKey="$parent.Right" relativePoint="BOTTOMRIGHT" x="-30" y="0" />
+										</Anchors>
+									</Frame>
+								</Frames>
+								<Layers>
+									<Layer level="OVERLAY">
+										<FontString parentKey="MenuText" inherits="GameFontNormal" justifyH="CENTER" font="Fonts\FRIZQT__.TTF" outline="THICK">
+											<Size y="32" />
+											<Anchors>
+												<Anchor point="TOPRIGHT" relativeKey="$parent.MenuButton" relativePoint="TOPLEFT" x="-6" y="0" />
+											</Anchors>
+											<Color r="1.0" g="1.0" b="1.0" a="1.0" />
+											<Shadow x="1" y="-1">
+												<Color r="0.0" g="0.0" b="0.0" a="1.0" />
+											</Shadow>
+											<FontHeight val="20" />
+										</FontString>
+									</Layer>
+								</Layers>
+							</Frame>						
+						</Frames>
 					</Frame>
 				</Frames>
-				<Layers>
-					<Layer level="OVERLAY">
-						<FontString parentKey="MenuText" inherits="GameFontNormal" justifyH="CENTER" font="Fonts\FRIZQT__.TTF" outline="THICK">
-							<Size y="32" />
-							<Anchors>
-								<Anchor point="TOPRIGHT" relativeKey="$parent.MenuButton" relativePoint="TOPLEFT" x="-6" y="0" />
-							</Anchors>
-							<Color r="1.0" g="1.0" b="1.0" a="1.0" />
-							<Shadow x="1" y="-1">
-								<Color r="0.0" g="0.0" b="0.0" a="1.0" />
-							</Shadow>
-							<FontHeight val="20" />
-						</FontString>
-					</Layer>
-				</Layers>
 			</Frame>
 		</Frames>
 		<Scripts>

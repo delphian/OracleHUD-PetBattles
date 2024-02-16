@@ -14,8 +14,9 @@ function OracleHUD_PB_TooltipPetInfoContentMixin:Configure(db)
 	end
 	self.db = db
 	self.Left:Configure(db)
-	self.Right.EditBox:Configure(db)
-	self.Right.MenuButton:Configure(db)
+	self.Right.Tabs:Configure(db)
+	self.Right.Tabs.Quips.EditBox:Configure(db)
+	self.Right.Tabs.Quips.MenuButton:Configure(db)
 	-- Hijack a whole bunch of stuff to simulate an integrated tooltip.
 	self.Left.NineSlice:Hide()
 	self.Left:SetScript("OnMouseDown", function()
@@ -29,10 +30,10 @@ function OracleHUD_PB_TooltipPetInfoContentMixin:Configure(db)
 	self.Left.PetType:SetPoint("TOPRIGHT", self.Left, "TOPRIGHT", 0, -12)
 	self.Left:SetBackdropColor(0, 0, 0, 0.95)
 	-- Change layout of the edit box.
-	self.Right.EditBox.Cancel:Hide()
-	self.Right.EditBox.Submit:SetText("Update")
-	self.Right.EditBox.Submit:ClearAllPoints()
-	self.Right.EditBox.Submit:SetPoint("BOTTOMRIGHT", self.Right.EditBox, "BOTTOMRIGHT", 0, 10)
+	self.Right.Tabs.Quips.EditBox.Cancel:Hide()
+	self.Right.Tabs.Quips.EditBox.Submit:SetText("Update")
+	self.Right.Tabs.Quips.EditBox.Submit:ClearAllPoints()
+	self.Right.Tabs.Quips.EditBox.Submit:SetPoint("BOTTOMRIGHT", self.Right.Tabs.Quips.EditBox, "BOTTOMRIGHT", 0, 10)
 	--
 	self:SetBackdropColor(0, 0, 0, 0.95)
 	self.emoteEnum = ORACLEHUD_PB_CONTENTEMOTE_ENUM.SPEAK
@@ -42,7 +43,7 @@ end
 --- @param callback		function?	(Optional) Execute callback when initialize has finished.
 function OracleHUD_PB_TooltipPetInfoContentMixin:Initialize(callback)
 	if (self.db.debug) then print("..Initialize Pet Info Content Tooltip") end
-	self.Right.EditBox:SetSubmitCallback(function(editbox, content)
+	self.Right.Tabs.Quips.EditBox:SetSubmitCallback(function(editbox, content)
 		local emotesTable = json.parse(content)
 		if (emotesTable ~= nil) then
 			self.petInfo:SetEmotes(self.emoteEnum, emotesTable)
@@ -52,49 +53,51 @@ function OracleHUD_PB_TooltipPetInfoContentMixin:Initialize(callback)
 	end)
 	local TEXT = ORACLEHUD_PB_CONTENTEMOTE_TEXT
 	local ENUM = ORACLEHUD_PB_CONTENTEMOTE_ENUM
-	self.Right.EditBox:SetCancelCallback(function(editbox, content)
+	self.Right.Tabs.Quips.EditBox:SetCancelCallback(function(editbox, content)
 		print("CANCEL")
 	end)
-	self.Right.MenuButton:SetMenuItem(TEXT[ENUM.SPEAK], function(frame, button)
-		self.Right.MenuText:SetText(TEXT[ENUM.SPEAK])
+	self.Right.Tabs.Quips.MenuButton:SetMenuItem(TEXT[ENUM.SPEAK], function(frame, button)
+		self.Right.Tabs.Quips.MenuText:SetText(TEXT[ENUM.SPEAK])
 		self.emoteEnum = ENUM.SPEAK
 		self:PrintPetInfo()
 	end)
-	self.Right.MenuButton:SetMenuItem(TEXT[ENUM.SPEAK_WIN], function(frame, button)
-		self.Right.MenuText:SetText(TEXT[ENUM.SPEAK_WIN])
+	self.Right.Tabs.Quips.MenuButton:SetMenuItem(TEXT[ENUM.SPEAK_WIN], function(frame, button)
+		self.Right.Tabs.Quips.MenuText:SetText(TEXT[ENUM.SPEAK_WIN])
 		self.emoteEnum = ENUM.SPEAK_WIN
 		self:PrintPetInfo()
 	end)
-	self.Right.MenuButton:SetMenuItem(TEXT[ENUM.SPEAK_LOSS], function(frame, button)
-		self.Right.MenuText:SetText(TEXT[ENUM.SPEAK_LOSS])
+	self.Right.Tabs.Quips.MenuButton:SetMenuItem(TEXT[ENUM.SPEAK_LOSS], function(frame, button)
+		self.Right.Tabs.Quips.MenuText:SetText(TEXT[ENUM.SPEAK_LOSS])
 		self.emoteEnum = ENUM.SPEAK_LOSS
 		self:PrintPetInfo()
 	end)
-	self.Right.MenuButton:SetMenuItem(TEXT[ENUM.EMOTE], function(frame, button)
-		self.Right.MenuText:SetText(TEXT[ENUM.EMOTE])
+	self.Right.Tabs.Quips.MenuButton:SetMenuItem(TEXT[ENUM.EMOTE], function(frame, button)
+		self.Right.Tabs.Quips.MenuText:SetText(TEXT[ENUM.EMOTE])
 		self.emoteEnum = ENUM.EMOTE
 		self:PrintPetInfo()
 	end)
-	self.Right.MenuButton:SetMenuItem(TEXT[ENUM.EMOTE_SUMMON], function(frame, button)
-		self.Right.MenuText:SetText(TEXT[ENUM.EMOTE_SUMMON])
+	self.Right.Tabs.Quips.MenuButton:SetMenuItem(TEXT[ENUM.EMOTE_SUMMON], function(frame, button)
+		self.Right.Tabs.Quips.MenuText:SetText(TEXT[ENUM.EMOTE_SUMMON])
 		self.emoteEnum = ENUM.EMOTE_SUMMON
 		self:PrintPetInfo()
 	end)
-	function InitMenuButton() 	self.Right.MenuButton:Initialize(InitEmbedTooltip) 		end
-	function InitEmbedTooltip() self.Left:Initialize(InitEditBox) 						end
-	function InitEditBox()		self.Right.EditBox:Initialize(InitFinished) 			end
+	function InitTabs()			self.Right.Tabs:Initialize(InitMenuButton)							end
+	function InitMenuButton() 	self.Right.Tabs.Quips.MenuButton:Initialize(InitEmbedTooltip) 		end
+	function InitEmbedTooltip() self.Left:Initialize(InitEditBox) 									end
+	function InitEditBox()		self.Right.Tabs.Quips.EditBox:Initialize(InitFinished) 				end
 	function InitFinished()
-		self.Right.MenuText:SetText(TEXT[ENUM.SPEAK])
-		self.Right.MenuButton:SetSize(32, 32)
-		self.Right.MenuButton:ClearAllPoints()
-		self.Right.MenuButton:SetPoint("TOPRIGHT", self.Right, "TOPRIGHT", -32, -18)
-		self.Right.MenuButton:Show()
-		self.Right.MenuButton:ShowFull()
+		self.Right.Tabs.Quips.MenuText:SetText(TEXT[ENUM.SPEAK])
+		self.Right.Tabs.Quips.MenuButton:SetSize(32, 32)
+		self.Right.Tabs.Quips.MenuButton:ClearAllPoints()
+		self.Right.Tabs.Quips.MenuButton:SetPoint("TOPRIGHT", self.Right, "TOPRIGHT", -32, -18)
+		self.Right.Tabs.Quips.MenuButton:Show()
+		self.Right.Tabs.Quips.MenuButton:ShowFull()
+		self.Right.Tabs:SetFocus(self.Right.Tabs:GetTabByName("Stats"))
 		if (callback ~= nil) then
 			callback()
 		end
 	end
-	InitMenuButton()
+	InitTabs()
 end
 -------------------------------------------------------------------------------
 --- Set pet information to be displayed.
@@ -118,10 +121,11 @@ function OracleHUD_PB_TooltipPetInfoContentMixin:PrintPetInfo()
 		text = text:gsub("\",", "\",\n    ")
 		text = strsub(text, 1, strlen(text))
 		text = "[\n    "..text.."\n]"
-		self.Right.EditBox.Scroll.Box:SetText(text)
+		self.Right.Tabs.Quips.EditBox.Scroll.Box:SetText(text)
 	else
-		self.Right.EditBox.Scroll.Box:SetText("[\n\n]")
+		self.Right.Tabs.Quips.EditBox.Scroll.Box:SetText("[\n\n]")
 	end
+	self.Right.Tabs.Stats.OtherPetsKilled:SetText(self.petInfo:GetKills(self.db))
 end
 ---------------------------------------------------------------------------
 --- Dynamically resize all child elements when frame changes size.
