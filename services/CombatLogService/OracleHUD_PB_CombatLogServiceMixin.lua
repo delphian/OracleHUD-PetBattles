@@ -534,14 +534,22 @@ function OracleHUD_PB_CombatLogServiceMixin:ParseTrap(message, owner)
     local targetId = string.match(message, "trapped enemy |T(%d+):%d+|t[%w%s%-'‘’`%d%.]+.")
     self:Send(self.ENUM.TRAP, targetName, targetId)
 end
+-------------------------------------------------------------------------------
+--- Update stats and send off combat log message to listeners.
 function OracleHUD_PB_CombatLogServiceMixin:ParseDie(message, owner)
     if (owner == Enum.BattlePetOwner.Enemy) then
         local petInfo = self.petInfoSvc:GetPetInfoByActive(self.db, Enum.BattlePetOwner.Ally)
         if (petInfo ~= nil) then
             petInfo:SetKills(petInfo:GetKills(self.db) + 1, self.db)
-print(petInfo.name, petInfo:GetKills(self.db))
+        end
+    else
+        local petInfo = self.petInfoSvc:GetPetInfoByActive(self.db, Enum.BattlePetOwner.Ally)
+print("ACTIVE PET", petInfo.name)        
+        if (petInfo ~= nil) then
+            petInfo:SetDeaths(petInfo:GetDeaths(self.db) + 1, self.db)
         end
     end
+    self:Send(self.ENUM.DIE, owner, petInfo)
 end
 function OracleHUD_PB_CombatLogServiceMixin:ParseApply(message, owner)
 end
