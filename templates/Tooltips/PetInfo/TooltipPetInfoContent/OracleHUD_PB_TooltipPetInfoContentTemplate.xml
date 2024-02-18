@@ -33,7 +33,7 @@
 								</KeyValues>
 								<Layers>
 									<Layer level="OVERLAY">
-										<FontString parentKey="OtherPetsKilledDesc" inherits="GameFontNormal" text="Other pets killed: " font="Fonts\FRIZQT__.TTF">
+										<FontString parentKey="OtherPetsKilledDesc" inherits="GameFontNormal" text="kills:" font="Fonts\FRIZQT__.TTF">
 											<Size y="32" />
 											<Anchors>
 												<Anchor point="TOPLEFT" relativeKey="$parent" relativePoint="TOPLEFT" x="0" y="-8" />
@@ -41,7 +41,7 @@
 											<Color r="1.0" g="1.0" b="1.0" a="1.0" />
 											<FontHeight val="16" />
 										</FontString>
-										<FontString parentKey="OtherPetsKilled" inherits="GameFontNormal" text="Other pets killed: " font="Fonts\FRIZQT__.TTF">
+										<FontString parentKey="OtherPetsKilled" inherits="GameFontNormal" text="0" font="Fonts\FRIZQT__.TTF">
 											<Size y="32" />
 											<Anchors>
 												<Anchor point="TOPLEFT" relativeKey="$parent.OtherPetsKilledDesc" relativePoint="TOPRIGHT" x="4" y="0" />
