@@ -125,7 +125,8 @@ function OracleHUD_PB_TooltipPetInfoContentMixin:PrintPetInfo()
 	else
 		self.Right.Tabs.Quips.EditBox.Scroll.Box:SetText("[\n\n]")
 	end
-	self.Right.Tabs.Stats.OtherPetsKilled:SetText(self.petInfo:GetKills(self.db))
+	self.Right.Tabs.Stats.Kills:SetText(self.petInfo:GetKills(self.db))
+	self.Right.Tabs.Stats.Deaths:SetText(self.petInfo:GetDeaths(self.db))
 end
 ---------------------------------------------------------------------------
 --- Dynamically resize all child elements when frame changes size.

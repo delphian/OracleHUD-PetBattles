@@ -106,7 +106,7 @@ function OracleHUD_PB_OptionsOracleHUDMainTemplate_OnLoad(self)
         self.LoadoutEnemyHorizontalIn:SetChecked(db.modules.loadout.options.enemyHorizontalIn)
         -- Hide traditional pet battle loadout
         self.LoadoutHideDefault = CreateFrame("CheckButton", nil, tab.panel, "InterfaceOptionsCheckButtonTemplate")
-        self.LoadoutHideDefault:SetPoint("TOPLEFT", self.LoadoutEnemyHorizontal, "TOPLEFT", -18, -26)
+        self.LoadoutHideDefault:SetPoint("TOPLEFT", self.LoadoutEnemyHorizontalIn, "TOPLEFT", -18, -26)
         self.LoadoutHideDefault.Text:SetText("Hide default pet battle interface")
         self.LoadoutHideDefault:HookScript("OnClick", function(_, btn, down)
             db.modules.loadout.options.hideDefault = self.LoadoutHideDefault:GetChecked()
