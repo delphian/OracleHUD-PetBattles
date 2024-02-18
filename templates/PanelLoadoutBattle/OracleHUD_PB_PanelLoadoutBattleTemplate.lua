@@ -49,7 +49,6 @@ function OracleHUD_PB_PanelLoadoutBattleTemplate_OnLoad(self)
             error(self._class..":Configure(): Invalid arguments.")
         end
         self.db = db
-        self:ConfigureDB(db)
         self.display = display
         self.owner = owner
         self.network = network
@@ -61,6 +60,7 @@ function OracleHUD_PB_PanelLoadoutBattleTemplate_OnLoad(self)
         self.options = options
         self.zoo = zoo
         self.tooltipPetInfo = tooltipPetInfo
+        self:ConfigureDB(db)
         for i = 1, 3 do
             local slot = CreateFrame("Frame", "$parentSlot"..self:GetSlotIndex(), 
                                self.Parent, "OracleHUD_PB_PanelLoadoutBattleSlotTemplate")
@@ -70,37 +70,17 @@ function OracleHUD_PB_PanelLoadoutBattleTemplate_OnLoad(self)
         end
         if (owner == Enum.BattlePetOwner.Ally) then
             self:Configure_Location()
-            if (db.modules.loadout.options.allyHorizontal == true) then
-                self:Horizontal()
-            end
-        else
-            if (db.modules.loadout.options.enemyHorizontal == true) then
-                self:Horizontal()
-            end
-       end
+        end
         return self.Parent:Configure(db, c_petjournal)
     end
+    ---------------------------------------------------------------------------
+    --- Restore frame location to saved variables values. Both in and out of battle locations are remembered.
     function self:Configure_Location()
-        if (self.db.mainPanel ==  nil) then
-            self.db.mainPanel = {
-                position = {
-                    point = nil,
-                    relativeTo = nil,
-                    relativePoint = nil,
-                    x = nil,
-                    y = nil
-                }
-            }
+        if (self.combatLogSvc:IsInBattle()) then
+            self:SetFramePosition(self.db.modules.loadout.position.inbattle[self.owner])
+        else
+            self:SetFramePosition(self.db.modules.loadout.position.outbattle[self.owner])
         end
-        if (self.db.mainPanel.position.point ~= nil) then
-			self:ClearAllPoints()
-			self:SetPoint(
-				self.db.mainPanel.position.point,
-				ParentUI,
-				self.db.mainPanel.position.relativePoint,
-				self.db.mainPanel.position.x,
-				self.db.mainPanel.position.y)
-		end
 		self.texture = self:CreateTexture(nil, "OVERLAY")
 		self.texture:SetAllPoints(self)
 		self.texture:SetColorTexture(0.1, 0.1, 0.1, 0)
@@ -108,12 +88,23 @@ function OracleHUD_PB_PanelLoadoutBattleTemplate_OnLoad(self)
         self:RegisterForDrag("LeftButton")
 		self:HookScript("OnDragStop", function(self)
 			self:StopMovingOrSizing()
-			local point, relativeTo, relativePoint, xOfs, yOfs = self:GetPoint()
-			self.db.mainPanel.position.point = point
-			self.db.mainPanel.position.relativeTo = relativeTo
-			self.db.mainPanel.position.relativePoint = relativePoint
-			self.db.mainPanel.position.x = xOfs
-			self.db.mainPanel.position.y = yOfs
+            if (self.combatLogSvc:IsInBattle()) then
+                local position = self.db.modules.loadout.position.inbattle[self.owner]
+                local point, relativeTo, relativePoint, xOfs, yOfs = self:GetPoint()
+                position.point = point
+                position.relativeTo = relativeTo
+                position.relativePoint = relativePoint
+                position.x = xOfs
+                position.y = yOfs
+            else
+                local position = self.db.modules.loadout.position.outbattle[self.owner]
+                local point, relativeTo, relativePoint, xOfs, yOfs = self:GetPoint()
+                position.point = point
+                position.relativeTo = relativeTo
+                position.relativePoint = relativePoint
+                position.x = xOfs
+                position.y = yOfs
+            end
 		end)
     end
     ---------------------------------------------------------------------------
@@ -127,13 +118,52 @@ function OracleHUD_PB_PanelLoadoutBattleTemplate_OnLoad(self)
                     afterBattleQuip = true,
                     showOpponents = true,
                     show = true,
-                    allyHorizontal = false
+                    allyHorizontalOut = false,
+                    allyHorizontalIn = false,
+                    enemyHorizontalOut = false,
+                    enemyHorizontalIn = false
+                },
+                position = {
+                    outbattle = {
+                        [Enum.BattlePetOwner.Ally] = {},
+                        [Enum.BattlePetOwner.Enemy] = {}
+                    },
+                    inbattle = {
+                        [Enum.BattlePetOwner.Ally] = {},
+                        [Enum.BattlePetOwner.Enemy] = {}
+                    }
                 }
             }
         end
-        if (db.modules.loadout.options.allyHorizontal == nil) then
-            db.modules.loadout.options.allyHorizontal = false
+        --- Differential update
+        if (db.modules.loadout.position == nil) then db.modules.loadout.position = {} end
+        if (db.modules.loadout.position.outbattle == nil) then db.modules.loadout.position.outbattle = {
+            [Enum.BattlePetOwner.Ally] = {},
+            [Enum.BattlePetOwner.Enemy] = {}
+        } end
+        if (db.modules.loadout.position.inbattle == nil) then db.modules.loadout.position.inbattle = {
+            [Enum.BattlePetOwner.Ally] = {},
+            [Enum.BattlePetOwner.Enemy] = {}
+        } end
+        if (self.db.modules.loadout.position.inbattle[self.owner] == nil) then
+            self.db.modules.loadout.position.inbattle[self.owner] = {
+                point = nil,
+                relativeTo = nil,
+                relativePoint = nil,
+                x = nil,
+                y = nil
+            }
         end
+        if (self.db.modules.loadout.position.outbattle[self.owner] == nil) then
+            self.db.modules.loadout.position.outbattle[self.owner] = {
+                point = nil,
+                relativeTo = nil,
+                relativePoint = nil,
+                x = nil,
+                y = nil
+            }
+        end
+        --- End differential update.
     end
 	---------------------------------------------------------------------------
 	--- All required resources and data has been loaded. Set initial state.
@@ -171,6 +201,42 @@ function OracleHUD_PB_PanelLoadoutBattleTemplate_OnLoad(self)
         self:ListenCombatLog()
         if (callback) then
             callback()
+        end
+    end
+    ---------------------------------------------------------------------------
+    --- Set frame location to last saved while in a pet battle.
+    function self:SetFramePosition(position)
+        if (position.point ~= nil) then
+            self:ClearAllPoints()
+            self:SetPoint(
+                position.point,
+                ParentUI,
+                position.relativePoint,
+                position.x,
+                position.y)
+        end
+        if (self.owner == Enum.BattlePetOwner.Ally) then
+            if ((self.db.modules.loadout.options.allyHorizontalOut == true and
+                 self.combatLogSvc:IsInBattle() == false)
+                 or 
+                (self.db.modules.loadout.options.allyHorizontalIn == true and
+                 self.combatLogSvc:IsInBattle() == true))
+            then
+                self:Horizontal()
+            else
+                self:Vertical()
+            end
+        else
+            if ((self.db.modules.loadout.options.enemyHorizontalOut == true and
+                 self.combatLogSvc:IsInBattle() == false)
+                 or 
+                (self.db.modules.loadout.options.enemyHorizontalIn == true and
+                 self.combatLogSvc:IsInBattle() == true))
+            then
+                self:Horizontal()
+            else
+                self:Vertical()
+            end
         end
     end
     ---------------------------------------------------------------------------
@@ -260,6 +326,10 @@ function OracleHUD_PB_PanelLoadoutBattleTemplate_OnLoad(self)
         self:RefreshPetInfo()
         self:SetInBattle(true)
         self:SetActivePet(self:GetActivePet())
+        if (self.db.modules.loadout.options.hideDefault) then
+            _G["PetBattleFrame"]:Hide()
+        end
+        self:SetFramePosition(self.db.modules.loadout.position.inbattle[self.owner])
         if (self.owner == Enum.BattlePetOwner.Enemy) then
             local numPets = C_PetBattles.GetNumPets(Enum.BattlePetOwner.Enemy)
             if (numPets == 3) then
@@ -278,6 +348,7 @@ function OracleHUD_PB_PanelLoadoutBattleTemplate_OnLoad(self)
     function self:OnPetBattleClose()
         self:SetInBattle(false)
         self:SetActivePet(0)
+        self:SetFramePosition(self.db.modules.loadout.position.outbattle[self.owner])
         if (self.owner == Enum.BattlePetOwner.Enemy) then
             C_Timer.After(3, function()
                 self:HideFull()

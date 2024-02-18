@@ -39,22 +39,35 @@ function OracleHUD_PB_OptionsOracleHUDMainTemplate_OnLoad(self)
             end
         end)
         self.LoadoutShowAlly:SetChecked(self.db.modules.loadout.options.show)
-        -- Show Ally Loadout as Horizontal
-        self.LoadoutAllyHorizontal = CreateFrame("CheckButton", nil, tab.panel, "InterfaceOptionsCheckButtonTemplate")
-        self.LoadoutAllyHorizontal:SetPoint("TOPLEFT", self.LoadoutShowAlly, "TOPLEFT", 18, -26)
-        self.LoadoutAllyHorizontal.Text:SetText("Horizontal")
-        self.LoadoutAllyHorizontal:HookScript("OnClick", function(_, btn, down)
-            db.modules.loadout.options.allyHorizontal = self.LoadoutAllyHorizontal:GetChecked()
-            if (db.modules.loadout.options.allyHorizontal) then
+        -- Show Ally Loadout as Horizontal when out of battle.
+        self.LoadoutAllyHorizontalOut = CreateFrame("CheckButton", nil, tab.panel, "InterfaceOptionsCheckButtonTemplate")
+        self.LoadoutAllyHorizontalOut:SetPoint("TOPLEFT", self.LoadoutShowAlly, "TOPLEFT", 18, -26)
+        self.LoadoutAllyHorizontalOut.Text:SetText("Make bar horizontal while outside battle")
+        self.LoadoutAllyHorizontalOut:HookScript("OnClick", function(_, btn, down)
+            db.modules.loadout.options.allyHorizontalOut = self.LoadoutAllyHorizontalOut:GetChecked()
+            if (db.modules.loadout.options.allyHorizontalOut and self.combatLogSvc:IsInBattle() == false) then
                 OracleHUD_PB_PanelLoadoutAlly:Horizontal()
             else
                 OracleHUD_PB_PanelLoadoutAlly:Vertical()
             end
         end)
-        self.LoadoutAllyHorizontal:SetChecked(db.modules.loadout.options.allyHorizontal)
+        self.LoadoutAllyHorizontalOut:SetChecked(db.modules.loadout.options.allyHorizontalOut)
+        -- Show Ally Loadout as Horizontal when in battle.
+        self.LoadoutAllyHorizontalIn = CreateFrame("CheckButton", nil, tab.panel, "InterfaceOptionsCheckButtonTemplate")
+        self.LoadoutAllyHorizontalIn:SetPoint("TOPLEFT", self.LoadoutAllyHorizontalOut, "TOPLEFT", 0, -26)
+        self.LoadoutAllyHorizontalIn.Text:SetText("Make bar horizontal while in battle")
+        self.LoadoutAllyHorizontalIn:HookScript("OnClick", function(_, btn, down)
+            db.modules.loadout.options.allyHorizontalIn = self.LoadoutAllyHorizontalIn:GetChecked()
+            if (db.modules.loadout.options.allyHorizontalIn and self.combatLogSvc:IsInBattle()) then
+                OracleHUD_PB_PanelLoadoutAlly:Horizontal()
+            else
+                OracleHUD_PB_PanelLoadoutAlly:Vertical()
+            end
+        end)
+        self.LoadoutAllyHorizontalOut:SetChecked(db.modules.loadout.options.allyHorizontalOut)
         -- Show Enemy Loadout
         self.LoadoutShowEnemy = CreateFrame("CheckButton", nil, tab.panel, "InterfaceOptionsCheckButtonTemplate")
-        self.LoadoutShowEnemy:SetPoint("TOPLEFT", self.LoadoutAllyHorizontal, "TOPLEFT", -18, -26)
+        self.LoadoutShowEnemy:SetPoint("TOPLEFT", self.LoadoutAllyHorizontalIn, "TOPLEFT", -18, -26)
         self.LoadoutShowEnemy.Text:SetText("Show Enemy Loadout")
         self.LoadoutShowEnemy:HookScript("OnClick", function(_, btn, down)
             db.modules.loadout.options.showOpponents = self.LoadoutShowEnemy:GetChecked()
@@ -65,19 +78,45 @@ function OracleHUD_PB_OptionsOracleHUDMainTemplate_OnLoad(self)
             end
         end)
         self.LoadoutShowEnemy:SetChecked(self.db.modules.loadout.options.showOpponents)
-        -- Show Ally Loadout as Horizontal
-        self.LoadoutEnemyHorizontal = CreateFrame("CheckButton", nil, tab.panel, "InterfaceOptionsCheckButtonTemplate")
-        self.LoadoutEnemyHorizontal:SetPoint("TOPLEFT", self.LoadoutShowEnemy, "TOPLEFT", 18, -26)
-        self.LoadoutEnemyHorizontal.Text:SetText("Horizontal")
-        self.LoadoutEnemyHorizontal:HookScript("OnClick", function(_, btn, down)
-            db.modules.loadout.options.enemyHorizontal = self.LoadoutEnemyHorizontal:GetChecked()
-            if (db.modules.loadout.options.enemyHorizontal) then
+        -- Show Enemy Loadout as Horizontal when not in battle.
+        self.LoadoutEnemyHorizontalOut = CreateFrame("CheckButton", nil, tab.panel, "InterfaceOptionsCheckButtonTemplate")
+        self.LoadoutEnemyHorizontalOut:SetPoint("TOPLEFT", self.LoadoutShowEnemy, "TOPLEFT", 18, -26)
+        self.LoadoutEnemyHorizontalOut.Text:SetText("Make bar horizontal while outside battle")
+        self.LoadoutEnemyHorizontalOut:HookScript("OnClick", function(_, btn, down)
+            db.modules.loadout.options.enemyHorizontalOut = self.LoadoutEnemyHorizontalOut:GetChecked()
+            if (db.modules.loadout.options.enemyHorizontalOut and self.combatLogSvc:IsInBattle() == false) then
                 OracleHUD_PB_PanelLoadoutEnemy:Horizontal()
             else
                 OracleHUD_PB_PanelLoadoutEnemy:Vertical()
             end
         end)
-        self.LoadoutEnemyHorizontal:SetChecked(db.modules.loadout.options.enemyHorizontal)
+        self.LoadoutEnemyHorizontalOut:SetChecked(db.modules.loadout.options.enemyHorizontalOut)
+        -- Show Enemy Loadout as Horizontal when in battle.
+        self.LoadoutEnemyHorizontalIn = CreateFrame("CheckButton", nil, tab.panel, "InterfaceOptionsCheckButtonTemplate")
+        self.LoadoutEnemyHorizontalIn:SetPoint("TOPLEFT", self.LoadoutEnemyHorizontalOut, "TOPLEFT", 0, -26)
+        self.LoadoutEnemyHorizontalIn.Text:SetText("Make bar horizontal while in battle")
+        self.LoadoutEnemyHorizontalIn:HookScript("OnClick", function(_, btn, down)
+            db.modules.loadout.options.enemyHorizontalIn = self.LoadoutEnemyHorizontalIn:GetChecked()
+            if (db.modules.loadout.options.enemyHorizontalIn and self.combatLogSvc:IsInBattle()) then
+                OracleHUD_PB_PanelLoadoutEnemy:Horizontal()
+            else
+                OracleHUD_PB_PanelLoadoutEnemy:Vertical()
+            end
+        end)
+        self.LoadoutEnemyHorizontalIn:SetChecked(db.modules.loadout.options.enemyHorizontalIn)
+        -- Hide traditional pet battle loadout
+        self.LoadoutHideDefault = CreateFrame("CheckButton", nil, tab.panel, "InterfaceOptionsCheckButtonTemplate")
+        self.LoadoutHideDefault:SetPoint("TOPLEFT", self.LoadoutEnemyHorizontal, "TOPLEFT", -18, -26)
+        self.LoadoutHideDefault.Text:SetText("Hide default pet battle interface")
+        self.LoadoutHideDefault:HookScript("OnClick", function(_, btn, down)
+            db.modules.loadout.options.hideDefault = self.LoadoutHideDefault:GetChecked()
+            if (db.modules.loadout.options.hideDefault) then
+                OracleHUD_PB_PanelLoadoutAlly:ShowFull()
+            else
+                OracleHUD_PB_PanelLoadoutAlly:HideFull()
+            end
+        end)
+        self.LoadoutHideDefault:SetChecked(db.modules.loadout.options.hideDefault)
     end
     ---------------------------------------------------------------------------
     --- Build xml on quips page.
