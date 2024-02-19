@@ -33,10 +33,26 @@
 								</KeyValues>
 								<Layers>
 									<Layer level="OVERLAY">
-										<FontString parentKey="KillsDesc" inherits="GameFontNormal" text="Kills:" font="Fonts\FRIZQT__.TTF">
+										<FontString parentKey="BattlesDesc" inherits="GameFontNormal" text="Battles:" font="Fonts\FRIZQT__.TTF">
 											<Size y="32" />
 											<Anchors>
 												<Anchor point="TOPLEFT" relativeKey="$parent" relativePoint="TOPLEFT" x="0" y="-8" />
+											</Anchors>
+											<Color r="1.0" g="1.0" b="1.0" a="1.0" />
+											<FontHeight val="16" />
+										</FontString>
+										<FontString parentKey="Battles" inherits="GameFontNormal" text="0" font="Fonts\FRIZQT__.TTF">
+											<Size y="32" />
+											<Anchors>
+												<Anchor point="TOPLEFT" relativeKey="$parent.BattlesDesc" relativePoint="TOPRIGHT" x="4" y="0" />
+											</Anchors>
+											<Color r="1.0" g="1.0" b="1.0" a="1.0" />
+											<FontHeight val="16" />
+										</FontString>
+										<FontString parentKey="KillsDesc" inherits="GameFontNormal" text="Kills:" font="Fonts\FRIZQT__.TTF">
+											<Size y="32" />
+											<Anchors>
+												<Anchor point="TOPLEFT" relativeKey="$parent.BattlesDesc" relativePoint="TOPLEFT" x="0" y="-18" />
 											</Anchors>
 											<Color r="1.0" g="1.0" b="1.0" a="1.0" />
 											<FontHeight val="16" />
@@ -52,7 +68,7 @@
 										<FontString parentKey="DeathsDesc" inherits="GameFontNormal" text="Deaths:" font="Fonts\FRIZQT__.TTF">
 											<Size y="32" />
 											<Anchors>
-												<Anchor point="TOPLEFT" relativeKey="$parent.KillsDesc" relativePoint="TOPLEFT" x="0" y="-16" />
+												<Anchor point="TOPLEFT" relativeKey="$parent.KillsDesc" relativePoint="TOPLEFT" x="0" y="-18" />
 											</Anchors>
 											<Color r="1.0" g="1.0" b="1.0" a="1.0" />
 											<FontHeight val="16" />

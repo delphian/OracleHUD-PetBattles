@@ -6,3 +6,4 @@
 --- @class OracleHUD_PB_PetInfo_Stats
 --- @field kills                number
 --- @field deaths               number
+--- @field battles              number

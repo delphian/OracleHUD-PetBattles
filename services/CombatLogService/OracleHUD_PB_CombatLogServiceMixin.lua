@@ -341,6 +341,17 @@ function OracleHUD_PB_CombatLogServiceMixin:OnBattleClose()
     if (self.db.modules.combatLogService.options.debugEvents) then 
         self.display:Print("CombatLogService: Total Stats: ", OracleHUD_Dump(self.statsTotal)) 
     end
+    local numPets = C_PetBattles.GetNumPets(Enum.BattlePetOwner.Ally)
+print("NUMPETS", numPets) 
+    for i = 1, numPets do
+        local bSlot = self.petInfoSvc:GetJournalOrderSlot(i, self.db, Enum.BattlePetOwner.Ally, self:GetBattleOrder())
+        if (bSlot ~= nil) then
+            local petInfo = self.petInfoSvc:GetPetInfoBySlot(bSlot, self.db, Enum.BattlePetOwner.Ally)
+            if (petInfo ~= nil) then
+                petInfo:SetBattles(petInfo:GetBattles(self.db) + 1, self.db)
+            end
+        end
+    end
     self:Send(self.ENUM.CLOSE, self.statsTotal, self.statsBattle)
     if (self.statsBattle.ally.win) then
         self:Send(self.ENUM.WON, self.statsTotal, self.statsBattle)
@@ -544,7 +555,6 @@ function OracleHUD_PB_CombatLogServiceMixin:ParseDie(message, owner)
         end
     else
         local petInfo = self.petInfoSvc:GetPetInfoByActive(self.db, Enum.BattlePetOwner.Ally)
-print("ACTIVE PET", petInfo.name)        
         if (petInfo ~= nil) then
             petInfo:SetDeaths(petInfo:GetDeaths(self.db) + 1, self.db)
         end

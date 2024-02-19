@@ -64,7 +64,7 @@ function OracleHUD_PB_OptionsOracleHUDMainTemplate_OnLoad(self)
                 OracleHUD_PB_PanelLoadoutAlly:Vertical()
             end
         end)
-        self.LoadoutAllyHorizontalOut:SetChecked(db.modules.loadout.options.allyHorizontalOut)
+        self.LoadoutAllyHorizontalIn:SetChecked(db.modules.loadout.options.allyHorizontalIn)
         -- Show Enemy Loadout
         self.LoadoutShowEnemy = CreateFrame("CheckButton", nil, tab.panel, "InterfaceOptionsCheckButtonTemplate")
         self.LoadoutShowEnemy:SetPoint("TOPLEFT", self.LoadoutAllyHorizontalIn, "TOPLEFT", -18, -26)

@@ -127,6 +127,7 @@ function OracleHUD_PB_TooltipPetInfoContentMixin:PrintPetInfo()
 	end
 	self.Right.Tabs.Stats.Kills:SetText(self.petInfo:GetKills(self.db))
 	self.Right.Tabs.Stats.Deaths:SetText(self.petInfo:GetDeaths(self.db))
+	self.Right.Tabs.Stats.Battles:SetText(self.petInfo:GetBattles(self.db))
 end
 ---------------------------------------------------------------------------
 --- Dynamically resize all child elements when frame changes size.

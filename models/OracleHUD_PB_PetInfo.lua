@@ -77,7 +77,8 @@ function OracleHUD_PB_PetInfo:GetDBTable(db)
         db.pets[key] = {
             stats = {
                 kills = 0,
-                deaths = 0
+                deaths = 0,
+                battles = 0
             }
         }
     end
@@ -120,4 +121,22 @@ function OracleHUD_PB_PetInfo:SetDeaths(deaths, db)
     if (db == nil) then db = self.db end
     local storage = self:GetDBTable(db)
     storage.stats.deaths = deaths
+end
+-------------------------------------------------------------------------------
+--- Get number of times this pet has battled.
+--- @param db   OracleHUD_PB_DB     (Optional, defaults to self.db) OracleHUD Pet Battles Database.
+function OracleHUD_PB_PetInfo:GetBattles(db)
+    if (db == nil) then db = self.db end
+    local storage = self:GetDBTable(db)
+    local battles = storage.stats.battles or 0
+    return battles
+end
+-------------------------------------------------------------------------------
+--- Set number of battles pet has participated in.
+--- @param battles  number          Number of battles pet has participated in.
+--- @param db       OracleHUD_PB_DB (Optional, defaults to self.db) OracleHUD Pet Battles Database.
+function OracleHUD_PB_PetInfo:SetBattles(battles, db)
+    if (db == nil) then db = self.db end
+    local storage = self:GetDBTable(db)
+    storage.stats.battles = battles
 end
