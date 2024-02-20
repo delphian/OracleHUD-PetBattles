@@ -71,9 +71,13 @@ function OracleHUD_PB_ButtonPetSwapDropdownTemplate_OnLoad(self)
 			print("OracleHUD_PB_PetSwapDropdownTemplate:OnClick: Configure() must be called first.")
 		else
 			local petInfo = self.petInfoSvc:GetPetInfoByUnslottedLowestZone(GetZoneText())
-			C_PetJournal.SetPetLoadOutInfo(self.slot, petInfo.id)
-			if (self.callback ~= nil) then
-				self.callback(self, petInfo)
+			if (petInfo ~= nil) then
+				C_PetJournal.SetPetLoadOutInfo(self.slot, petInfo.id)
+				if (self.callback ~= nil) then
+					self.callback(self, petInfo)
+				end
+			else
+				print("All in zone pets are maxed.")
 			end
 		end
 	end
