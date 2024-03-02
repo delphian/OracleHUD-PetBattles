@@ -20,12 +20,17 @@ end
 -- @param frame		The frame to locate and size
 -- @param width		Size frame as this percentage of width (0-1) of container
 -- @param height	Size frame as this percentage of height (0-1) of container
-function OracleHUD_FrameSetSizePct(frame, width, height)
+-- @param parent	(Optional) Use this frame as size reference instead of frame:Parent()
+function OracleHUD_FrameSetSizePct(frame, width, height, parent)
+	local reference = frame:GetParent()
+	if (parent ~= nil) then
+		reference = parent
+	end
 	if (width ~= nil and width ~= 0) then
-		frame:SetWidth(math.floor(frame:GetParent():GetWidth() * width))
+		frame:SetWidth(math.floor(reference:GetWidth() * width))
 	end
 	if (height ~= nil and height ~= 0) then
-		frame:SetHeight(math.floor(frame:GetParent():GetHeight() * height))
+		frame:SetHeight(math.floor(reference:GetHeight() * height))
 	end
 end
 -------------------------------------------------------------------------------

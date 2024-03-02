@@ -1,0 +1,46 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/ C:ProjectsWoWBinInterfaceFrameXMLUI.xsd">
+	<Script file="OracleHUD_PB_PanelPetBattleAurasMixin.lua" />
+    <Frame name="OracleHUD_PB_PanelPetBattleAurasTemplate" mixin="OracleHUD_PB_PanelPetBattleAurasMixin" virtual="true">
+		<Frames>
+			<Button name="$parentAura1" parentKey="Aura1" inherits="OracleHUD_PB_ButtonPetBattleAuraTemplate" hidden="true">
+				<Size x="16" y="16" />
+				<Anchors>
+					<Anchor point="TOPLEFT" relativePoint="TOPLEFT" x="0" y="1" />
+				</Anchors>
+				<NormalTexture file="Interface\Icons\INV_Misc_Bandage_05" />
+				<PushedTexture file="Interface\Icons\INV_Misc_Bandage_05" />
+				<HighlightTexture file="Interface\Icons\INV_Misc_Bandage_05" alphaMode="ADD" />
+			</Button>
+			<Button name="$parentAura2" parentKey="Aura2" inherits="OracleHUD_PB_ButtonPetBattleAuraTemplate" hidden="true">
+				<Size x="16" y="16" />
+				<Anchors>
+					<Anchor point="TOPLEFT" relativeKey="$parent.Aura1" relativePoint="BOTTOMLEFT" x="0" y="1" />
+				</Anchors>
+				<NormalTexture file="Interface\Icons\INV_Misc_Bandage_05" />
+				<PushedTexture file="Interface\Icons\INV_Misc_Bandage_05" />
+				<HighlightTexture file="Interface\Icons\INV_Misc_Bandage_05" alphaMode="ADD" />
+			</Button>
+			<Button name="$parentAura3" parentKey="Aura3" inherits="OracleHUD_PB_ButtonPetBattleAuraTemplate" hidden="true">
+				<Size x="16" y="16" />
+				<Anchors>
+					<Anchor point="TOPLEFT" relativeKey="$parent.Aura2" relativePoint="BOTTOMLEFT" x="0" y="1" />
+				</Anchors>
+				<NormalTexture file="Interface\Icons\INV_Misc_Bandage_05" />
+				<PushedTexture file="Interface\Icons\INV_Misc_Bandage_05" />
+				<HighlightTexture file="Interface\Icons\INV_Misc_Bandage_05" alphaMode="ADD" />
+			</Button>
+			<Button name="$parentAura4" parentKey="Aura4" inherits="OracleHUD_PB_ButtonPetBattleAuraTemplate" hidden="true">
+				<Size x="16" y="16" />
+				<Anchors>
+					<Anchor point="TOPLEFT" relativeKey="$parent.Aura3" relativePoint="BOTTOMLEFT" x="0" y="1" />
+				</Anchors>
+				<NormalTexture file="Interface\Icons\INV_Misc_Bandage_05" />
+				<PushedTexture file="Interface\Icons\INV_Misc_Bandage_05" />
+				<HighlightTexture file="Interface\Icons\INV_Misc_Bandage_05" alphaMode="ADD" />
+			</Button>
+		</Frames>
+		<Scripts>
+	        <OnLoad inherit="prepend" method="OnLoad" />
+		</Scripts>
+    </Frame>
+</Ui>

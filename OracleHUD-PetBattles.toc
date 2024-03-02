@@ -29,10 +29,6 @@ templates\PetAnimation\OracleHUD_PB_PetAnimationTemplate.xml
 templates\PetPortrait\OracleHUD_PB_PetPortraitTemplate.xml
 templates\PanelChat\OracleHUD_PB_PanelChatTemplate.xml
 templates\PetLevel\OracleHUD_PB_PetLevelTemplate.xml
-templates\PanelLoadout\OracleHUD_PB_PanelLoadoutTemplate.xml
-templates\PanelLoadout\OracleHUD_PB_PanelLoadoutSlotTemplate.xml
-templates\PanelLoadoutBattle\OracleHUD_PB_PanelLoadoutBattleSlotTemplate.xml
-templates\PanelLoadoutBattle\OracleHUD_PB_PanelLoadoutBattleTemplate.xml
 templates\PetHealth\OracleHUD_PB_PetHealthTemplate.xml
 templates\PetExperience\OracleHUD_PB_PetExperienceTemplate.xml
 
@@ -44,12 +40,15 @@ templates\Tabs\OracleHUD_PB_TabsTemplate.xml
 
 
 # Panels
+templates\Panels\PanelPetBattleLoadout\OracleHUD_PB_PanelPetBattleLoadoutSlotTemplate.xml
+templates\Panels\PanelPetBattleLoadout\OracleHUD_PB_PanelPetBattleLoadoutTemplate.xml
 templates\Panels\OracleHUD_PB_PanelMixin.lua
 templates\Panels\PanelUncollected\OracleHUD_PB_PanelUncollectedTemplate.xml
 templates\Panels\PanelCommunity\OracleHUD_PB_PanelCommunityTemplate.xml
 templates\Panels\PanelCommunity\Member\OracleHUD_PB_PanelCommunityMemberTemplate.xml
 templates\Panels\PanelPetBattleAbilities\OracleHUD_PB_PanelPetBattleAbilitiesTemplate.xml
 templates\Panels\PanelPetBattleBar\OracleHUD_PB_PanelPetBattleBarTemplate.xml
+templates\Panels\PanelPetBattleAuras\OracleHUD_PB_PanelPetBattleAurasTemplate.xml
 
 
 # Displays
@@ -72,6 +71,7 @@ templates\Edits\EditBox\OracleHUD_PB_EditBoxTemplate.xml
 # Buttons
 templates\Buttons\OracleHUD_PB_ButtonMixin.lua
 templates\Buttons\ButtonPetAbility\OracleHUD_PB_ButtonPetAbilityTemplate.xml
+templates\Buttons\ButtonPetBattleAura\OracleHUD_PB_ButtonPetBattleAuraTemplate.xml
 templates\Buttons\ButtonPetDebug\OracleHUD_PB_ButtonPetDebugTemplate.xml
 templates\Buttons\ButtonEmote\OracleHUD_PB_ButtonEmoteTemplate.xml
 templates\Buttons\ButtonPetEmote\OracleHUD_PB_ButtonPetEmoteTemplate.xml

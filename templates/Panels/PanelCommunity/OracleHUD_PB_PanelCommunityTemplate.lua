@@ -106,7 +106,7 @@ function OracleHUD_PB_PanelCommunityTemplate_OnLoad(self)
 	--- Indicate member has lost a pet battle.
 	-- @param member		Member object as defined in SetMemberOnline()
 	function self:PetBattleLost(member)
-		self.display:Print(member.name.." lost a pet battle! Because they are a looser.")
+		self.display:Print(member.name.." lost a pet battle! Because they are a loser.")
 	end
 	---------------------------------------------------------------------------
 	--- Indicate member has raised a pet to maximum level.

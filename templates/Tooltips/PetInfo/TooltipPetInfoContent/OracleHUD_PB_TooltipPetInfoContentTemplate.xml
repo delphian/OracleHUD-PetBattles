@@ -33,10 +33,26 @@
 								</KeyValues>
 								<Layers>
 									<Layer level="OVERLAY">
-										<FontString parentKey="BattlesDesc" inherits="GameFontNormal" text="Battles:" font="Fonts\FRIZQT__.TTF">
+										<FontString parentKey="IdDesc" inherits="GameFontNormal" text="Id:" font="Fonts\FRIZQT__.TTF">
 											<Size y="32" />
 											<Anchors>
 												<Anchor point="TOPLEFT" relativeKey="$parent" relativePoint="TOPLEFT" x="0" y="-8" />
+											</Anchors>
+											<Color r="1.0" g="1.0" b="1.0" a="1.0" />
+											<FontHeight val="16" />
+										</FontString>
+										<FontString parentKey="Id" inherits="GameFontNormal" text="0" font="Fonts\FRIZQT__.TTF">
+											<Size y="32" />
+											<Anchors>
+												<Anchor point="TOPLEFT" relativeKey="$parent.IdDesc" relativePoint="TOPRIGHT" x="4" y="0" />
+											</Anchors>
+											<Color r="1.0" g="1.0" b="1.0" a="1.0" />
+											<FontHeight val="16" />
+										</FontString>
+										<FontString parentKey="BattlesDesc" inherits="GameFontNormal" text="Battles:" font="Fonts\FRIZQT__.TTF">
+											<Size y="32" />
+											<Anchors>
+												<Anchor point="TOPLEFT" relativeKey="$parent.IdDesc" relativePoint="TOPLEFT" x="0" y="-18" />
 											</Anchors>
 											<Color r="1.0" g="1.0" b="1.0" a="1.0" />
 											<FontHeight val="16" />

@@ -1,0 +1,16 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/ C:ProjectsWoWBinInterfaceFrameXMLUI.xsd">
+	<Script file="OracleHUD_PB_PanelPetBattleLoadoutTemplate.lua" />
+    <Frame name="OracleHUD_PB_PanelPetBattleLoadoutTemplate" virtual="true" movable="true">
+		<Scripts>
+            <OnLoad inherit="prepend">
+                OracleHUD_PB_PanelPetBattleLoadoutTemplate_OnLoad(self)
+            </OnLoad>
+			<OnMouseDown>
+				self:StartMoving();
+			</OnMouseDown>
+			<OnMouseUp>
+				self:StopMovingOrSizing();
+			</OnMouseUp>
+		</Scripts>
+    </Frame>
+</Ui>

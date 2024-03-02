@@ -143,6 +143,7 @@ function OracleHUD_PB_CombatLogServiceMixin:Initialize(callback)
     self:RegisterEvent("PET_BATTLE_HEALTH_CHANGED")
     self:RegisterEvent("PET_BATTLE_XP_CHANGED")
     self:RegisterEvent("PET_BATTLE_LEVEL_CHANGED")
+    self:RegisterEvent("PET_BATTLE_AURA_APPLIED")
     self.inBattle = C_PetBattles.IsInBattle()
     if (self.inBattle) then
         self.battleOrder = self:CreateBattleOrder()
@@ -213,7 +214,7 @@ function OracleHUD_PB_CombatLogServiceMixin:OnEvent(event, eventName, ...)
             self:ParseDamage(message, Enum.BattlePetOwner.Ally)
         elseif (string.find(message, "|T%d+:%d+|t|c%x+|HbattlePetAbil:%d*:%d*:%d*:%d*|h%[[%w%s%-'‘’`]+%]|h|r dealt %d+ damage to enemy |T%d+:%d+|t[%w%s%-'‘’`%d%.]+.") ~= nil) then
             self:ParseDamage(message, Enum.BattlePetOwner.Enemy)
-        -- Fade
+        -- Fade ---------------------------------------------------------------
         elseif (string.find(message, "|T%d+:%d+|t|c%x+|HbattlePetAbil:%d*:%d*:%d*:%d*|h%[[%w%s%-'‘’`]+%]|h|r fades from your |T%d+:%d+|t[%w%s%-'‘’`%d%.]+.") ~= nil) then
             self:ParseFade(message, Enum.BattlePetOwner.Ally)
         elseif (string.find(message, "|T%d+:%d+|t|c%x+|HbattlePetAbil:%d*:%d*:%d*:%d*|h%[[%w%s%-'‘’`]+%]|h|r fades from enemy |T%d+:%d+|t[%w%s%-'‘’`%d%.]+.") ~= nil) then
@@ -226,7 +227,7 @@ function OracleHUD_PB_CombatLogServiceMixin:OnEvent(event, eventName, ...)
         -- Trap
         elseif (string.find(message, "|T%d+:%d+|t|c%x+|HbattlePetAbil:%d*:%d*:%d*:%d*|h%[[%w%s%-'‘’`%d%.]+%]|h|r trapped enemy |T%d+:%d+|t[%w%s%-'‘’`%d%.]+.") ~= nil) then
             self:ParseTrap(message, Enum.BattlePetOwner.Ally)
-        -- Apply
+        -- Apply --------------------------------------------------------------
         elseif (string.find(message, "|T%d+:%d+|t|c%x+|HbattlePetAbil:%d*:%d*:%d*:%d*|h%[[%w%s%-'‘’`%d%.]+%]|h|r applied |T%d+:%d+|t|c%x+|HbattlePetAbil:%d*:%d*:%d*:%d*|h%[[%w%s%-']+%]|h|r to your |T%d+:%d+|t[%w%s%-'‘’`%d%.]+.") ~= nil) then
             self:ParseApply(message, Enum.BattlePetOwner.Ally)
         elseif (string.find(message, "|T%d+:%d+|t|c%x+|HbattlePetAbil:%d*:%d*:%d*:%d*|h%[[%w%s%-'‘’`%d%.]+%]|h|r applied |T%d+:%d+|t|c%x+|HbattlePetAbil:%d*:%d*:%d*:%d*|h%[[%w%s%-']+%]|h|r to enemy |T%d+:%d+|t[%w%s%-'‘’`%d%.]+.") ~= nil) then
@@ -328,6 +329,10 @@ function OracleHUD_PB_CombatLogServiceMixin:OnEvent(event, eventName, ...)
             self:Send(self.ENUM.XP, petInfo, xpChange)
         end
     end
+    if (eventName == "PET_BATTLE_AURA_APPLIED") then
+        local owner, bSlot, auraInstanceId
+        -- self:OnAuraApplied(owner, bSlot, auraInstanceId)
+    end
 end
 -------------------------------------------------------------------------------
 --- Authoritatively close out the battle.
@@ -419,6 +424,14 @@ end
 --- Reports if C_PetJournal is stats authority vs C_PetBattles.
 function OracleHUD_PB_CombatLogServiceMixin:IsInBattle()
     return self.inBattle
+end
+---------------------------------------------------------------------------
+--- Report which battle order slot has it's pet on the battlefield.
+--- @param  owner    Enum.BattlePetOwner
+--- @return number|nil
+function OracleHUD_PB_CombatLogServiceMixin:GetBSlotActive(owner)
+    local bSlot = C_PetBattles.GetActivePet(owner)
+    return bSlot
 end
 ---------------------------------------------------------------------------
 --- Report which journal order slot has it's pet on the battlefield.
@@ -557,13 +570,62 @@ function OracleHUD_PB_CombatLogServiceMixin:ParseDie(message, owner)
     end
     self:Send(self.ENUM.DIE, owner, petInfo)
 end
+-------------------------------------------------------------------------------
+--- Apply aura to a single pet.
+--- @param  message string                  Syntax: "|T%d+:%d+|t|c%x+|HbattlePetAbil:%d*:%d*:%d*:%d*|h%[[%w%s%-'‘’`%d%.]+%]|h|r applied |T%d+:%d+|t|c%x+|HbattlePetAbil:%d*:%d*:%d*:%d*|h%[[%w%s%-']+%]|h|r to your |T%d+:%d+|t[%w%s%-'‘’`%d%.]+."
+---                                                 "|T%d+:%d+|t|c%x+|HbattlePetAbil:%d*:%d*:%d*:%d*|h%[[%w%s%-'‘’`%d%.]+%]|h|r applied |T%d+:%d+|t|c%x+|HbattlePetAbil:%d*:%d*:%d*:%d*|h%[[%w%s%-']+%]|h|r to enemy |T%d+:%d+|t[%w%s%-'‘’`%d%.]+."
+--- @param  owner   Enum.BattlePetOwner     Ability is applied to this owner.
 function OracleHUD_PB_CombatLogServiceMixin:ParseApply(message, owner)
+    local jSlot = self:GetJSlotActive(owner)
+    local bSlot = self:GetBSlotActive(owner)
+    local abilityId, hp, power, speed, auraId
+    if (owner == Enum.BattlePetOwner.Ally) then
+        abilityId, hp, power, speed, auraId, _, _, _ = string.match(message, "|T%d+:%d+|t|c%x+|HbattlePetAbil:(%d*):(%d*):(%d*):(%d*)|h%[[%w%s%-'‘’`%d%.]+%]|h|r applied |T%d+:%d+|t|c%x+|HbattlePetAbil:(%d*):(%d*):(%d*):(%d*)|h%[[%w%s%-']+%]|h|r to your |T%d+:%d+|t[%w%s%-'‘’`%d%.]+.")
+    else
+        abilityId, hp, power, speed, auraId, _, _, _ = string.match(message, "|T%d+:%d+|t|c%x+|HbattlePetAbil:(%d*):(%d*):(%d*):(%d*)|h%[[%w%s%-'‘’`%d%.]+%]|h|r applied |T%d+:%d+|t|c%x+|HbattlePetAbil:(%d*):(%d*):(%d*):(%d*)|h%[[%w%s%-']+%]|h|r to enemy |T%d+:%d+|t[%w%s%-'‘’`%d%.]+.")
+    end
+    local auraIndex = self:GetAuraIndex(auraId, owner, jSlot)
+    local auraID, instanceID, turnsRemaining, isBuff = C_PetBattles.GetAuraInfo(owner, bSlot, auraIndex)
+    self:OnAuraApplied(owner, jSlot, auraId, turnsRemaining, isBuff)
+end
+-------------------------------------------------------------------------------
+--- Remove aura from a single pet.
+--- @param  message string
+--- @param  owner   Enum.BattlePetOwner
+function OracleHUD_PB_CombatLogServiceMixin:ParseFade(message, owner)
+    local jSlot = self:GetJSlotActive(owner)
+    local bSlot = self:GetBSlotActive(owner)
+    local abilityId, hp, power, speed, auraId
+    if (owner == Enum.BattlePetOwner.Ally) then
+        abilityId, hp, power, speed = string.match(message, "|T%d+:%d+|t|c%x+|HbattlePetAbil:(%d*):(%d*):(%d*):(%d*)|h%[[%w%s%-'‘’`]+%]|h|r fades from your |T%d+:%d+|t[%w%s%-'‘’`%d%.]+.")
+    else
+        abilityId, hp, power, speed = string.match(message, "|T%d+:%d+|t|c%x+|HbattlePetAbil:(%d*):(%d*):(%d*):(%d*)|h%[[%w%s%-'‘’`]+%]|h|r fades from enemy |T%d+:%d+|t[%w%s%-'‘’`%d%.]+.")
+    end
+    local auraIndex = self:GetAuraIndex(auraId, owner, jSlot)
+    local auraID, instanceID, turnsRemaining, isBuff = C_PetBattles.GetAuraInfo(owner, bSlot, auraIndex)
+    self:OnAuraFade(owner, jSlot, abilityId, turnsRemaining, isBuff)
+end
+-------------------------------------------------------------------------------
+--- Get the index an applied aura is numbered at on a pet.
+--- @param  auraId  number
+--- @param  owner   Enum.BattlePetOwner
+--- @param  jSlot   number                  Pet slot as defined by journal order.
+function OracleHUD_PB_CombatLogServiceMixin:GetAuraIndex(auraId, owner, jSlot)
+    local bSlot = self.petInfoSvc:GetBattleOrderSlot(jSlot, self.db, owner, self:GetBattleOrder())
+    local numAuras = C_PetBattles.GetNumAuras(owner, bSlot)
+    local auraIndex = nil
+    for i = 1, numAuras do
+        local auraID, instanceID, turnsRemaining, isBuff = C_PetBattles.GetAuraInfo(owner, bSlot, i)
+        if (tonumber(auraID) == tonumber(auraId)) then
+            auraIndex = i
+            break
+        end
+    end
+    return auraIndex
 end
 function OracleHUD_PB_CombatLogServiceMixin:ParseApplyTeam(message, owner)
 end
 function OracleHUD_PB_CombatLogServiceMixin:ParseWeather(message)
-end
-function OracleHUD_PB_CombatLogServiceMixin:ParseFade(message, owner)
 end
 function OracleHUD_PB_CombatLogServiceMixin:ParseFadeTeam(message, owner)
 end
@@ -584,6 +646,27 @@ function OracleHUD_PB_CombatLogServiceMixin:ParseMiss(message, owner)
 end
 function OracleHUD_PB_CombatLogServiceMixin:ParseBlock(message, owner)
 end
+-------------------------------------------------------------------------------
+--- Process Aura being applied to a single pet.
+--- @param  owner           Enum.BattlePetOwner
+--- @param  jSlot           number                  Journal order slot.
+--- @param  abilityId       number                  Ability that created the aura.
+--- @param  turnsRemaining  number                  Number of turns aura will be applied.
+--- @param  isBuff          boolean                 Aura is intended to be displayed to user.
+function OracleHUD_PB_CombatLogServiceMixin:OnAuraApplied(owner, jSlot, abilityId, turnsRemaining, isBuff)
+    self:Send(self.ENUM.APPLY, owner, jSlot, abilityId, turnsRemaining, isBuff)
+end
+-------------------------------------------------------------------------------
+--- Process Aura being applied to a single pet.
+--- @param  owner           Enum.BattlePetOwner
+--- @param  jSlot           number                  Journal order slot.
+--- @param  abilityId       number                  Ability that created the aura.
+--- @param  turnsRemaining  number                  Number of turns aura will be applied.
+--- @param  isBuff          boolean                 Aura is intended to be displayed to user.
+function OracleHUD_PB_CombatLogServiceMixin:OnAuraFade(owner, jSlot, abilityId, turnsRemaining, isBuff)
+    self:Send(self.ENUM.FADE, owner, jSlot, abilityId, turnsRemaining, isBuff)
+end
+
 ---------------------------------------------------------------------------
 --- Dynamically resize all child elements when frame changes size.
 function OracleHUD_PB_CombatLogServiceMixin:OnSizeChanged_CombatLogService()

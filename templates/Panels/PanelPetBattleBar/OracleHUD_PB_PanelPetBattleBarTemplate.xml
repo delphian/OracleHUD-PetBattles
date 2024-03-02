@@ -1,6 +1,6 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/ C:ProjectsWoWBinInterfaceFrameXMLUI.xsd">
 	<Script file="OracleHUD_PB_PanelPetBattleBarMixin.lua" />
-    <Frame name="OracleHUD_PB_PanelPetBattleBarTemplate" mixin="OracleHUD_PB_PanelPetBattleBarMixin" virtual="true" frameStrata="LOW">
+    <Frame name="OracleHUD_PB_PanelPetBattleBarTemplate" mixin="OracleHUD_PB_PanelPetBattleBarMixin" virtual="true" frameStrata="LOW" movable="false">
         <Anchors>
             <Anchor point="ALL" relativePoint="ALL" x="0" y="0" />
         </Anchors>
@@ -10,17 +10,9 @@
                     <Anchor point="TOPLEFT" relativeKey="$parent" relativePoint="TOPLEFT" x="0" y="0" />
                 </Anchors>
             </Frame>
-            <Button name="$parentSwap" parentKey="Switch">
-                <Anchors>
-                    <Anchor point="TOPLEFT" relativeKey="$parent.Abilities" relativePoint="TOPRIGHT" x="2" y="0" />
-                </Anchors>
-                <NormalTexture file="Interface\Icons\INV_Pet_SwapPet" />
-                <PushedTexture file="Interface\Icons\INV_Pet_SwapPet" />
-                <HighlightTexture file="Interface\Icons\INV_Pet_SwapPet" alphaMode="ADD" />
-            </Button>
             <Button name="$parentRevive" parentKey="Revive" inherits="OracleHUD_PB_ButtonPetReviveTemplate">
                 <Anchors>
-                    <Anchor point="TOPLEFT" relativeKey="$parent" relativePoint="TOPLEFT" x="0" y="0" />
+                    <Anchor point="TOPLEFT" relativeKey="$parent.Abilities" relativePoint="TOPLEFT" x="0" y="0" />
                 </Anchors>
             </Button>
             <Button name="$parentBandage" parentKey="Bandage" inherits="OracleHUD_PB_ButtonPetBandageTemplate">
@@ -28,6 +20,7 @@
                     <Anchor point="TOPLEFT" relativeKey="$parent.Revive" relativePoint="TOPRIGHT" x="2" y="0" />
                 </Anchors>
             </Button>
+            <!---->
             <Button name="$parentForfeit" parentKey="Forfeit" inherits="OracleHUD_PB_ButtonPetBattleForfeitTemplate">
                 <Anchors>
                     <Anchor point="TOPRIGHT" relativeKey="$parent" relativePoint="TOPRIGHT" x="0" y="0" />
@@ -43,9 +36,23 @@
                     <Anchor point="TOPRIGHT" relativeKey="$parent.Skip" relativePoint="TOPLEFT" x="-2" y="0" />
                 </Anchors>
             </Button>
+            <Button name="$parentSwap" parentKey="Switch">
+                <Anchors>
+                    <Anchor point="TOPRIGHT" relativeKey="$parent.Trap" relativePoint="TOPRIGHT" x="2" y="0" />
+                </Anchors>
+                <NormalTexture file="Interface\Icons\INV_Pet_SwapPet" />
+                <PushedTexture file="Interface\Icons\INV_Pet_SwapPet" />
+                <HighlightTexture file="Interface\Icons\INV_Pet_SwapPet" alphaMode="ADD" />
+            </Button>
         </Frames>
 		<Scripts>
 	        <OnLoad inherit="prepend" method="OnLoad" />
+			<OnMouseDown>
+				self:StartMoving();
+			</OnMouseDown>
+			<OnMouseUp>
+				self:StopMovingOrSizing();
+			</OnMouseUp>
 		</Scripts>
     </Frame>
 </Ui>

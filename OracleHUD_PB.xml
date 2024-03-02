@@ -24,40 +24,24 @@
             <Anchor point="TOPRIGHT" relativeTo="UIParent" relativePoint="TOPRIGHT" x="0" y="0" />
         </Anchors>
 	</Frame>
-	<Frame name="OracleHUD_PB_PanelLoadoutAlly" parent="UIParent" inherits="OracleHUD_PB_PanelLoadoutBattleTemplate" hidden="false" movable="true">
+	<Frame name="OracleHUD_PB_PanelLoadoutAlly" parent="UIParent" inherits="OracleHUD_PB_PanelPetBattleLoadoutTemplate" hidden="false">
 		<Size x="280" y="280" />
 		<Anchors>
 			<Anchor point="TOPLEFT" relativeTo="OracleHUD_PB_PanelCommunity" relativePoint="BOTTOMLEFT" x="10" y="-10" />
 		</Anchors>
-		<Scripts>
-			<OnDragStart>
-				self:StartMoving();
-			</OnDragStart>
-			<OnDragStop>
-				self:StopMovingOrSizing();
-			</OnDragStop>
-		</Scripts>
 	</Frame>
 	<Frame name="OracleHUD_PB_PanelPetBattleBar" parent="UIParent" inherits="OracleHUD_PB_PanelPetBattleBarTemplate" hidden="true">
-		<Size y="40" />
+		<Size y="60" />
 		<Anchors>
-			<Anchor point="TOPLEFT" relativeTo="OracleHUD_PB_PanelLoadoutAlly" relativePoint="BOTTOMLEFT" x="0" y="-6" />
-			<Anchor point="TOPRIGHT" relativeTo="OracleHUD_PB_PanelLoadoutAlly" relativePoint="TOPRIGHT" x="0" y="-6" />
+			<Anchor point="TOPLEFT" relativeTo="OracleHUD_PB_PanelLoadoutAlly" relativePoint="BOTTOMLEFT" x="6" y="-20" />
+			<Anchor point="TOPRIGHT" relativeTo="OracleHUD_PB_PanelLoadoutAlly" relativePoint="BOTTOMRIGHT" x="-6" y="-20" />
 		</Anchors>
 	</Frame>
-	<Frame name="OracleHUD_PB_PanelLoadoutEnemy" parent="UIParent" inherits="OracleHUD_PB_PanelLoadoutBattleTemplate" hidden="true" movable="true">
+	<Frame name="OracleHUD_PB_PanelLoadoutEnemy" parent="UIParent" inherits="OracleHUD_PB_PanelPetBattleLoadoutTemplate" hidden="false">
 		<Size x="240" y="220" />
 		<Anchors>
 			<Anchor point="TOPLEFT" relativeTo="OracleHUD_PB_PanelPetBattleBar" relativePoint="BOTTOMLEFT" x="0" y="-6" />
 		</Anchors>
-		<Scripts>
-			<OnMouseDown>
-				self:StartMoving();
-			</OnMouseDown>
-			<OnMouseUp>
-				self:StopMovingOrSizing();
-			</OnMouseUp>
-		</Scripts>
 	</Frame>
 	<Frame name="OracleHUD_PB_PanelZoo" parent="UIParent" inherits="OracleHUD_PB_ZooTemplate" hidden="true" movable="true">
 		<Anchors>
