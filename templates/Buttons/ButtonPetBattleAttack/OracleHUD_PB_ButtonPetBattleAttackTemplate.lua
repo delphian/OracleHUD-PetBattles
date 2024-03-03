@@ -50,7 +50,7 @@ function OracleHUD_PB_ButtonPetBattleAttackTemplate_OnLoad(self)
     end
     function self:SetAttackAction()
         local swapTo = nil
-        local petInfo = self.petInfoSvc:GetPetInfoByActive(self.db, Enum.BattlePetOwner.Ally)
+        local petInfo = self.petInfoSvc:GetPetInfoByActive(Enum.BattlePetOwner.Ally)
         -- Effective disabled for now.
         --if ((petInfo.health / petInfo.healthMax) <= 0.00) then
         if (true) then

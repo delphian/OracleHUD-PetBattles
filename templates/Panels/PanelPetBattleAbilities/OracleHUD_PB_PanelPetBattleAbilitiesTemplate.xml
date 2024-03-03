@@ -7,19 +7,19 @@
 			<Anchor point="BOTTOMLEFT" />
         </Anchors>
 		<Frames>
-			<Button name="$parentAbility1" parentKey="Ability1" inherits="OracleHUD_PB_ButtonPetAbilityTemplate">
+			<Button name="$parentAbility1" parentKey="Ability1" inherits="OracleHUD_PB_ButtonPetAbilityTemplate" useParentLevel="true">
 				<Size x="32" y="32" />
 				<Anchors>
 					<Anchor point="TOPLEFT" relativePoint="TOPLEFT" x="2" y="0" />
 				</Anchors>
 			</Button>
-			<Button name="$parentAbility2" parentKey="Ability2" inherits="OracleHUD_PB_ButtonPetAbilityTemplate">
+			<Button name="$parentAbility2" parentKey="Ability2" inherits="OracleHUD_PB_ButtonPetAbilityTemplate" useParentLevel="true">
 				<Size x="32" y="32" />
 				<Anchors>
 					<Anchor point="TOPLEFT" relativeKey="$parent.Ability1" relativePoint="TOPRIGHT" x="2" y="0" />
 				</Anchors>
 			</Button>
-			<Button name="$parentAbility3" parentKey="Ability3" inherits="OracleHUD_PB_ButtonPetAbilityTemplate">
+			<Button name="$parentAbility3" parentKey="Ability3" inherits="OracleHUD_PB_ButtonPetAbilityTemplate" useParentLevel="true">
 				<Size x="32" y="32" />
 				<Anchors>
 					<Anchor point="TOPLEFT" relativeKey="$parent.Ability2" relativePoint="TOPRIGHT" x="2" y="0" />

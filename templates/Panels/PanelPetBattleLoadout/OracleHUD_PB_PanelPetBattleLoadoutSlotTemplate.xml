@@ -96,19 +96,19 @@
 						</Anchors>
 						<Size y="6" />
 					</Frame>
-					<Frame name="$parentButtonsBorder" parentKey="ButtonsBorder">
+					<Frame name="$parentButtonsBorder" parentKey="ButtonsBorder" frameStrata="LOW">
 						<Anchors>
 							<Anchor point="TOPLEFT" relativeKey="$parent.ExperienceBar" relativePoint="BOTTOMLEFT" x="0" y="0" />
 							<Anchor point="BOTTOMRIGHT" relativeKey="$parent.Right" relativePoint="BOTTOMRIGHT" x="0" y="0" />
 						</Anchors>
 						<Frames>
-							<Frame name="$parentButtons" parentKey="Buttons">
+							<Frame name="$parentButtons" parentKey="Buttons" useParentLevel="true">
 								<Anchors>
 									<Anchor point="TOPLEFT" relativeKey="$parent.ButtonsBorder" relativePoint="TOPLEFT" x="2" y="-2" />
 									<Anchor point="BOTTOMRIGHT" relativeKey="$parent.ButtonsBorder" relativePoint="BOTTOMRIGHT" x="-2" y="2" />
 								</Anchors>
 								<Frames>
-									<Frame Name="$parentInCombat" parentKey="InCombat" hidden="true">
+									<Frame Name="$parentInCombat" parentKey="InCombat" hidden="true" useParentLevel="true">
 										<Anchors>
 											<Anchor point="TOPLEFT" relativeKey="$parent.Parent.Right.ButtonsBorder.Buttons" relativePoint="TOPLEFT" x="2" y="-2" />
 											<Anchor point="TOPRIGHT" relativeKey="$parent.Parent.Right.ButtonsBorder.Buttons" relativePoint="TOPRIGHT" x="0" y="-2" />
@@ -128,7 +128,7 @@
 											</Frame>
 										</Frames>
 									</Frame>
-									<Frame Name="$parentOutCombat" parentKey="OutCombat">
+									<Frame Name="$parentOutCombat" parentKey="OutCombat" useParentLevel="true">
 										<Anchors>
 											<Anchor point="TOPLEFT" relativeKey="$parent.ButtonsBorder" relativePoint="TOPLEFT" x="2" y="-2" />
 											<Anchor point="BOTTOMRIGHT" relativeKey="$parent.ButtonsBorder" relativePoint="BOTTOMRIGHT" x="0" y="-2" />

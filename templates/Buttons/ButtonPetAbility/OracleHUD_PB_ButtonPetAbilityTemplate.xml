@@ -8,14 +8,31 @@
 					<Anchor point="TOPRIGHT" relativePoint="TOPRIGHT" x="0" y="0" />
 					<Anchor point="BOTTOMRIGHT" relativePoint="BOTTOMRIGHT" x="0" y="0" />
 				</Anchors>
-				<NormalTexture file="Interface\Icons\misc_arrowdown"/>
-				<PushedTexture file="Interface\Icons\misc_arrowdown"/>
-				<HighlightTexture file="Interface\Icons\misc_arrowdown" alphaMode="ADD"/>
+				<NormalTexture file="Interface\Icons\misc_arrowdown" />
+				<PushedTexture file="Interface\Icons\misc_arrowdown" />
+				<HighlightTexture file="Interface\Icons\misc_arrowdown" alphaMode="ADD" />
+				<Layers>
+					<Layer level="OVERLAY">
+						<Texture name="$parentModifier" parentKey="Modifier" file="Interface\BUTTONS\UI-MicroStream-Red" hidden="false">
+							<Size x="24" y="22" />
+							<Anchors>
+								<Anchor point="BOTTOMRIGHT" relativeKey="$parent" relativePoint="BOTTOMRIGHT" x="8" y="-8" />
+							</Anchors>
+						</Texture>
+					</Layer>
+				</Layers>
 			</Button>
 		</Frames>
         <Layers>
-            <Layer level="OVERLAY">
-				<FontString parentKey="Font" inherits="GameFontNormal" justifyH="CENTER" font="Fonts\FRIZQT__.TTF" outline="THICK">
+			<Layer level="ARTWORK">
+				<Texture name="$parentBackground" parentKey="Background" hidden="true">
+					<Anchors>
+						<Anchor point="TOPLEFT" relativePoint="TOPLEFT" x="0" y="0" />
+						<Anchor point="BOTTOMRIGHT" relativePoint="BOTTOMRIGHT" x="0" y="0" />
+					</Anchors>
+                    <Color r="0.0" g="0.0" b="0.0" a="0.4" />
+				</Texture>
+				<FontString name="$parentFont" parentKey="Font" inherits="GameFontNormal" justifyH="CENTER" font="Fonts\FRIZQT__.TTF" outline="THICK" hidden="true">
 					<Anchors>
 						<Anchor point="TOPLEFT" relativeKey="$parent" relativePoint="TOPLEFT" x="2" y="0" />
 						<Anchor point="TOPRIGHT" relativeKey="$parent" relativePoint="TOPRIGHT" x="0" y="0" />
@@ -27,16 +44,7 @@
 					</Shadow>
 					<FontHeight val="18" />
 				</FontString>
-            </Layer>
-			<Layer level="OVERLAY">
-				<Texture parentKey="Background" hidden="true">
-					<Anchors>
-						<Anchor point="TOPLEFT" relativePoint="TOPLEFT" x="0" y="0" />
-						<Anchor point="BOTTOMRIGHT" relativePoint="BOTTOMRIGHT" x="0" y="0" />
-					</Anchors>
-                    <Color r="0.0" g="0.0" b="0.0" a="0.4" />
-				</Texture>
-            </Layer>
+			</Layer>
 		</Layers>
 		<Scripts>
 	        <OnLoad method="OnLoad" />

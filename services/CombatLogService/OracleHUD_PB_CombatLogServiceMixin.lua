@@ -12,6 +12,7 @@ OracleHUD_PB_CombatLogServiceMixin._class = "OracleHUD_PB_CombatLogServiceMixin"
 OracleHUD_PB_CombatLogServiceMixin.callbacks = {}
 OracleHUD_PB_CombatLogServiceMixin.countPetBattleClose = 0
 OracleHUD_PB_CombatLogServiceMixin.inBattle = false
+OracleHUD_PB_CombatLogServiceMixin.aChars = "%w%s%-'‘’`:%d%."
 --- Statistics for a single pet battle.
 --- @class OracleHUD_PB_CombatLogService_StatsBattle
 --- @field timeBegin    integer Time battle started.
@@ -198,10 +199,10 @@ function OracleHUD_PB_CombatLogServiceMixin:OnEvent(event, eventName, ...)
     end
     if (eventName == "CHAT_MSG_PET_BATTLE_INFO") then
         local message = ...
-        if (string.find(message, "Your |T%d+:%d+|t[%w%s%-‘’`%d%.]+ gains %d+ XP!$")) then
+        if (string.find(message, "Your |T%d+:%d+|t["..self.aChars.."]+ gains %d+ XP!$")) then
             self:ParseXP(message, Enum.BattlePetOwner.Ally)
         end
-        if (string.find(message, "Your |T%d+:%d+|t[%w%s%-‘’`%d%.]+ has reached Level %d+!$")) then
+        if (string.find(message, "Your |T%d+:%d+|t["..self.aChars.."]+ has reached Level %d+!$")) then
             self:ParseLevel(message, Enum.BattlePetOwner.Ally)
         end
     end
@@ -210,75 +211,75 @@ function OracleHUD_PB_CombatLogServiceMixin:OnEvent(event, eventName, ...)
         local message = args[1]
         if (self.db.modules.combatLogService.options.showLog) then self.display:Print(message) end
         -- Damage
-        if (string.find(message, "|T%d+:%d+|t|c%x+|HbattlePetAbil:%d*:%d*:%d*:%d*|h%[[%w%s%-'‘’`]+%]|h|r dealt %d+ damage to your |T%d+:%d+|t[%w%s%-'‘’`%d%.]+.") ~= nil) then
+        if (string.find(message, "|T%d+:%d+|t|c%x+|HbattlePetAbil:%d*:%d*:%d*:%d*|h%[["..self.aChars.."]+%]|h|r dealt %d+ damage to your |T%d+:%d+|t["..self.aChars.."]+.") ~= nil) then
             self:ParseDamage(message, Enum.BattlePetOwner.Ally)
-        elseif (string.find(message, "|T%d+:%d+|t|c%x+|HbattlePetAbil:%d*:%d*:%d*:%d*|h%[[%w%s%-'‘’`]+%]|h|r dealt %d+ damage to enemy |T%d+:%d+|t[%w%s%-'‘’`%d%.]+.") ~= nil) then
+        elseif (string.find(message, "|T%d+:%d+|t|c%x+|HbattlePetAbil:%d*:%d*:%d*:%d*|h%[["..self.aChars.."]+%]|h|r dealt %d+ damage to enemy |T%d+:%d+|t["..self.aChars.."]+.") ~= nil) then
             self:ParseDamage(message, Enum.BattlePetOwner.Enemy)
         -- Fade ---------------------------------------------------------------
-        elseif (string.find(message, "|T%d+:%d+|t|c%x+|HbattlePetAbil:%d*:%d*:%d*:%d*|h%[[%w%s%-'‘’`]+%]|h|r fades from your |T%d+:%d+|t[%w%s%-'‘’`%d%.]+.") ~= nil) then
+        elseif (string.find(message, "|T%d+:%d+|t|c%x+|HbattlePetAbil:%d*:%d*:%d*:%d*|h%[["..self.aChars.."]+%]|h|r fades from your |T%d+:%d+|t["..self.aChars.."]+.") ~= nil) then
             self:ParseFade(message, Enum.BattlePetOwner.Ally)
-        elseif (string.find(message, "|T%d+:%d+|t|c%x+|HbattlePetAbil:%d*:%d*:%d*:%d*|h%[[%w%s%-'‘’`]+%]|h|r fades from enemy |T%d+:%d+|t[%w%s%-'‘’`%d%.]+.") ~= nil) then
+        elseif (string.find(message, "|T%d+:%d+|t|c%x+|HbattlePetAbil:%d*:%d*:%d*:%d*|h%[["..self.aChars.."]+%]|h|r fades from enemy |T%d+:%d+|t["..self.aChars.."]+.") ~= nil) then
             self:ParseFade(message, Enum.BattlePetOwner.Enemy)
         -- Fade Team
-        elseif (string.find(message, "|T%d+:%d+|t|c%x+|HbattlePetAbil:%d*:%d*:%d*:%d*|h%[[%w%s%-'‘’`%d%.]+%]|h|r fades from your team.") ~= nil) then
+        elseif (string.find(message, "|T%d+:%d+|t|c%x+|HbattlePetAbil:%d*:%d*:%d*:%d*|h%[["..self.aChars.."]+%]|h|r fades from your team.") ~= nil) then
             self:ParseFadeTeam(message, Enum.BattlePetOwner.Ally)
-        elseif (string.find(message, "|T%d+:%d+|t|c%x+|HbattlePetAbil:%d*:%d*:%d*:%d*|h%[[%w%s%-'‘’`%d%.]+%]|h|r fades from enemy team.") ~= nil) then
+        elseif (string.find(message, "|T%d+:%d+|t|c%x+|HbattlePetAbil:%d*:%d*:%d*:%d*|h%[["..self.aChars.."]+%]|h|r fades from enemy team.") ~= nil) then
             self:ParseFadeTeam(message, Enum.BattlePetOwner.Enemy)
         -- Trap
-        elseif (string.find(message, "|T%d+:%d+|t|c%x+|HbattlePetAbil:%d*:%d*:%d*:%d*|h%[[%w%s%-'‘’`%d%.]+%]|h|r trapped enemy |T%d+:%d+|t[%w%s%-'‘’`%d%.]+.") ~= nil) then
+        elseif (string.find(message, "|T%d+:%d+|t|c%x+|HbattlePetAbil:%d*:%d*:%d*:%d*|h%[["..self.aChars.."]+%]|h|r trapped enemy |T%d+:%d+|t["..self.aChars.."]+.") ~= nil) then
             self:ParseTrap(message, Enum.BattlePetOwner.Ally)
         -- Apply --------------------------------------------------------------
-        elseif (string.find(message, "|T%d+:%d+|t|c%x+|HbattlePetAbil:%d*:%d*:%d*:%d*|h%[[%w%s%-'‘’`%d%.]+%]|h|r applied |T%d+:%d+|t|c%x+|HbattlePetAbil:%d*:%d*:%d*:%d*|h%[[%w%s%-']+%]|h|r to your |T%d+:%d+|t[%w%s%-'‘’`%d%.]+.") ~= nil) then
+        elseif (string.find(message, "|T%d+:%d+|t|c%x+|HbattlePetAbil:%d*:%d*:%d*:%d*|h%[["..self.aChars.."]+%]|h|r applied |T%d+:%d+|t|c%x+|HbattlePetAbil:%d*:%d*:%d*:%d*|h%[[%w%s%-']+%]|h|r to your |T%d+:%d+|t["..self.aChars.."]+.") ~= nil) then
             self:ParseApply(message, Enum.BattlePetOwner.Ally)
-        elseif (string.find(message, "|T%d+:%d+|t|c%x+|HbattlePetAbil:%d*:%d*:%d*:%d*|h%[[%w%s%-'‘’`%d%.]+%]|h|r applied |T%d+:%d+|t|c%x+|HbattlePetAbil:%d*:%d*:%d*:%d*|h%[[%w%s%-']+%]|h|r to enemy |T%d+:%d+|t[%w%s%-'‘’`%d%.]+.") ~= nil) then
+        elseif (string.find(message, "|T%d+:%d+|t|c%x+|HbattlePetAbil:%d*:%d*:%d*:%d*|h%[["..self.aChars.."]+%]|h|r applied |T%d+:%d+|t|c%x+|HbattlePetAbil:%d*:%d*:%d*:%d*|h%[[%w%s%-']+%]|h|r to enemy |T%d+:%d+|t["..self.aChars.."]+.") ~= nil) then
             self:ParseApply(message, Enum.BattlePetOwner.Enemy)
         -- Apply Team
-        elseif (string.find(message, "|T%d+:%d+|t|c%x+|HbattlePetAbil:%d*:%d*:%d*:%d*|h%[[%w%s%-'‘’`%d%.]+%]|h|r applied |T%d+:%d+|t|c%x+|HbattlePetAbil:%d*:%d*:%d*:%d*|h%[[%w%s%-'‘’`%d%.]+%]|h|r to enemy team.") ~= nil) then
+        elseif (string.find(message, "|T%d+:%d+|t|c%x+|HbattlePetAbil:%d*:%d*:%d*:%d*|h%[["..self.aChars.."]+%]|h|r applied |T%d+:%d+|t|c%x+|HbattlePetAbil:%d*:%d*:%d*:%d*|h%[["..self.aChars.."]+%]|h|r to enemy team.") ~= nil) then
             self:ParseApplyTeam(message, Enum.BattlePetOwner.Ally)
-        elseif (string.find(message, "|T%d+:%d+|t|c%x+|HbattlePetAbil:%d*:%d*:%d*:%d*|h%[[%w%s%-'‘’`%d%.]+%]|h|r applied |T%d+:%d+|t|c%x+|HbattlePetAbil:%d*:%d*:%d*:%d*|h%[[%w%s%-‘’`'%d%.]+%]|h|r to your team.") ~= nil) then
+        elseif (string.find(message, "|T%d+:%d+|t|c%x+|HbattlePetAbil:%d*:%d*:%d*:%d*|h%[["..self.aChars.."]+%]|h|r applied |T%d+:%d+|t|c%x+|HbattlePetAbil:%d*:%d*:%d*:%d*|h%[["..self.aChars.."]+%]|h|r to your team.") ~= nil) then
             self:ParseApplyTeam(message, Enum.BattlePetOwner.Enemy)
         -- Immune
-        elseif (string.find(message, "your |T%d+:%d+|t[%w%s%-'‘’`%d%.]+ was immune to |T%d+:%d+|t|c%x+|HbattlePetAbil:%d*:%d*:%d*:%d*|h%[[%w%s%-'‘’`%d%.]+%]|h|r") ~= nil) then
+        elseif (string.find(message, "your |T%d+:%d+|t["..self.aChars.."]+ was immune to |T%d+:%d+|t|c%x+|HbattlePetAbil:%d*:%d*:%d*:%d*|h%[["..self.aChars.."]+%]|h|r") ~= nil) then
             self:ParseImmune(message, Enum.BattlePetOwner.Ally)
-        elseif (string.find(message, "enemy |T%d+:%d+|t[%w%s%-'‘’`%d%.]+ was immune to |T%d+:%d+|t|c%x+|HbattlePetAbil:%d*:%d*:%d*:%d*|h%[[%w%s%-'‘’`%d%.]+%]|h|r") ~= nil) then
+        elseif (string.find(message, "enemy |T%d+:%d+|t["..self.aChars.."]+ was immune to |T%d+:%d+|t|c%x+|HbattlePetAbil:%d*:%d*:%d*:%d*|h%[["..self.aChars.."]+%]|h|r") ~= nil) then
             self:ParseImmune(message, Enum.BattlePetOwner.Enemy)
         -- Weather
-        elseif (string.find(message, "|T%d+:%d+|t|c%x+|HbattlePetAbil:%d*:%d*:%d*:%d*|h%[[%w%s%-'‘’`%d%.]+%]|h|r changed the weather to |T%d+:%d+|t|c%x+|HbattlePetAbil:%d*:%d*:%d*:%d*|h%[[%w%s%-'‘’`]+%]|h|r.") ~= nil) then
+        elseif (string.find(message, "|T%d+:%d+|t|c%x+|HbattlePetAbil:%d*:%d*:%d*:%d*|h%[["..self.aChars.."]+%]|h|r changed the weather to |T%d+:%d+|t|c%x+|HbattlePetAbil:%d*:%d*:%d*:%d*|h%[["..self.aChars.."]+%]|h|r.") ~= nil) then
             self:ParseWeather(message)
-        elseif (string.find(message, "|T%d+:%d+|t|c%x+|HbattlePetAbil:%d*:%d*:%d*:%d*|h%[[%w%s%-'‘’`%d%.]+%]|h|r is no longer the weather.") ~= nil) then
+        elseif (string.find(message, "|T%d+:%d+|t|c%x+|HbattlePetAbil:%d*:%d*:%d*:%d*|h%[["..self.aChars.."]+%]|h|r is no longer the weather.") ~= nil) then
             self:ParseWeather(message)
         -- Healed -------------------------------------------------------------
-        elseif (string.find(message, "|T%d+:%d+|t|c%x+|HbattlePetAbil:%d*:%d*:%d*:%d*|h%[[%w%s%-'‘’`%d%.]+%]|h|r healed %d+ damage from your |T%d+:%d+|t[%w%s%-'‘’`%d%.]+.") ~= nil) then
+        elseif (string.find(message, "|T%d+:%d+|t|c%x+|HbattlePetAbil:%d*:%d*:%d*:%d*|h%[["..self.aChars.."]+%]|h|r healed %d+ damage from your |T%d+:%d+|t["..self.aChars.."]+.") ~= nil) then
             self:ParseHeal(message, Enum.BattlePetOwner.Ally)
-        elseif (string.find(message, "|T%d+:%d+|t|c%x+|HbattlePetAbil:%d*:%d*:%d*:%d*|h%[[%w%s%-'‘’`%d%.]+%]|h|r healed %d+ damage from enemy |T%d+:%d+|t[%w%s%-'‘’`%d%.]+.") ~= nil) then
+        elseif (string.find(message, "|T%d+:%d+|t|c%x+|HbattlePetAbil:%d*:%d*:%d*:%d*|h%[["..self.aChars.."]+%]|h|r healed %d+ damage from enemy |T%d+:%d+|t["..self.aChars.."]+.") ~= nil) then
             self:ParseHeal(message, Enum.BattlePetOwner.Enemy)
         -- Dodge --------------------------------------------------------------
-        elseif (string.find(message, "|T%d+:%d+|t|c%x+|HbattlePetAbil:%d*:%d*:%d*:%d*|h%[[%w%s%-'‘’`%d%.]+%]|h|r was dodged by your |T%d+:%d+|t[%w%s%-'‘’`%d%.]+.") ~= nil) then
+        elseif (string.find(message, "|T%d+:%d+|t|c%x+|HbattlePetAbil:%d*:%d*:%d*:%d*|h%[["..self.aChars.."]+%]|h|r was dodged by your |T%d+:%d+|t["..self.aChars.."]+.") ~= nil) then
             self:ParseDodge(message, Enum.BattlePetOwner.Ally) 
-        elseif (string.find(message, "|T%d+:%d+|t|c%x+|HbattlePetAbil:%d*:%d*:%d*:%d*|h%[[%w%s%-'‘’`%d%.]+%]|h|r was dodged by enemy |T%d+:%d+|t[%w%s%-'‘’`%d%.]+.") ~= nil) then
+        elseif (string.find(message, "|T%d+:%d+|t|c%x+|HbattlePetAbil:%d*:%d*:%d*:%d*|h%[["..self.aChars.."]+%]|h|r was dodged by enemy |T%d+:%d+|t["..self.aChars.."]+.") ~= nil) then
             self:ParseDodge(message, Enum.BattlePetOwner.Enemy)
         -- Miss ---------------------------------------------------------------
-        elseif (string.find(message, "|T%d+:%d+|t|c%x+|HbattlePetAbil:%d*:%d*:%d*:%d*|h%[[%w%s%-'‘’`%d%.]+%]|h|r missed enemy |T%d+:%d+|t[%w%s%-'‘’`%d%.]+.") ~= nil) then
+        elseif (string.find(message, "|T%d+:%d+|t|c%x+|HbattlePetAbil:%d*:%d*:%d*:%d*|h%[["..self.aChars.."]+%]|h|r missed enemy |T%d+:%d+|t["..self.aChars.."]+.") ~= nil) then
             self:ParseMiss(message, Enum.BattlePetOwner.Ally)
-        elseif (string.find(message, "|T%d+:%d+|t|c%x+|HbattlePetAbil:%d*:%d*:%d*:%d*|h%[[%w%s%-'‘’`%d%.]+%]|h|r missed your |T%d+:%d+|t[%w%s%-‘’`'%d%.]+.") ~= nil) then
+        elseif (string.find(message, "|T%d+:%d+|t|c%x+|HbattlePetAbil:%d*:%d*:%d*:%d*|h%[["..self.aChars.."]+%]|h|r missed your |T%d+:%d+|t["..self.aChars.."]+.") ~= nil) then
             self:ParseMiss(message, Enum.BattlePetOwner.Enemy)
         -- Block --------------------------------------------------------------
-        elseif (string.find(message, "|T%d+:%d+|t|c%x+|HbattlePetAbil:%d*:%d*:%d*:%d*|h%[[%w%s%-'‘’`%d%.]+%]|h|r was blocked from striking enemy |T%d+:%d+|t[%w%s%-'‘’`%d%.]+.") ~= nil) then
+        elseif (string.find(message, "|T%d+:%d+|t|c%x+|HbattlePetAbil:%d*:%d*:%d*:%d*|h%[["..self.aChars.."]+%]|h|r was blocked from striking enemy |T%d+:%d+|t["..self.aChars.."]+.") ~= nil) then
             self:ParseBlock(message, Enum.BattlePetOwner.Ally)
-        elseif (string.find(message, "|T%d+:%d+|t|c%x+|HbattlePetAbil:%d*:%d*:%d*:%d*|h%[[%w%s%-'‘’`%d%.]+%]|h|r was blocked from striking your |T%d+:%d+|t[%w%s%-'‘’`%d%.]+.") ~= nil) then
+        elseif (string.find(message, "|T%d+:%d+|t|c%x+|HbattlePetAbil:%d*:%d*:%d*:%d*|h%[["..self.aChars.."]+%]|h|r was blocked from striking your |T%d+:%d+|t["..self.aChars.."]+.") ~= nil) then
             self:ParseBlock(message, Enum.BattlePetOwner.Enemy)
         -- Round --------------------------------------------------------------
         elseif (string.find(message, "^Round %d+$") ~= nil) then
             self:ParseRoundStart(message)
         -- Active Pet ---------------------------------------------------------
-        elseif (string.find(message, "|T%d+:%d+|t[%w%s%-'‘’`%d%.]+ is now your active pet.$") ~= nil) then
+        elseif (string.find(message, "|T%d+:%d+|t["..self.aChars.."]+ is now your active pet.$") ~= nil) then
             self:ParseActive(message, Enum.BattlePetOwner.Ally)
-        elseif (string.find(message, "|T%d+:%d+|t[%w%s%-'‘’`%d%.]+ is now enemy active pet.$") ~= nil) then
+        elseif (string.find(message, "|T%d+:%d+|t["..self.aChars.."]+ is now enemy active pet.$") ~= nil) then
             self:ParseActive(message, Enum.BattlePetOwner.Enemy)
         -- Died ---------------------------------------------------------------
-        elseif (string.find(message, "Your |T%d+:%d+|t[%w%s%-'‘’`%d%.]+ died.$")) then
+        elseif (string.find(message, "Your |T%d+:%d+|t["..self.aChars.."]+ died.$")) then
             self:ParseDie(message, Enum.BattlePetOwner.Ally)
-        elseif (string.find(message, "Enemy |T%d+:%d+|t[%w%s%-'‘’`%d%.]+ died.$")) then
+        elseif (string.find(message, "Enemy |T%d+:%d+|t["..self.aChars.."]+ died.$")) then
             self:ParseDie(message, Enum.BattlePetOwner.Enemy)
         else
             self.display:Print(string.gsub(message, "|", "||"), { r = 1, g = 0, b = 0 })
@@ -485,8 +486,8 @@ end
 --- Pull pet id out of pet link.
 --- @param text string  Text that contains a pet link.
 function OracleHUD_PB_CombatLogServiceMixin:GetPetId(text)
-    local link = string.match(text, "(|T[%d]+:[%d]+|t[%w%s%-'‘’`]+)")
-    local petId = string.match(link, "|T[%d]+:([%d])+|t[%w%s%-'‘’`]+")
+    local link = string.match(text, "(|T[%d]+:[%d]+|t["..self.aChars.."]+)")
+    local petId = string.match(link, "|T[%d]+:([%d])+|t["..self.aChars.."]+")
     return petId
 end
 ---------------------------------------------------------------------------
@@ -516,12 +517,12 @@ function OracleHUD_PB_CombatLogServiceMixin:ParseDamage(message, owner)
     if (owner == Enum.BattlePetOwner.Ally) then
         abilityId = string.match(message, "battlePetAbil:(%d+):")
         amount = string.match(message, "dealt (%d+) damage to your")
-        target = string.match(message, "damage to your |T[%d]+:[%d]+|t([%w%s%-'‘’`]+).")
+        target = string.match(message, "damage to your |T[%d]+:[%d]+|t(["..self.aChars.."]+).")
         self.statsBattle.ally.damageTaken = self.statsBattle.ally.damageTaken + amount
     else
         abilityId = string.match(message, "battlePetAbil:(%d+):")
         amount = string.match(message, "dealt (%d+) damage to enemy")
-        target = string.match(message, "damage to enemy |T[%d]+:[%d]+|t([%w%s%-'‘’`]+).")
+        target = string.match(message, "damage to enemy |T[%d]+:[%d]+|t(["..self.aChars.."]+).")
         self.statsBattle.enemy.damageTaken = self.statsBattle.enemy.damageTaken + amount
     end
     self:Send(self.ENUM.DAMAGE, abilityId, tonumber(amount), owner, target)
@@ -540,30 +541,34 @@ function OracleHUD_PB_CombatLogServiceMixin:ParseLevel(message, owner)
     local targetId = nil
     if (owner == Enum.BattlePetOwner.Ally) then
         amount = tonumber(string.match(message, "reached Level (%d+)!"))
-        targetName = string.match(message, "Your |T[%d]+:[%d]+|t([%w%s%-'‘’`]+) has reached")
-        targetId = string.match(message, "Your |T([%d]+):[%d]+|t[%w%s%-'‘’`]+ has reached")
+        targetName = string.match(message, "Your |T[%d]+:[%d]+|t(["..self.aChars.."]+) has reached")
+        targetId = string.match(message, "Your |T([%d]+):[%d]+|t["..self.aChars.."]+ has reached")
     end
 end
+-------------------------------------------------------------------------------
+--- A pet has entered the battlefield.
+--- @param  message     string
+--- @param  owner       number
 function OracleHUD_PB_CombatLogServiceMixin:ParseActive(message, owner)
     local petIndex = C_PetBattles.GetActivePet(owner)
     local jSlot = self.petInfoSvc:GetJournalOrderSlot(petIndex, self.db, owner, self:GetBattleOrder())
     self:Send(self.ENUM.ACTIVE, owner, jSlot)
 end
 function OracleHUD_PB_CombatLogServiceMixin:ParseTrap(message, owner)
-    local targetName = string.match(message, "trapped enemy |T%d+:%d+|t[%w%s%-'‘’`%d%.]+.")
-    local targetId = string.match(message, "trapped enemy |T(%d+):%d+|t[%w%s%-'‘’`%d%.]+.")
+    local targetName = string.match(message, "trapped enemy |T%d+:%d+|t["..self.aChars.."]+.")
+    local targetId = string.match(message, "trapped enemy |T(%d+):%d+|t["..self.aChars.."]+.")
     self:Send(self.ENUM.TRAP, targetName, targetId)
 end
 -------------------------------------------------------------------------------
 --- Update stats and send off combat log message to listeners.
 function OracleHUD_PB_CombatLogServiceMixin:ParseDie(message, owner)
     if (owner == Enum.BattlePetOwner.Enemy) then
-        local petInfo = self.petInfoSvc:GetPetInfoByActive(self.db, Enum.BattlePetOwner.Ally)
+        local petInfo = self.petInfoSvc:GetPetInfoByActive(Enum.BattlePetOwner.Ally)
         if (petInfo ~= nil) then
             petInfo:SetKills(petInfo:GetKills(self.db) + 1, self.db)
         end
     else
-        local petInfo = self.petInfoSvc:GetPetInfoByActive(self.db, Enum.BattlePetOwner.Ally)
+        local petInfo = self.petInfoSvc:GetPetInfoByActive(Enum.BattlePetOwner.Ally)
         if (petInfo ~= nil) then
             petInfo:SetDeaths(petInfo:GetDeaths(self.db) + 1, self.db)
         end
@@ -580,9 +585,9 @@ function OracleHUD_PB_CombatLogServiceMixin:ParseApply(message, owner)
     local bSlot = self:GetBSlotActive(owner)
     local abilityId, hp, power, speed, auraId
     if (owner == Enum.BattlePetOwner.Ally) then
-        abilityId, hp, power, speed, auraId, _, _, _ = string.match(message, "|T%d+:%d+|t|c%x+|HbattlePetAbil:(%d*):(%d*):(%d*):(%d*)|h%[[%w%s%-'‘’`%d%.]+%]|h|r applied |T%d+:%d+|t|c%x+|HbattlePetAbil:(%d*):(%d*):(%d*):(%d*)|h%[[%w%s%-']+%]|h|r to your |T%d+:%d+|t[%w%s%-'‘’`%d%.]+.")
+        abilityId, hp, power, speed, auraId, _, _, _ = string.match(message, "|T%d+:%d+|t|c%x+|HbattlePetAbil:(%d*):(%d*):(%d*):(%d*)|h%[["..self.aChars.."]+%]|h|r applied |T%d+:%d+|t|c%x+|HbattlePetAbil:(%d*):(%d*):(%d*):(%d*)|h%[["..self.aChars.."]+%]|h|r to your |T%d+:%d+|t["..self.aChars.."]+.")
     else
-        abilityId, hp, power, speed, auraId, _, _, _ = string.match(message, "|T%d+:%d+|t|c%x+|HbattlePetAbil:(%d*):(%d*):(%d*):(%d*)|h%[[%w%s%-'‘’`%d%.]+%]|h|r applied |T%d+:%d+|t|c%x+|HbattlePetAbil:(%d*):(%d*):(%d*):(%d*)|h%[[%w%s%-']+%]|h|r to enemy |T%d+:%d+|t[%w%s%-'‘’`%d%.]+.")
+        abilityId, hp, power, speed, auraId, _, _, _ = string.match(message, "|T%d+:%d+|t|c%x+|HbattlePetAbil:(%d*):(%d*):(%d*):(%d*)|h%[["..self.aChars.."]+%]|h|r applied |T%d+:%d+|t|c%x+|HbattlePetAbil:(%d*):(%d*):(%d*):(%d*)|h%[["..self.aChars.."]+%]|h|r to enemy |T%d+:%d+|t["..self.aChars.."]+.")
     end
     local auraIndex = self:GetAuraIndex(auraId, owner, jSlot)
     local auraID, instanceID, turnsRemaining, isBuff = C_PetBattles.GetAuraInfo(owner, bSlot, auraIndex)
@@ -597,9 +602,9 @@ function OracleHUD_PB_CombatLogServiceMixin:ParseFade(message, owner)
     local bSlot = self:GetBSlotActive(owner)
     local abilityId, hp, power, speed, auraId
     if (owner == Enum.BattlePetOwner.Ally) then
-        abilityId, hp, power, speed = string.match(message, "|T%d+:%d+|t|c%x+|HbattlePetAbil:(%d*):(%d*):(%d*):(%d*)|h%[[%w%s%-'‘’`]+%]|h|r fades from your |T%d+:%d+|t[%w%s%-'‘’`%d%.]+.")
+        abilityId, hp, power, speed = string.match(message, "|T%d+:%d+|t|c%x+|HbattlePetAbil:(%d*):(%d*):(%d*):(%d*)|h%[["..self.aChars.."]+%]|h|r fades from your |T%d+:%d+|t["..self.aChars.."]+.")
     else
-        abilityId, hp, power, speed = string.match(message, "|T%d+:%d+|t|c%x+|HbattlePetAbil:(%d*):(%d*):(%d*):(%d*)|h%[[%w%s%-'‘’`]+%]|h|r fades from enemy |T%d+:%d+|t[%w%s%-'‘’`%d%.]+.")
+        abilityId, hp, power, speed = string.match(message, "|T%d+:%d+|t|c%x+|HbattlePetAbil:(%d*):(%d*):(%d*):(%d*)|h%[["..self.aChars.."]+%]|h|r fades from enemy |T%d+:%d+|t["..self.aChars.."]+.")
     end
     local auraIndex = self:GetAuraIndex(auraId, owner, jSlot)
     local auraID, instanceID, turnsRemaining, isBuff = C_PetBattles.GetAuraInfo(owner, bSlot, auraIndex)
@@ -636,8 +641,8 @@ end
 function OracleHUD_PB_CombatLogServiceMixin:ParseXP(message, owner)
     local amount, targetName = nil, nil
     if (owner == Enum.BattlePetOwner.Ally) then
-        amount = tonumber(string.match(message, "Your |T%d+:%d+|t[%w%s%-‘’`]+ gains (%d+) XP!$"))
-        targetName = string.match(message, "Your |T%d+:%d+|t([%w%s%-‘’`]+) gains %d+ XP!$")
+        amount = tonumber(string.match(message, "Your |T%d+:%d+|t["..self.aChars.."]+ gains (%d+) XP!$"))
+        targetName = string.match(message, "Your |T%d+:%d+|t(["..self.aChars.."]+) gains %d+ XP!$")
     end
 end
 function OracleHUD_PB_CombatLogServiceMixin:ParseDodge(message, owner)

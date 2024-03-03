@@ -253,21 +253,19 @@ function OracleHUD_PB_PetInfoServiceMixin:GetPetInfoBySlot(slot, db, owner)
 end
 -------------------------------------------------------------------------------
 --- Get pet information of active pet in battle
---- @param db 		    OracleHUD_PB_DB	        OracleHUD Pet Battles Database.
---- @param owner	    Enum.BattlePetOwner?    (Optional) Ally or Enemy, defaults to Ally.
+--- @param  owner	    Enum.BattlePetOwner?    (Optional) Ally or Enemy, defaults to Ally.
 --- @return OracleHUD_PB_PetInfo|nil
-function OracleHUD_PB_PetInfoServiceMixin:GetPetInfoByActive(db, owner)
-    if (db == nil or owner == nil) then
+function OracleHUD_PB_PetInfoServiceMixin:GetPetInfoByActive(owner)
+    local petInfo = nil
+    if (owner == nil) then
         error(self._class..":GetPetInfoByActive(): Invalid arguments.")
     end
-    if (owner == Enum.BattlePetOwner.Enemy and self.combatLogSvc:IsInBattle() == false) then
-        error(self._class..":GetPetInfoByActive(): Must be in battle")
-    end
-    local petInfo = nil
-    local battleSlot = C_PetBattles.GetActivePet(owner)
-    local journalSlot = self:GetJournalOrderSlot(battleSlot, db, owner, self.combatLogSvc:GetBattleOrder())
-    if (journalSlot ~= nil) then
-        petInfo = self:GetPetInfoBySlot(journalSlot, db, owner)
+    if (self.combatLogSvc:IsInBattle()) then
+        local battleSlot = C_PetBattles.GetActivePet(owner)
+        local journalSlot = self:GetJournalOrderSlot(battleSlot, self.db, owner, self.combatLogSvc:GetBattleOrder())
+        if (journalSlot ~= nil) then
+            petInfo = self:GetPetInfoBySlot(journalSlot, self.db, owner)
+        end
     end
     return petInfo
 end

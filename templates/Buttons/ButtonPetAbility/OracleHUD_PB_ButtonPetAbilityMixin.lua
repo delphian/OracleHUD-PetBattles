@@ -55,6 +55,10 @@ function OracleHUD_PB_ButtonPetAbilityMixin:SetAbility(ability)
     end
     if (self.combatLogSvc:IsInBattle()) then
         self:SetAvailability()
+        if (self.owner == Enum.BattlePetOwner.Ally) then
+            local eJSlot = self.combatLogSvc:GetJSlotActive(Enum.BattlePetOwner.Enemy)
+            self:OnPetActive(Enum.BattlePetOwner.Enemy, eJSlot)
+        end
     end
 end
 -------------------------------------------------------------------------------
@@ -91,6 +95,34 @@ function OracleHUD_PB_ButtonPetAbilityMixin:ListenCombatLog()
     self.combatLogSvc:SetCallback(self.combatLogSvc.ENUM.ROUNDEND, function(round)
         self:SetAvailability()
     end)
+    self.combatLogSvc:SetCallback(self.combatLogSvc.ENUM.ACTIVE, function(owner, jSlot)
+        self:OnPetActive(owner, jSlot)
+    end)
+end
+-------------------------------------------------------------------------------
+--- A pet has become active on the battlefield. Update ability modifiers.
+--- @param  owner   Enum.BattlePetOwner
+--- @param  jSlot   number
+function OracleHUD_PB_ButtonPetAbilityMixin:OnPetActive(owner, jSlot)
+    if (self.owner == Enum.BattlePetOwner.Ally and owner == Enum.BattlePetOwner.Enemy) then
+        local ePetInfo = self.petInfoSvc:GetPetInfoByActive(Enum.BattlePetOwner.Enemy)
+        if (ePetInfo ~= nil) then
+            local id, name, icon, maxCooldown, unparsedDescription, numTurns, petType, noStrongWeakHints = C_PetBattles.GetAbilityInfoByID(self.ability.id);
+            local modifier = C_PetBattles.GetAttackModifier(petType, ePetInfo.type)
+            if (modifier > 1) then
+                self.Ability.Modifier:SetTexture("Interface\\BUTTONS\\UI-MicroStream-Green")
+                self.Ability.Modifier:SetRotation(math.pi)
+                self.Ability.Modifier:Show()
+            end
+            if (modifier < 1) then
+                self.Ability.Modifier:SetTexture("Interface\\BUTTONS\\UI-MicroStream-Red")
+                self.Ability.Modifier:Show()
+            end
+            if (modifier == 1) then
+                self.Ability.Modifier:Hide()
+            end
+        end
+    end
 end
 -------------------------------------------------------------------------------
 --- Set pet active state that button is associated with.
