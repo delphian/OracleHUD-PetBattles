@@ -153,6 +153,10 @@ end
 -------------------------------------------------------------------------------
 --- Invoke callback when button is clicked.
 function OracleHUD_PB_ButtonPetAbilityMixin:OnClick()
+    self:Hide()
+    C_Timer.After(0.1, function()
+        self:Show()
+    end)
     if (self.callback ~= nil) then
         self.callback(self)
     end

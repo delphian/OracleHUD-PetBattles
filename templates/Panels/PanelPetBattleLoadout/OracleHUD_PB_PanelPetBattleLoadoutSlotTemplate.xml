@@ -37,7 +37,7 @@
 								<Anchor point="TOPLEFT" relativeKey="$parent.Right" relativePoint="TOPLEFT" x="0" y="0" />
 								<Anchor point="BOTTOMRIGHT" relativeKey="$parent.Right" relativePoint="BOTTOMRIGHT" x="0" y="0" />
 							</Anchors>
-							<Color r="0.0" g="0.0" b="0.0" a="0.3" />
+							<Color r="0.0" g="0.0" b="0.0" a="0.5" />
 						</Texture>
 					</Layer>
 				</Layers>
