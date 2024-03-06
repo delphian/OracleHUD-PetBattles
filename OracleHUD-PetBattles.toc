@@ -12,6 +12,15 @@
 
 OracleHUD_Tools.lua
 
+## DATA
+database\OracleHUD_DB_SpellVisualKit.lua
+database\OracleHUD_PB_DB_PetSpeciesId.lua
+database\OracleHUD_PB_DB_PetExperience.lua
+database\OracleHUD_PB_DB_PetAnimation.lua
+database\OracleHUD_PB_DB_PetSounds.lua
+database\OracleHUD_PB_DB_PetFamily.lua
+
+
 ## Models
 models\OracleHUD_PB_PetInfo.lua
 models\OracleHUD_PB_ContentEmote_Enum.lua
@@ -112,14 +121,6 @@ templates\Tooltips\PetInfo\TooltipPetInfoZoo\OracleHUD_PB_TooltipPetInfoZooTempl
 ## ZOO
 templates\Zoo\OracleHUD_PB_ZooTemplate.xml
 templates\Zoo\ZooPetAnimation\OracleHUD_PB_ZooPetAnimationTemplate.xml
-
-
-## DATA
-database\OracleHUD_DB_SpellVisualKit.lua
-database\OracleHUD_PB_DB_PetSpeciesId.lua
-database\OracleHUD_PB_DB_PetExperience.lua
-database\OracleHUD_PB_DB_PetAnimation.lua
-database\OracleHUD_PB_DB_PetSounds.lua
 
 
 OracleHUD_PB.xml

@@ -9,6 +9,8 @@
 --- @field	Animation		any			Inherited from mixin XML frame.
 OracleHUD_PB_TooltipPetInfoMixin = CreateFromMixins(OracleHUD_PB_TooltipMixin)
 OracleHUD_PB_TooltipPetInfoMixin._class = "OracleHUD_PB_TooltipPetInfoMixin"
+OracleHUD_PB_TooltipPetInfoMixin.FAMICON = ORACLEHUD_PB_DB_PET_FAMILY_ICON
+OracleHUD_PB_TooltipPetInfoMixin.FAMNAME = ORACLEHUD_PB_DB_PET_FAMILY_NAME
 --- Create Supers (this seems weird)
 local Super = OracleHUD_PB_TooltipMixin
 -------------------------------------------------------------------------------
@@ -51,8 +53,8 @@ function OracleHUD_PB_TooltipPetInfoMixin:PrintPetInfo()
 	self.speciesID = petInfo.speciesId; -- For the button
 	self.Name:SetText(petInfo.name);
 	self.SpeciesId:SetText(petInfo.speciesId)
-	self.PetType:SetText(_G["BATTLE_PET_NAME_"..petInfo.type])
-	self.PetTypeTexture:SetTexture("Interface\\PetBattles\\PetIcon-"..PET_TYPE_SUFFIX[petInfo.type])
+	self.PetType:SetText(self.FAMNAME[petInfo.type])
+	self.PetTypeTexture:SetTexture(self.FAMICON[petInfo.type])
 	local text = C_PetJournal.GetOwnedBattlePetString(petInfo.speciesId)
 	if (text == nil) then text = "None collected!" end
 	self.Owned:SetText(text)
