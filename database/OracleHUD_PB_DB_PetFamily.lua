@@ -38,12 +38,12 @@ ORACLEHUD_PB_DB_PET_FAMILY_ICON = {
 ORACLEHUD_PB_DB_PET_FAMILY_ROLE = {
     [ORACLEHUD_PB_DB_PET_FAMILY_ID.HUMANOID]    = "Gather wood, iron and stone.",
     [ORACLEHUD_PB_DB_PET_FAMILY_ID.DRAGONKIN]   = "Process wood, iron, stone into resources.",
-    [ORACLEHUD_PB_DB_PET_FAMILY_ID.FLYING]      = "Explorer, discovers new lands, ideas, news.",
+    [ORACLEHUD_PB_DB_PET_FAMILY_ID.FLYING]      = "Explore new lands, gather information and rumor.",
     [ORACLEHUD_PB_DB_PET_FAMILY_ID.UNDEAD]      = "Sabotage and Repair of buildings, locations, and processes.",
     [ORACLEHUD_PB_DB_PET_FAMILY_ID.CRITTER]     = "Gather wheat, carrots, potatos.",
     [ORACLEHUD_PB_DB_PET_FAMILY_ID.MAGIC]       = "Reviving, mending and blessing warriors.",
     [ORACLEHUD_PB_DB_PET_FAMILY_ID.ELEMENTAL]   = "Gather element crystals (fire, water, earth, air).",
-    [ORACLEHUD_PB_DB_PET_FAMILY_ID.BEAST]       = "Warriors, fight enemies.",
-    [ORACLEHUD_PB_DB_PET_FAMILY_ID.AQUATIC]     = "Gather fish.",
+    [ORACLEHUD_PB_DB_PET_FAMILY_ID.BEAST]       = "Fight enemies as a mighty warrior.",
+    [ORACLEHUD_PB_DB_PET_FAMILY_ID.AQUATIC]     = "Gather fish, ford rivers and cross oceans.",
     [ORACLEHUD_PB_DB_PET_FAMILY_ID.MECHANICAL]  = "Build contraptions and devices from resources."
 }

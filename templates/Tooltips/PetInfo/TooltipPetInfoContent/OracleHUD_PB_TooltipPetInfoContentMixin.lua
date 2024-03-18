@@ -4,6 +4,8 @@
 --- @field	Right			any			Inherited from mixin XML frame.
 OracleHUD_PB_TooltipPetInfoContentMixin = CreateFromMixins({})
 OracleHUD_PB_TooltipPetInfoContentMixin._class = "OracleHUD_PB_TooltipPetInfoContentMixin"
+OracleHUD_PB_TooltipPetInfoContentMixin.ROLE = ORACLEHUD_PB_DB_PET_FAMILY_ROLE
+OracleHUD_PB_TooltipPetInfoContentMixin.ICON = ORACLEHUD_PB_DB_PET_FAMILY_ICON
 --- No supers, we are using composition instead of inheritence.
 ---------------------------------------------------------------------------
 --- Configure mixin with required data.
@@ -129,12 +131,23 @@ function OracleHUD_PB_TooltipPetInfoContentMixin:PrintPetInfo()
 	self.Right.Tabs.Stats.Kills:SetText(self.petInfo:GetKills(self.db))
 	self.Right.Tabs.Stats.Deaths:SetText(self.petInfo:GetDeaths(self.db))
 	self.Right.Tabs.Stats.Battles:SetText(self.petInfo:GetBattles(self.db))
+	-- Roles
+	local rolesUnlocked = false
+	local roleDesc = "Achieve 100 victories to unlock role:"
+	if (self.petInfo:GetKills(self.db) >= 100) then rolesUnlocked = true end
+	if (rolesUnlocked) then
+		roleDesc = "Available role:"
+		self.Right.Tabs.Stats.RoleText:SetAlpha(1)
+	end
+	self.Right.Tabs.Stats.RoleDesc:SetText(roleDesc)
+	self.Right.Tabs.Stats.RoleText:SetText(self.ROLE[self.petInfo.type])
+	self.Right.Tabs.Stats.TypeTexture:SetTexture(self.ICON[self.petInfo.type])
 end
 ---------------------------------------------------------------------------
 --- Dynamically resize all child elements when frame changes size.
 function OracleHUD_PB_TooltipPetInfoContentMixin:OnSizeChanged()
-	OracleHUD_FrameSetWidthPct(self.Left, 0.35)
-	OracleHUD_FrameSetWidthPct(self.Right, 0.65)
+	OracleHUD_FrameSetWidthPct(self.Left, 0.30)
+	OracleHUD_FrameSetWidthPct(self.Right, 0.70)
 end
 --- Called by XML onload.
 --- @param self			any	Main XML frame.

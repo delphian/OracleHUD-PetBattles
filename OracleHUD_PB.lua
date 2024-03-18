@@ -27,6 +27,8 @@ function OracleHUD_PB_Setup(self)
 	self.combatLogSvc = OracleHUD_PB_CombatLogService
 	self.achievementSvc = OracleHUD_PB_AchievementService
 	self.eventManager = OracleHUD_PB_EventManager
+	--- @type OracleHUD_PB_KainosEngineService
+	self.kainosEngineSvc = OracleHUD_PB_KainosEngineService
 	self.spellSvc = OracleHUD_PB_SpellService
 	self.options = OracleHUD_PB_InterfaceOptions
 	self.community = OracleHUD_PB_PanelCommunity
@@ -61,6 +63,7 @@ function OracleHUD_PB_Setup(self)
 		self.petInfoSvc:Configure(db, self.combatLogSvc)
 		self.networkSvc:Configure(db, self.petInfoSvc, self.displayCommunity)
 		self.combatLogSvc:Configure(db, self.petInfoSvc, self.displayCommunity)
+		self.kainosEngineSvc:Configure(db, self.networkSvc, self.displayCommunity)
 		self.options:Configure(
 			db,
 			self.networkSvc,
@@ -92,7 +95,8 @@ function OracleHUD_PB_Setup(self)
 		function InitPetInfoSvc()				self.petInfoSvc:Initialize(InitNetworkSvc) end
 		function InitNetworkSvc()				self.networkSvc:Initialize(InitCombatLogSvc) end
 		function InitCombatLogSvc()				self.combatLogSvc:Initialize(InitAchievementSvc) end
-		function InitAchievementSvc() 			self.achievementSvc:Initialize(InitSpellSvc) end
+		function InitAchievementSvc() 			self.achievementSvc:Initialize(InitKainosEngineSvc) end
+		function InitKainosEngineSvc()			self.kainosEngineSvc:Initialize(InitSpellSvc) end
 		function InitSpellSvc()					self.spellSvc:Initialize(InitEventManager) end
 		function InitEventManager() 			self.eventManager:Initialize(InitPanelZoo) end
 		function InitPanelZoo()					self.zoo:Initialize(InitPanelCommunity) end

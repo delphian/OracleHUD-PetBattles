@@ -5,12 +5,6 @@
             <OnLoad inherit="prepend">
                 OracleHUD_PB_PanelPetBattleLoadoutTemplate_OnLoad(self)
             </OnLoad>
-			<OnMouseDown>
-				self:StartMoving();
-			</OnMouseDown>
-			<OnMouseUp>
-				self:StopMovingOrSizing();
-			</OnMouseUp>
 		</Scripts>
     </Frame>
 </Ui>

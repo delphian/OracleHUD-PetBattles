@@ -98,7 +98,7 @@
 		</Anchors>
 	</Frame>
 	<Frame name="OracleHUD_PB_TooltipPetInfoContent" parent="UIParent" inherits="OracleHUD_PB_TooltipPetInfoContentTemplate" movable="true" toplevel="true">
-		<Size x="900" y="600" />
+		<Size x="1100" y="600" />
 		<Anchors>
 			<Anchor point="BOTTOM" x="0" y="80"/>
 		</Anchors>

@@ -65,7 +65,7 @@
 											<Color r="1.0" g="1.0" b="1.0" a="1.0" />
 											<FontHeight val="16" />
 										</FontString>
-										<FontString parentKey="KillsDesc" inherits="GameFontNormal" text="Kills:" font="Fonts\FRIZQT__.TTF">
+										<FontString parentKey="KillsDesc" inherits="GameFontNormal" text="Victories:" font="Fonts\FRIZQT__.TTF">
 											<Size y="32" />
 											<Anchors>
 												<Anchor point="TOPLEFT" relativeKey="$parent.BattlesDesc" relativePoint="TOPLEFT" x="0" y="-18" />
@@ -81,7 +81,7 @@
 											<Color r="1.0" g="1.0" b="1.0" a="1.0" />
 											<FontHeight val="16" />
 										</FontString>
-										<FontString parentKey="DeathsDesc" inherits="GameFontNormal" text="Deaths:" font="Fonts\FRIZQT__.TTF">
+										<FontString parentKey="DeathsDesc" inherits="GameFontNormal" text="Losses:" font="Fonts\FRIZQT__.TTF">
 											<Size y="32" />
 											<Anchors>
 												<Anchor point="TOPLEFT" relativeKey="$parent.KillsDesc" relativePoint="TOPLEFT" x="0" y="-18" />
@@ -95,6 +95,35 @@
 												<Anchor point="TOPLEFT" relativeKey="$parent.DeathsDesc" relativePoint="TOPRIGHT" x="4" y="0" />
 											</Anchors>
 											<Color r="1.0" g="1.0" b="1.0" a="1.0" />
+											<FontHeight val="16" />
+										</FontString>
+										<FontString parentKey="RoleDesc" inherits="GameFontNormal" justifyH="CENTER" font="Fonts\FRIZQT__.TTF" outline="NORMAL">
+											<Size y="32" />
+											<Anchors>
+												<Anchor point="TOPLEFT" relativeKey="$parent.DeathsDesc" relativePoint="TOPLEFT" x="0" y="-36" />
+											</Anchors>
+											<Color r="1.0" g="1.0" b="1.0" a="1.0" />
+											<Shadow x="1" y="-1">
+												<Color r="0.0" g="0.0" b="0.0" a="1.0" />
+											</Shadow>
+											<FontHeight val="16" />
+										</FontString>
+										<Texture parentKey="TypeTexture">
+											<Size x="33" y="33" />
+											<Anchors>
+												<Anchor point="TOPLEFT" relativeKey="$parent.RoleDesc" relativePoint="TOPLEFT" x="12" y="-32" />
+											</Anchors>
+											<TexCoords left="0.79687500" right="0.49218750" top="0.50390625" bottom="0.65625000" />
+										</Texture>
+										<FontString parentKey="RoleText" inherits="GameFontNormal" justifyH="CENTER" font="Fonts\FRIZQT__.TTF" outline="NORMAL">
+											<Size y="32" />
+											<Anchors>
+												<Anchor point="BOTTOMLEFT" relativeKey="$parent.TypeTexture" relativePoint="BOTTOMRIGHT" x="6" y="0" />
+											</Anchors>
+											<Color r="1.0" g="1.0" b="1.0" a="0.4" />
+											<Shadow x="1" y="-1">
+												<Color r="0.0" g="0.0" b="0.0" a="1.0" />
+											</Shadow>
 											<FontHeight val="16" />
 										</FontString>
 									</Layer>
@@ -135,6 +164,21 @@
 									</Layer>
 								</Layers>
 							</Frame>						
+							<Frame name="$parentWudlund" parentKey="Wudlund" inherits="OracleHUD_PB_TabPanelTemplate">
+								<KeyValues>
+									<KeyValue key="name" value="Wudlund" keyType="string" type="string" />
+								</KeyValues>
+								<Layers>
+									<Layer level="OVERLAY">
+										<Texture file="Interface\AddOns\OracleHUD-PetBattles\images\maps\wudlund.png">
+											<Anchors>
+												<Anchor point="TOPLEFT" relativeKey="$parent" relativePoint="TOPLEFT" x="10" y="-10" />
+												<Anchor point="BOTTOMRIGHT" relativeKey="$parent" relativePoint="BOTTOMRIGHT" x="92" y="60" />
+											</Anchors>
+										</Texture>
+									</Layer>
+								</Layers>
+							</Frame>
 						</Frames>
 					</Frame>
 				</Frames>

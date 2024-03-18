@@ -97,6 +97,7 @@ templates\Buttons\ButtonPetSwapDropdown\OracleHUD_PB_ButtonPetSwapDropdownTempla
 # pet elements
 templates\PetType\OracleHUD_PB_PetTypeTemplate.xml
 
+
 # SERVICES
 services\OracleHUD_PB_ServiceMixin.lua
 services\NetworkService\OracleHUD_PB_NetworkService.xml
@@ -105,6 +106,7 @@ services\PetInfoService\OracleHUD_PB_PetInfoService.xml
 services\AchievementService\OracleHUD_PB_AchievementService.xml
 services\SpellService\OracleHUD_PB_SpellService.xml
 services\EventManager\OracleHUD_PB_EventManager.xml
+services\KainosEngineService\OracleHUD_PB_KainosEngineService.xml
 
 
 # Tooltips
