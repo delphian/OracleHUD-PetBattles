@@ -1,10 +1,10 @@
-## Interface: 100205
+## Interface: 100206
 ## X-Min-Interface: 100002
 ## X-Min-Interface-Classic: 11403
 ## X-Min-Interface-BCC: 20504
 ## X-Min-Interface-Wrath: 30400
 ## Title: Oracle HUD Pet Battles
-## Version: 0.7.0-alpha
+## Version: 0.9 .0-alpha
 ## Author: delphianQ
 ## Notes: Pet Battle HUD
 ## email: bryan.hazelbaker@gmail.com
