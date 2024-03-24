@@ -176,8 +176,7 @@ function OracleHUD_PB_ZooTemplate_OnLoad(self)
     ---------------------------------------------------------------------------
     --- Dynamically resize all children elements when frame changes size.
     function self:OnSizeChanged_ZooTemplate()
-        -- Getting strange error on some clients with a zoo background that is only a single pixel wide.
---        self.Image:SetSize(self:GetWidth(), self:GetHeight())
+        self.Image:SetSize(self:GetWidth(), self:GetHeight())
     end
     ---------------------------------------------------------------------------
     --- Dynamically resize all children elements when frame changes size.
